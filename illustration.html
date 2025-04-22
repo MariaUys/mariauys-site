@@ -5,23 +5,42 @@
   <title>Illustration | Maria Uys</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-   <body oncontextmenu="return false;">
-  <h1>Illustration</h1>
-
-  <div class="gallery" id="gallery"></div>
-
-  <div id="lightbox" class="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" src="">
-    <div class="nav prev" onclick="navigateLightbox(-1)">&#10094;</div>
-    <div class="nav next" onclick="navigateLightbox(1)">&#10095;</div>
-  </div>
-
-  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #ffe0f0, #f0e0ff);
+      color: #333;
+      user-select: none;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: #ffffffcc;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      position: relative;
+    }
+    .hamburger {
+      font-size: 1.6rem;
+      cursor: pointer;
+      margin-right: 1rem;
+      user-select: none;
+    }
+    .logo a {
+      font-size: 1.4rem;
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      text-decoration: none;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1rem;
+      padding: 2rem;
     }
     .gallery img {
       width: 100%;
@@ -63,16 +82,31 @@
     }
     .prev { left: 1rem; }
     .next { right: 1rem; }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 2rem 0 1rem;
+    }
   </style>
-
-  <script>
+</head>
+<body oncontextmenu="return false;">
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="/">MU</a></div>
+  </div>  <h1>Illustration</h1>
+  <div class="gallery" id="gallery"></div>  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="">
+    <div class="nav prev" onclick="navigateLightbox(-1)">&#10094;</div>
+    <div class="nav next" onclick="navigateLightbox(1)">&#10095;</div>
+  </div>  <script>
     const images = [];
     const totalImages = 9;
     const gallery = document.getElementById("gallery");
 
     for (let i = 1; i <= totalImages; i++) {
       const img = document.createElement("img");
-      img.src = `/portfolio/illustration/images/img${i}.jpg`;
+      img.src = "/portfolio/illustration/images/img" + i + ".jpg";
       img.alt = `Illustration ${i}`;
       img.onclick = () => openLightbox(i - 1);
       gallery.appendChild(img);
@@ -105,6 +139,5 @@
     document.getElementById("lightbox").addEventListener("click", (e) => {
       if (e.target.id === "lightbox") navigateLightbox(1);
     });
-  </script>
-</body>
+  </script></body>
 </html>
