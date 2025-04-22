@@ -172,6 +172,7 @@
     const menu = document.getElementById("mobileMenu");
     const overlay = document.getElementById("overlay");
 
+    // Prevent closing when clicking inside the sub-menu
     if (e && e.target.closest('.portfolio-sub')) return;
 
     menu.classList.toggle("open");
@@ -181,7 +182,22 @@
   function toggleDropdown(element) {
     element.classList.toggle("open");
   }
-  </script>
+
+  // UX improvement: Close menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    const hamburger = document.querySelector('.hamburger');
+
+    if (
+      !menu.contains(event.target) &&
+      !hamburger.contains(event.target)
+    ) {
+      menu.classList.remove("open");
+      overlay.style.display = "none";
+    }
+  });
+  </script
 
 </body>
 </html>
