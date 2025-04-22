@@ -135,10 +135,13 @@
 </head>
 <body>
 
-  <div id="overlay" onclick="toggleMenu(event)"></div>
-<div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
-<div class="close-btn" onclick="toggleMenu()">×</div>
-
+  
+  </div> id="overlay" onclick="toggleMenu(event)"></div>
+ <div class="topbar">
+  <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+  <div class="logo"><a href="#">MU</a></div>
+  </div>
+</div>
   <nav id="mobileMenu" class="slideout">
     <div class="close-btn" onclick="toggleMenu()">×</div>
     <ul>
@@ -168,12 +171,15 @@
   function toggleMenu(e) {
     const menu = document.getElementById("mobileMenu");
     const overlay = document.getElementById("overlay");
-    
-    // If the event is from a sub-link, don't close the menu
+
     if (e && e.target.closest('.portfolio-sub')) return;
 
     menu.classList.toggle("open");
     overlay.style.display = menu.classList.contains("open") ? "block" : "none";
+  }
+
+  function toggleDropdown(element) {
+    element.classList.toggle("open");
   }
   </script>
 
