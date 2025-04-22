@@ -17,10 +17,7 @@
   padding: 1rem;
   background: #ffffffcc;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: relative;
   z-index: 1001;
 }
 
@@ -38,6 +35,17 @@
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 500;
+  display: none;
 }
 
 .slideout {
@@ -182,6 +190,7 @@ canvas {
   </style>
 </head>
 <body oncontextmenu="return false;">
+  <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
     <div class="logo"><a href="../index.html">MU</a></div>
@@ -262,11 +271,24 @@ canvas {
 
     function toggleMenu(e) {
       const menu = document.getElementById("mobileMenu");
+      const overlay = document.getElementById("overlay");
+      if (e && e.target.closest('.portfolio-sub')) return;
       menu.classList.toggle("open");
+      overlay.style.display = menu.classList.contains("open") ? "block" : "none";
     }
 
     function toggleDropdown(element) {
       element.classList.toggle("open");
     }
+
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById("mobileMenu");
+      const overlay = document.getElementById("overlay");
+      const hamburger = document.querySelector('.hamburger');
+      if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+        menu.classList.remove("open");
+        overlay.style.display = "none";
+      }
+    });
   </script></body>
 </html>
