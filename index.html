@@ -84,6 +84,8 @@
     .slideout ul li.open ul {
       display: block;
     }
+    .slideout ul li a {
+  font-weight: normal; }
 
     .close-btn {
       font-size: 1.8rem;
@@ -133,12 +135,9 @@
 </head>
 <body>
 
-  <div id="overlay" onclick="toggleMenu()"></div>
-
-  <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-    <div class="logo"><a href="#">MU</a></div>
-  </div>
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+<div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+<div class="close-btn" onclick="toggleMenu()">×</div>
 
   <nav id="mobileMenu" class="slideout">
     <div class="close-btn" onclick="toggleMenu()">×</div>
@@ -147,12 +146,12 @@
       <li class="portfolio-toggle" onclick="toggleDropdown(this)">
   <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
   <ul class="portfolio-sub">
-    <li><a href="#">Brand Identity and Logos</a></li>
-    <li><a href="#">Graphic Design</a></li>
-    <li><a href="#">Illustration</a></li>
-    <li><a href="#">Packaging Design</a></li>
-    <li><a href="#">Stylist</a></li>
-    <li><a href="#">Textile Design</a></li>
+  <li><a href="brand-identity.html">Brand Identity and Logos</a></li>
+  <li><a href="graphic-design.html">Graphic Design</a></li>
+  <li><a href="illustration.html">Illustration</a></li>
+  <li><a href="packaging-design.html">Packaging Design</a></li>
+  <li><a href="stylist.html">Stylist</a></li>
+  <li><a href="textile-design.html">Textile Design</a></li>
   </ul>
       </li>
       <li><a href="#">Afrigarde</a></li>
@@ -166,16 +165,16 @@
   </main>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      const overlay = document.getElementById("overlay");
-      menu.classList.toggle("open");
-      overlay.style.display = menu.classList.contains("open") ? "block" : "none";
-    }
+  function toggleMenu(e) {
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    
+    // If the event is from a sub-link, don't close the menu
+    if (e && e.target.closest('.portfolio-sub')) return;
 
-    function toggleDropdown(item) {
-      item.classList.toggle("open");
-    }
+    menu.classList.toggle("open");
+    overlay.style.display = menu.classList.contains("open") ? "block" : "none";
+  }
   </script>
 
 </body>
