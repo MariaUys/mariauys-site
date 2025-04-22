@@ -1,34 +1,321 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brand Identity and Logos</title>
+
+  <title>Maria Uys â€“ Brand Identity and Logos</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
+
     body {
+
       margin: 0;
+
       font-family: 'Poppins', sans-serif;
+
       background: linear-gradient(120deg, #ffe0f0, #f0e0ff);
+
       color: #333;
-      padding: 2rem;
+
+      padding: 0;
+
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+
+    .topbar {
+
+      display: flex;
+
+      align-items: center;
+
+      padding: 1rem;
+
+      background: #ffffffcc;
+
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
     }
-    p {
-      font-size: 1.1rem;
+
+    .hamburger {
+
+      font-size: 1.6rem;
+
+      cursor: pointer;
+
+      margin-right: 1rem;
+
+      user-select: none;
+
     }
-    a {
+
+    .logo a {
+
+      font-size: 1.4rem;
+
+      font-weight: bold;
+
+      font-family: 'Poppins', sans-serif;
+
       text-decoration: none;
-      color: #ff7b9c;
+
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+
+      -webkit-background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
     }
+
+    .slideout {
+
+      position: fixed;
+
+      top: 0;
+
+      left: -250px;
+
+      width: 250px;
+
+      height: 100%;
+
+      background-color: #fff;
+
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+
+      padding: 2rem 1rem;
+
+      transition: left 0.3s ease;
+
+      z-index: 1000;
+
+      overflow-y: auto;
+
+    }
+
+    .slideout.open {
+
+      left: 0;
+
+    }
+
+    .slideout ul {
+
+      list-style: none;
+
+      padding: 0;
+
+      margin: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 1.2rem;
+
+    }
+
+    .slideout ul li a {
+
+      text-decoration: none;
+
+      color: #444;
+
+      font-size: 1.2rem;
+
+      font-weight: normal;
+
+      display: block;
+
+    }
+
+    .slideout ul li ul {
+
+      margin-top: 0.5rem;
+
+      margin-left: 1rem;
+
+      display: none;
+
+    }
+
+    .slideout ul li.open ul {
+
+      display: block;
+
+    }
+
+    .arrow {
+
+      font-size: 0.9rem;
+
+      margin-left: 0.4rem;
+
+      transition: transform 0.3s ease;
+
+      display: inline-block;
+
+    }
+
+    .portfolio-toggle.open .arrow {
+
+      transform: rotate(180deg);
+
+    }
+
+    .close-btn {
+
+      font-size: 1.8rem;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      margin-bottom: 1rem;
+
+      color: #999;
+
+    }
+
+    #overlay {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      background: rgba(0, 0, 0, 0.4);
+
+      z-index: 500;
+
+      display: none;
+
+    }
+
+    main {
+
+      padding: 2rem;
+
+      position: relative;
+
+      z-index: 1;
+
+    }
+
   </style>
+
 </head>
+
 <body>
-  <a href="index.html">&larr; Back to Home</a>
+
+
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+
+
+<header>
+
+  <div class="topbar">
+
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+    <div class="logo"><a href="index.html">MU</a></div>
+
+  </div>
+
+  <nav id="mobileMenu" class="slideout">
+
+    <div class="close-btn" onclick="toggleMenu()">Ã—</div>
+
+    <ul>
+
+      <li><a href="index.html">About</a></li>
+
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+
+        <ul class="portfolio-sub">
+
+          <li><a href="brand-identity.html">â€¢ Brand Identity and Logos</a></li>
+
+          <li><a href="graphic-design.html">â€¢ Graphic Design</a></li>
+
+          <li><a href="illustration.html">â€¢ Illustration</a></li>
+
+          <li><a href="packaging-design.html">â€¢ Packaging Design</a></li>
+
+          <li><a href="stylist.html">â€¢ Stylist</a></li>
+
+          <li><a href="textile-design.html">â€¢ Textile Design</a></li>
+
+        </ul>
+
+      </li>
+
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+
+      <li><a href="cv.html">CV</a></li>
+
+      <li><a href="art.html">Art</a></li>
+
+    </ul>
+
+  </nav>
+
+</header>
+
+
+
+<main>
+
   <h1>Brand Identity and Logos</h1>
+
   <p>Coming soon: a curated gallery of Brand Identity and Logos work by Maria Uys.</p>
+
+</main>
+
+
+
+<script>
+
+  function toggleMenu(e) {
+
+    const menu = document.getElementById("mobileMenu");
+
+    const overlay = document.getElementById("overlay");
+
+    if (e && e.target.closest('.portfolio-sub')) return;
+
+    menu.classList.toggle("open");
+
+    overlay.style.display = menu.classList.contains("open") ? "block" : "none";
+
+  }
+
+  function toggleDropdown(item) {
+
+    item.classList.toggle("open");
+
+  }
+
+</script>
+
+
+
 </body>
+
 </html>
+
+                                      
