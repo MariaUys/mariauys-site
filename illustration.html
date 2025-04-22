@@ -99,45 +99,48 @@
     <img id="lightbox-img" src="">
     <div class="nav prev" onclick="navigateLightbox(-1)">&#10094;</div>
     <div class="nav next" onclick="navigateLightbox(1)">&#10095;</div>
-  </div>  <script>
-    const images = [];
-    const totalImages = 9;
-    const gallery = document.getElementById("gallery");
+  </div>  
+  <script>
+  const imageCount = 9;
+  const gallery = document.getElementById('gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  let currentIndex = 0;
 
-    for (let i = 1; i <= totalImages; i++) {
-      const img = document.createElement("img");
-      img.src = "/portfolio/illustration/images/img" + i + ".jpg";
-      img.alt = `Illustration ${i}`;
-      img.onclick = () => openLightbox(i - 1);
-      gallery.appendChild(img);
-      images.push(img.src);
+  for (let i = 1; i <= imageCount; i++) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 400;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = `portfolio/illustration/images/img${i}.jpg`;
+
+    img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    canvas.onclick = () => {
+      lightboxImg.src = img.src;
+      lightbox.style.display = 'flex';
+      currentIndex = i;
+    };
+
+    gallery.appendChild(canvas);
+  }
+
+  // Click outside image to close
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
     }
+  });
 
-    let currentIndex = 0;
-
-    function openLightbox(index) {
-      currentIndex = index;
-      document.getElementById("lightbox-img").src = images[currentIndex];
-      document.getElementById("lightbox").style.display = "flex";
+  // Close with Esc key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
     }
-
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-
-    function navigateLightbox(direction) {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      document.getElementById("lightbox-img").src = images[currentIndex];
-    }
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLightbox();
-      else if (e.key === "ArrowRight") navigateLightbox(1);
-      else if (e.key === "ArrowLeft") navigateLightbox(-1);
-    });
-
-    document.getElementById("lightbox").addEventListener("click", (e) => {
-      if (e.target.id === "lightbox") navigateLightbox(1);
-    });
-  </script></body>
+  });
+  </script>
+</body>
 </html>
