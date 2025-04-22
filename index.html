@@ -50,19 +50,54 @@
       margin-top: 4rem;
       font-size: 0.9rem;
     }
+    .dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  top: 100%;
+  left: 0;
+  padding: 0.5rem;
+  z-index: 100;
+  border-radius: 0.25rem;
+}
+.dropdown-content li {
+  padding: 0.25rem 0;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
   </style>
 </head>
 <body>
   <header>
     <div class="logo">MU</div>
     <nav>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Afrigarde</a></li>
-        <li><a href="#">CV</a></li>
-        <li><a href="#">Art</a></li>
-      </ul>
+      <header>
+  <div class="logo">MU</div>
+  <nav>
+    <ul>
+      <li><a href="#">About</a></li>
+      <li class="dropdown">
+        <a href="#">Portfolio</a>
+        <ul class="dropdown-content">
+          <li><a href="#">Brand Identity and Logos</a></li>
+          <li><a href="#">Graphic Design</a></li>
+          <li><a href="#">Illustration</a></li>
+          <li><a href="#">Packaging Design</a></li>
+          <li><a href="#">Stylist</a></li>
+          <li><a href="#">Textile Design</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Afrigarde</a></li>
+      <li><a href="#">CV</a></li>
+      <li><a href="#">Art</a></li>
+    </ul>
+  </nav>
+      </header>
     </nav>
   </header>
 
