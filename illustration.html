@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Illustration | Maria Uys</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -25,12 +26,10 @@
       font-size: 1.6rem;
       cursor: pointer;
       margin-right: 1rem;
-      user-select: none;
     }
     .logo a {
       font-size: 1.4rem;
       font-weight: bold;
-      font-family: 'Poppins', sans-serif;
       text-decoration: none;
       background: linear-gradient(to right, #ff9a9e, #fad0c4);
       -webkit-background-clip: text;
@@ -38,109 +37,129 @@
     }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 1rem;
       padding: 2rem;
     }
-    .gallery img {
+    canvas {
       width: 100%;
       height: auto;
+      background: #fff;
       border-radius: 0.5rem;
       cursor: pointer;
     }
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-    }
-    .close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-    .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: white;
-      font-size: 3rem;
-      cursor: pointer;
-      padding: 0 1rem;
-      user-select: none;
-    }
-    .prev { left: 1rem; }
-    .next { right: 1rem; }
     h1 {
       text-align: center;
       font-size: 2rem;
-      margin: 2rem 0 1rem;
+      margin-top: 2rem;
+    }
+    #lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 2000;
+    }
+    #lightbox canvas {
+      max-width: 90%;
+      max-height: 80%;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      z-index: 2001;
+    }
+    .nav-left {
+      left: 20px;
+    }
+    .nav-right {
+      right: 20px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 <body oncontextmenu="return false;">
   <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
-    <div class="logo"><a href="/">MU</a></div>
-  </div>  <h1>Illustration</h1>
-  <div class="gallery" id="gallery"></div>  <div id="lightbox" class="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" src="">
-    <div class="nav prev" onclick="navigateLightbox(-1)">&#10094;</div>
-    <div class="nav next" onclick="navigateLightbox(1)">&#10095;</div>
-  </div>  
+    <div class="hamburger">&#9776;</div>
+    <div class="logo"><a href="../index.html">MU</a></div>
+  </div>
+  <h1>Illustration</h1>
+  <div class="gallery" id="gallery"></div>
+
+  <div id="lightbox">
+    <div class="close-btn" onclick="closeLightbox()">×</div>
+    <div class="nav-btn nav-left" onclick="navigate(-1)">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
+  </div>
+
   <script>
-  const imageCount = 9;
-  const gallery = document.getElementById('gallery');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  let currentIndex = 0;
+    const imageCount = 9;
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxCanvas = document.getElementById('lightboxCanvas');
+    const ctx = lightboxCanvas.getContext('2d');
+    let currentIndex = 0;
+    const images = [];
 
-  for (let i = 1; i <= imageCount; i++) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 400;
-    canvas.height = 400;
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.src = `portfolio/illustration/images/img${i}.jpg`;
-
-    img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-    canvas.onclick = () => {
-      lightboxImg.src = img.src;
+    function openLightbox(index) {
+      currentIndex = index;
+      drawToLightbox(images[index]);
       lightbox.style.display = 'flex';
-      currentIndex = i;
-    };
-
-    gallery.appendChild(canvas);
-  }
-
-  // Click outside image to close
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      lightbox.style.display = 'none';
-      lightboxImg.src = '';
     }
-  });
 
-  // Close with Esc key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    function closeLightbox() {
       lightbox.style.display = 'none';
-      lightboxImg.src = '';
     }
-  });
+
+    function navigate(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      drawToLightbox(images[currentIndex]);
+    }
+
+    function drawToLightbox(img) {
+      lightboxCanvas.width = img.width;
+      lightboxCanvas.height = img.height;
+      ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
+      ctx.drawImage(img, 0, 0);
+    }
+
+    for (let i = 1; i <= imageCount; i++) {
+      const canvas = document.createElement('canvas');
+      const thumbCtx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = `images/img${i}.jpg`;
+      images.push(img);
+      img.onload = () => {
+        canvas.width = 300;
+        canvas.height = 300;
+        thumbCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      canvas.onclick = () => openLightbox(i - 1);
+      gallery.appendChild(canvas);
+    }
+
+    // Close on background click
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
   </script>
 </body>
 </html>
