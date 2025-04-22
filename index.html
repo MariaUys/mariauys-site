@@ -134,36 +134,33 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+    #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 500;
+    display: none;
+  }
+
+  .slideout {
+    z-index: 1000;
+  }
+
+  .close-btn {
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    color: #999;
+  }
   </style>
-  /* Overlay */
-#overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 500;
-  display: none;
-}
-
-/* Slideout menu (already added, but now with higher z-index) */
-.slideout {
-  z-index: 1000;
-}
-
-/* Close button */
-.close-btn {
-  font-size: 1.8rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  color: #999;
-}
 </head>
   <body>
     <script>
-  function toggleMenu() {<script>
+  {<script>
   function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const overlay = document.getElementById("overlay");
