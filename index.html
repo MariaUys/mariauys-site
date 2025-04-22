@@ -49,6 +49,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;  /* Make items stack vertically */
+  gap: 1.2rem;
 }
 
 .slideout ul li {
@@ -59,7 +62,9 @@
   text-decoration: none;
   color: #444;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  display: block;
+  padding: 0.5rem 0;
 }
 
 .slideout.open {
@@ -130,19 +135,51 @@
   display: block;
 }
   </style>
+  /* Overlay */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 500;
+  display: none;
+}
+
+/* Slideout menu (already added, but now with higher z-index) */
+.slideout {
+  z-index: 1000;
+}
+
+/* Close button */
+.close-btn {
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: #999;
+}
 </head>
   <body>
     <script>
+  function toggleMenu() {<script>
   function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("open");
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    menu.classList.toggle("open");
+    overlay.style.display = menu.classList.contains("open") ? "block" : "none";
   }
+</script>
     </script>
 <header>
+  <div id="overlay" onclick="toggleMenu()"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <div class="logo"><a href="#">MU</a></div>
   </div>
   <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
     <ul>
       <li><a href="#">About</a></li>
       <li><a href="#">Portfolio</a></li>
