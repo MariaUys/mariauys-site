@@ -329,3 +329,20 @@ html, body {
   border-top: 2px solid #ccc;
   margin: 2rem 0;
 }
+
+.grid-small {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.8rem;
+}
+
+.grid-small img {
+  width: 100%;
+  border-radius: 0.4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
