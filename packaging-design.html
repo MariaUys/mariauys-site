@@ -4,6 +4,51 @@
   <title>Packaging Design</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .gallery canvas {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+
+  .gallery hr {
+    border: none;
+    border-top: 2px solid #ddd;
+    margin: 2rem 0;
+  }
+
+  #lightbox canvas {
+    max-width: 90%;
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .gallery {
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .gallery canvas {
+      border-radius: 0.8rem;
+    }
+
+    .gallery hr {
+      margin: 1.5rem 0;
+    }
+  }
+</style>
 </head>
 <body oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
@@ -31,14 +76,76 @@
       <li><a href="art.html">Art</a></li>
     </ul>
   </nav>
-  <main>
-    <h1>Packaging Design</h1>
-    <div class="image-section">
-      <img src="portfolio/packaging-design/images/img1.jpg" alt="Packaging Design 1">
-      <div class="divider"></div>
-      <img src="portfolio/packaging-design/images/img2.jpg" alt="Packaging Design 2">
-    </div>
-  </main>
  <script src="script.js"></script>
+<script>
+  const gallery = document.getElementById('gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxCanvas = document.getElementById('lightboxCanvas');
+  const ctx = lightboxCanvas.getContext('2d');
+  let currentIndex = 0;
+  const images = [];
+
+  // How many images to display
+  const imageCount = 2; // adjust if you add more later
+
+  function openLightbox(index) {
+    currentIndex = index;
+    drawToLightbox(images[index]);
+    lightbox.style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+  }
+
+  function navigate(direction) {
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    drawToLightbox(images[currentIndex]);
+  }
+
+  function drawToLightbox(img) {
+    lightboxCanvas.width = img.width;
+    lightboxCanvas.height = img.height;
+    ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
+    ctx.drawImage(img, 0, 0);
+  }
+
+  for (let i = 1; i <= imageCount; i++) {
+    const canvas = document.createElement('canvas');
+    const thumbCtx = canvas.getContext('2d', { alpha: true });
+
+    // High-res canvas
+    const width = 1200;
+    const height = 1200;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+
+    const img = new Image();
+    img.src = `portfolio/packaging-design/images/img${i}.jpg`;
+    images.push(img);
+
+    img.onload = () => {
+      thumbCtx.drawImage(img, 0, 0, width, height);
+    };
+
+    canvas.onclick = () => openLightbox(i - 1);
+    gallery.appendChild(canvas);
+
+    // Add a horizontal line between images
+    if (i < imageCount) {
+      const hr = document.createElement('hr');
+      hr.style.border = 'none';
+      hr.style.borderTop = '2px solid #ddd';
+      hr.style.margin = '2rem 0';
+      gallery.appendChild(hr);
+    }
+  }
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+</script>
 </body>
 </html>
