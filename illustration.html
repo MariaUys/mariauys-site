@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Illustration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="../index.html">MU</a></div>
+  </div>
+
+  <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="../index.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">&bull; Brand Identity and Logos</a></li>
+          <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
+          <li><a href="illustration.html">&bull; Illustration</a></li>
+          <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
+          <li><a href="stylist.html">&bull; Stylist</a></li>
+          <li><a href="textile-design.html">&bull; Textile Design</a></li>
+        </ul>
+      </li>
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+      <li><a href="cv.html" class="cv-label"></a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Illustration</h1>
+    <div class="gallery" id="gallery"></div>
+  </main>
+
+  <div id="lightbox">
+    <div class="close-btn-lightbox">×</div>
+    <div class="nav-btn nav-left">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right">›</div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gallery = document.getElementById('gallery');
+      const tryExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+      let imgIndex = 1;
+
+      function tryNextExtension(extIndex = 0) {
+        if (extIndex >= tryExtensions.length) return;
+
+        const ext = tryExtensions[extIndex];
+        const img = new Image();
+        img.src = `portfolio/illustration/images/img${imgIndex}.${ext}`;
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.style.width = '100%';
+          canvas.style.height = 'auto';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          const thisIndex = images.length;
+          canvas.addEventListener('click', () => openLightbox(thisIndex));
+
+          gallery.appendChild(canvas);
+          images.push(img);
+          imgIndex++;
+          tryNextImage();
+        };
+
+        img.onerror = () => tryNextExtension(extIndex + 1);
+      }
+
+      function tryNextImage() {
+        tryNextExtension();
+      }
+
+      tryNextImage();
+    });
+  </script>
+</body>
+</html>
 
