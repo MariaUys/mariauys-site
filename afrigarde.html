@@ -8,26 +8,48 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     .afrigarde-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      text-align: center;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  text-align: center;
+}
 
-    .afrigarde-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 1rem;
-      transition: all 0.3s ease;
-    }
+.image-hover {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+}
 
-    .afrigarde-grid .caption {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #333;
-    }
+.image-hover img {
+  display: block;
+  width: 100%;
+  transition: opacity 0.4s ease-in-out;
+  border-radius: 1rem;
+}
+
+.hover-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.image-hover:hover .hover-img {
+  opacity: 1;
+}
+
+.image-hover:hover .default-img {
+  opacity: 0;
+}
+
+.caption {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
   </style>
 </head>
 <body>
@@ -59,25 +81,37 @@
 
   <main>
     <h1>Afrigarde</h1>
-    <div class="afrigarde-grid">
-      <div class="grid-item">
-        <a href="afrigarde-neckpieces.html">
-          <img src="https://via.placeholder.com/400x400?text=Neckpiece+1" alt="Neckpiece 1" />
-          <p class="caption">Bold Neckpiece 1</p>
-        </a>
+   <div class="afrigarde-grid">
+  <div class="grid-item">
+    <a href="afrigarde-neckpieces.html">
+      <div class="image-hover">
+        <img src="https://via.placeholder.com/400x400?text=Neckpiece+1" class="default-img" alt="Neckpiece 1" />
+        <img src="https://via.placeholder.com/400x400?text=Hover+1" class="hover-img" alt="Hover Neckpiece 1" />
       </div>
-      <div class="grid-item">
-        <a href="afrigarde-neckpieces.html">
-          <img src="https://via.placeholder.com/400x400?text=Neckpiece+2" alt="Neckpiece 2" />
-          <p class="caption">Elegant Neckpiece 2</p>
-        </a>
+      <p class="caption">Bold Neckpiece 1</p>
+    </a>
+  </div>
+
+  <div class="grid-item">
+    <a href="afrigarde-neckpieces.html">
+      <div class="image-hover">
+        <img src="https://via.placeholder.com/400x400?text=Neckpiece+2" class="default-img" alt="Neckpiece 2" />
+        <img src="https://via.placeholder.com/400x400?text=Hover+2" class="hover-img" alt="Hover Neckpiece 2" />
       </div>
-      <div class="grid-item">
-        <a href="afrigarde-neckpieces.html">
-          <img src="https://via.placeholder.com/400x400?text=Neckpiece+3" alt="Neckpiece 3" />
-          <p class="caption">Textured Neckpiece 3</p>
-        </a>
+      <p class="caption">Elegant Neckpiece 2</p>
+    </a>
+  </div>
+
+  <div class="grid-item">
+    <a href="afrigarde-neckpieces.html">
+      <div class="image-hover">
+        <img src="https://via.placeholder.com/400x400?text=Neckpiece+3" class="default-img" alt="Neckpiece 3" />
+        <img src="https://via.placeholder.com/400x400?text=Hover+3" class="hover-img" alt="Hover Neckpiece 3" />
       </div>
+      <p class="caption">Textured Neckpiece 3</p>
+    </a>
+  </div>
+</div>
       <!-- Add more grid-item blocks as needed -->
     </div>
   </main>
