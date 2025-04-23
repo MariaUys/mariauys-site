@@ -186,8 +186,11 @@ canvas {
 
 #lightbox canvas {
   max-width: 90%;
-  max-height: 80%;
+  max-height: 80vh;
+  background: #000; /* Now black */
+  border-radius: 1rem;
 }
+
 
 .nav-btn {
   position: absolute;
