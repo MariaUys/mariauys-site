@@ -122,13 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     drawToLightbox(images[currentIndex]);
   }
 
-  function drawToLightbox(img) {
-    lightboxCanvas.width = img.naturalWidth;
-    lightboxCanvas.height = img.naturalHeight;
-    ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
-    ctx.drawImage(img, 0, 0);
-  }
-
   document.querySelector('.close-btn-lightbox').addEventListener('click', closeLightbox);
   document.querySelector('.nav-left').addEventListener('click', () => navigate(-1));
   document.querySelector('.nav-right').addEventListener('click', () => navigate(1));
