@@ -39,7 +39,7 @@ body {
 .slideout {
   position: fixed;
   top: 0;
-  left: -250px;
+  left: -500px;
   width: 280px;
   height: 100%;
   background-color: #fff;
