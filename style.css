@@ -322,6 +322,8 @@ html, body {
   color: #555;
   padding: 0 1rem;
   margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
 }
 
 .project-grid hr {
