@@ -19,3 +19,15 @@ document.addEventListener('click', function(event) {
     overlay.style.display = "none";
   }
 });
+
+// Adjust CV label on mobile
+document.addEventListener('DOMContentLoaded', () => {
+  const cvLink = document.querySelector('.cv-label');
+  if (cvLink) {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      cvLink.textContent = 'Download CV';
+    } else {
+      cvLink.textContent = 'CV';
+    }
+  }
+});
