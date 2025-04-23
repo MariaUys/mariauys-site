@@ -96,9 +96,6 @@
   let currentIndex = 0;
   const images = [];
 
-  // How many images to display
-  const imageCount = 2; // adjust if you add more later
-
   function openLightbox(index) {
     currentIndex = index;
     drawToLightbox(images[index]);
@@ -115,52 +112,54 @@
   }
 
   function drawToLightbox(img) {
-    lightboxCanvas.width = img.width;
-    lightboxCanvas.height = img.height;
+    lightboxCanvas.width = img.naturalWidth;
+    lightboxCanvas.height = img.naturalHeight;
     ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
     ctx.drawImage(img, 0, 0);
   }
 
-  for (let i = 1; i <= imageCount; i++) {
-    const canvas = document.createElement('canvas');
-    const thumbCtx = canvas.getContext('2d', { alpha: true });
+  // Dynamically load images
+  let i = 1;
+  function tryLoadNextImage() {
+    const img = new Image();
+    img.src = `portfolio/packaging-design/images/img${i}.jpg`;
 
-    // High-res canvas
-   img.onload = () => {
-  const aspectRatio = img.width / img.height;
-  const maxWidth = 800; // or adjust this based on your layout
-  const maxHeight = 800;
+    img.onload = () => {
+      images.push(img);
 
-  let displayWidth = maxWidth;
-  let displayHeight = maxWidth / aspectRatio;
+      const canvas = document.createElement('canvas');
+      const thumbCtx = canvas.getContext('2d');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
 
-  if (displayHeight > maxHeight) {
-    displayHeight = maxHeight;
-    displayWidth = maxHeight * aspectRatio;
+      thumbCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+      canvas.onclick = () => openLightbox(images.length - 1);
+
+      gallery.appendChild(canvas);
+
+      // Add separator line unless it's the last image
+      const nextImg = new Image();
+      nextImg.src = `portfolio/packaging-design/images/img${i + 1}.jpg`;
+      nextImg.onload = () => {
+        const hr = document.createElement('hr');
+        hr.style.border = 'none';
+        hr.style.borderTop = '2px solid #ddd';
+        hr.style.margin = '2rem 0';
+        gallery.appendChild(hr);
+        i++;
+        tryLoadNextImage();
+      };
+    };
+
+    img.onerror = () => {
+      // Stops loop when no more images found
+      console.log(`Stopped loading at img${i}.jpg`);
+    };
   }
 
-  canvas.width = img.width;
-  canvas.height = img.height;
-
-  canvas.style.width = `${displayWidth}px`;
-  canvas.style.height = `${displayHeight}px`;
-
-  thumbCtx.drawImage(img, 0, 0, img.width, img.height);
-};
-
-
-    canvas.onclick = () => openLightbox(i - 1);
-    gallery.appendChild(canvas);
-
-    // Add a horizontal line between images
-    if (i < imageCount) {
-      const hr = document.createElement('hr');
-      hr.style.border = 'none';
-      hr.style.borderTop = '2px solid #ddd';
-      hr.style.margin = '2rem 0';
-      gallery.appendChild(hr);
-    }
-  }
+  tryLoadNextImage();
 
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox) closeLightbox();
