@@ -97,3 +97,15 @@ function drawToLightbox(img) {
   ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
   ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
 }
+
+// Hover swap for Afrigarde grid
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.afri-item img').forEach(img => {
+    const original = img.src;
+    const hover = img.getAttribute('data-hover');
+    if (hover) {
+      img.addEventListener('mouseenter', () => img.src = hover);
+      img.addEventListener('mouseleave', () => img.src = original);
+    }
+  });
+});
