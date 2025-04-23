@@ -35,10 +35,18 @@ function drawToLightbox(img) {
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
 
-  const ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight);
+  const imgRatio = img.naturalWidth / img.naturalHeight;
+  const boxRatio = maxWidth / maxHeight;
 
-  const displayWidth = img.naturalWidth * ratio;
-  const displayHeight = img.naturalHeight * ratio;
+  let displayWidth, displayHeight;
+
+  if (imgRatio > boxRatio) {
+    displayWidth = maxWidth;
+    displayHeight = maxWidth / imgRatio;
+  } else {
+    displayHeight = maxHeight;
+    displayWidth = maxHeight * imgRatio;
+  }
 
   lightboxCanvas.width = displayWidth;
   lightboxCanvas.height = displayHeight;
@@ -46,4 +54,3 @@ function drawToLightbox(img) {
   ctx.clearRect(0, 0, displayWidth, displayHeight);
   ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
 }
-
