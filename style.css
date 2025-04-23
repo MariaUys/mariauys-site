@@ -348,3 +348,12 @@ html, body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+body.brand-identity {
+  background: radial-gradient(circle at 20% 40%, #ffe0f0 0%, transparent 30%),
+              radial-gradient(circle at 80% 60%, #f0e0ff 0%, transparent 30%),
+              radial-gradient(circle at 50% 90%, #fad0c4 0%, transparent 30%);
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
