@@ -119,3 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Lightbox trigger for static img tags
+  document.querySelectorAll('.lightbox-trigger').forEach(img => {
+    img.addEventListener('click', () => {
+      const src = img.getAttribute('data-src') || img.src;
+      openLightboxFromPath(src);
+    });
+  });
+});
+
