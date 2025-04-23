@@ -1,3 +1,40 @@
+// Global variables (put at the top of script.js)
+let lightbox, lightboxCanvas, ctx, currentIndex = 0;
+let images = [];
+
+// Wait until DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize elements
+  lightbox = document.getElementById('lightbox');
+  lightboxCanvas = document.getElementById('lightboxCanvas');
+  ctx = lightboxCanvas.getContext('2d');
+
+  // Optional: assign lightbox event listeners
+  document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
+  document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
+  document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
+  lightbox?.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+});
+
+// Reuse this on all pages with images[] and currentIndex
+function openLightbox(index) {
+  currentIndex = index;
+  drawToLightbox(images[index]);
+  lightbox.style.display = 'flex';
+}
+
+function closeLightbox() {
+  lightbox.style.display = 'none';
+}
+
+function navigate(direction) {
+  currentIndex = (currentIndex + direction + images.length) % images.length;
+  drawToLightbox(images[currentIndex]);
+}
+
+
 function toggleMenu(e) {
   const menu = document.getElementById("mobileMenu");
   const overlay = document.getElementById("overlay");
