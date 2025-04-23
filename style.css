@@ -249,11 +249,15 @@ iframe {
 
 /* Change CV menu label to "Download CV" only on mobile */
 @media screen and (max-width: 768px) {
-  .cv-label::before {
-    content: "Download CV";
-  }
   .cv-label {
-    color: transparent;
+    font-size: 0; /* Hide original text */
     position: relative;
   }
+
+  .cv-label::before {
+    content: "Download CV";
+    font-size: 1.2rem; /* Restore text size for the new label */
+    color: #444; /* Adjust to match your menu */
+  }
 }
+
