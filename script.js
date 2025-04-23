@@ -82,15 +82,7 @@ function drawToLightbox(img)
     displayHeight = Math.min(img.naturalHeight, maxHeight);
     displayWidth = displayHeight * imgRatio;
   }
-function openLightboxFromPath(path) {
-  const img = new Image();
-  img.onload = () => {
-    drawToLightbox(img);
-    lightbox.style.display = 'flex';
-  };
-  img.src = path;
-}
-  
+
   // Retina display support
   const dpr = window.devicePixelRatio || 1;
   lightboxCanvas.width = displayWidth * dpr;
@@ -105,6 +97,15 @@ function openLightboxFromPath(path) {
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
   ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+}
+
+function openLightboxFromPath(path) {
+  const img = new Image();
+  img.onload = () => {
+    drawToLightbox(img);
+    lightbox.style.display = 'flex';
+  };
+  img.src = path;
 }
 
 // Hover swap for Afrigarde grid
