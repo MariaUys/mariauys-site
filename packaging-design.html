@@ -76,6 +76,17 @@
       <li><a href="art.html">Art</a></li>
     </ul>
   </nav>
+  <main>
+  <h1>Packaging Design</h1>
+  <div class="gallery" id="gallery"></div>
+</main>
+
+<div id="lightbox">
+  <div class="close-btn-lightbox" onclick="closeLightbox()">×</div>
+  <div class="nav-btn nav-left" onclick="navigate(-1)">‹</div>
+  <canvas id="lightboxCanvas"></canvas>
+  <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
+</div>
  <script src="script.js"></script>
 <script>
   const gallery = document.getElementById('gallery');
