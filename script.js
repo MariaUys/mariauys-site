@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function drawToLightbox(img) {
-  const canvasWidth = window.innerWidth;
-  const function drawToLightbox(img) {
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
 
