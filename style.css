@@ -56,7 +56,7 @@ body {
 
 .slideout ul {
   list-style: none;
-  padding: 0;
+  padding: 2rem 0 0; /* adds space from top */
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,7 @@ body {
 
 .slideout ul li ul {
   margin-top: 0.5rem;
-  margin-left: 1rem;
+  margin-left: 0rem;
   display: none;
 }
 
