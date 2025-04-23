@@ -18,6 +18,12 @@
       grid-template-columns: repeat(2, 1fr); /* 2 per row on mobile */
     }
   }
+    #lightbox canvas {
+  max-width: 90%;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 1rem;
+}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -63,8 +69,36 @@
   let currentIndex = 0;
   const images = [];
 
-  // Auto-count total images
-  const imageCount = 9; // or however many are in your folder
+  // Auto-detect image count
+  let i = 1;
+  function loadNextImage() {
+    const img = new Image();
+    img.src = `portfolio/illustration/images/img${i}.jpg`;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const thumbCtx = canvas.getContext('2d', { alpha: true });
+
+      // Set canvas to image natural dimensions
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+
+      thumbCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.onclick = () => openLightbox(images.length);
+      gallery.appendChild(canvas);
+      images.push(img);
+
+      i++;
+      loadNextImage(); // Load next
+    };
+    img.onerror = () => {
+      console.log(`Loaded ${images.length} images`);
+    };
+  }
+
+  loadNextImage();
 
   function openLightbox(index) {
     currentIndex = index;
@@ -82,34 +116,10 @@
   }
 
   function drawToLightbox(img) {
-    lightboxCanvas.width = img.width;
-    lightboxCanvas.height = img.height;
+    lightboxCanvas.width = img.naturalWidth;
+    lightboxCanvas.height = img.naturalHeight;
     ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
     ctx.drawImage(img, 0, 0);
-  }
-
-  for (let i = 1; i <= imageCount; i++) {
-    const canvas = document.createElement('canvas');
-    const thumbCtx = canvas.getContext('2d', { alpha: true });
-
-    // Higher resolution canvas for better quality
-    const thumbnailWidth = 800;
-    const thumbnailHeight = 800;
-    canvas.width = thumbnailWidth;
-    canvas.height = thumbnailHeight;
-    canvas.style.width = '100%';
-    canvas.style.height = 'auto';
-
-    const img = new Image();
-    img.src = `portfolio/illustration/images/img${i}.jpg`;
-    images.push(img);
-
-    img.onload = () => {
-      thumbCtx.drawImage(img, 0, 0, thumbnailWidth, thumbnailHeight);
-    };
-
-    canvas.onclick = () => openLightbox(i - 1);
-    gallery.appendChild(canvas);
   }
 
   lightbox.addEventListener('click', function (e) {
