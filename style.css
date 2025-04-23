@@ -246,3 +246,14 @@ iframe {
 .menu-button.open .arrow {
   transform: rotate(180deg);
 }
+
+/* Change CV menu label to "Download CV" only on mobile */
+@media screen and (max-width: 768px) {
+  .cv-label::before {
+    content: "Download CV";
+  }
+  .cv-label {
+    color: transparent;
+    position: relative;
+  }
+}
