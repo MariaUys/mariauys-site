@@ -98,9 +98,9 @@ body {
 }
 
 .portfolio-sub a {
-  width: 80%;
-  margin-left: 2rem;
-  font-size: .9rem;
+  margin-left: 2rem;           /* visually indents submenu */
+  width: calc(100% - 3rem);    /* makes submenu narrower to prevent overlap */
+  font-size: 0.95rem;          /* slightly smaller for hierarchy */
   padding: 0.4rem 1rem;
   border-radius: 2rem;
   background: linear-gradient(to right, #fad0c4, #e0c4f0);
@@ -108,7 +108,6 @@ body {
   display: block;
   transition: filter 0.2s ease;
 }
-
 
 .portfolio-sub a:hover {
   filter: brightness(0.95);
