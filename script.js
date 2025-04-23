@@ -65,7 +65,16 @@ function navigate(direction) {
 }
 
 // Aspect-ratio-preserving lightbox renderer
-function drawToLightbox(img) {
+function drawToLightbox(img) 
+function openLightboxFromPath(path) {
+  const img = new Image();
+  img.onload = () => {
+    drawToLightbox(img);
+    lightbox.style.display = 'flex';
+  };
+  img.src = path;
+}
+{
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
 
