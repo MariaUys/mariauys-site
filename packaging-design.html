@@ -1,54 +1,49 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Packaging Design</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-  .gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .gallery canvas {
-    width: 100%;
-    height: auto;
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-  }
-
-  .gallery hr {
-    border: none;
-    border-top: 2px solid #ddd;
-    margin: 2rem 0;
-  }
-
-  #lightbox canvas {
-    max-width: 90%;
-    max-height: 80vh;
-    background: #fff;
-    border-radius: 1rem;
-  }
-
-  @media screen and (max-width: 768px) {
     .gallery {
-      gap: 1.5rem;
-      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
     }
 
     .gallery canvas {
-      border-radius: 0.8rem;
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
     }
 
     .gallery hr {
-      margin: 1.5rem 0;
+      border: none;
+      border-top: 2px solid #ddd;
+      margin: 2rem 0;
     }
-  }
-</style>
+
+    @media screen and (max-width: 768px) {
+      .gallery {
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .gallery canvas {
+        border-radius: 0.8rem;
+      }
+
+      .gallery hr {
+        margin: 1.5rem 0;
+      }
+    }
+  </style>
 </head>
 <body oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
@@ -76,94 +71,61 @@
       <li><a href="art.html">Art</a></li>
     </ul>
   </nav>
+
   <main>
-  <h1>Packaging Design</h1>
-  <div class="gallery" id="gallery"></div>
-</main>
+    <h1>Packaging Design</h1>
+    <div class="gallery" id="gallery"></div>
+  </main>
 
-<div id="lightbox">
-  <div class="close-btn-lightbox" onclick="closeLightbox()">×</div>
-  <div class="nav-btn nav-left" onclick="navigate(-1)">‹</div>
-  <canvas id="lightboxCanvas"></canvas>
-  <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
-</div>
- <script src="script.js"></script>
-<script>
-  const gallery = document.getElementById('gallery');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxCanvas = document.getElementById('lightboxCanvas');
-  const ctx = lightboxCanvas.getContext('2d');
-  let currentIndex = 0;
-  const images = [];
+  <div id="lightbox">
+    <div class="close-btn-lightbox">×</div>
+    <div class="nav-btn nav-left">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right">›</div>
+  </div>
 
-  function openLightbox(index) {
-    currentIndex = index;
-    drawToLightbox(images[index]);
-    lightbox.style.display = 'flex';
-  }
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gallery = document.getElementById('gallery');
+      let i = 1;
 
-  function closeLightbox() {
-    lightbox.style.display = 'none';
-  }
+      function tryLoadNext() {
+        const img = new Image();
+        img.src = `portfolio/packaging-design/images/img${i}.jpg`;
 
-  function navigate(direction) {
-    currentIndex = (currentIndex + direction + images.length) % images.length;
-    drawToLightbox(images[currentIndex]);
-  }
+        img.onload = () => {
+          images.push(img);
 
-  function drawToLightbox(img) {
-    lightboxCanvas.width = img.naturalWidth;
-    lightboxCanvas.height = img.naturalHeight;
-    ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
-    ctx.drawImage(img, 0, 0);
-  }
+          const canvas = document.createElement('canvas');
+          const thumbCtx = canvas.getContext('2d');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.style.width = '100%';
+          canvas.style.height = 'auto';
 
-  // Dynamically load images
-  let i = 1;
-  function tryLoadNextImage() {
-    const img = new Image();
-    img.src = `portfolio/packaging-design/images/img${i}.jpg`;
+          thumbCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+          canvas.onclick = () => openLightbox(images.length - 1);
+          gallery.appendChild(canvas);
 
-    img.onload = () => {
-      images.push(img);
+          // Check if the next image exists to decide whether to add a separator
+          const testNext = new Image();
+          testNext.src = `portfolio/packaging-design/images/img${i + 1}.jpg`;
+          testNext.onload = () => {
+            const hr = document.createElement('hr');
+            gallery.appendChild(hr);
+            i++;
+            tryLoadNext();
+          };
+        };
 
-      const canvas = document.createElement('canvas');
-      const thumbCtx = canvas.getContext('2d');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      canvas.style.width = '100%';
-      canvas.style.height = 'auto';
+        img.onerror = () => {
+          console.log(`Stopped loading at img${i}.jpg`);
+        };
+      }
 
-      thumbCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-      canvas.onclick = () => openLightbox(images.length - 1);
-
-      gallery.appendChild(canvas);
-
-      // Add separator line unless it's the last image
-      const nextImg = new Image();
-      nextImg.src = `portfolio/packaging-design/images/img${i + 1}.jpg`;
-      nextImg.onload = () => {
-        const hr = document.createElement('hr');
-        hr.style.border = 'none';
-        hr.style.borderTop = '2px solid #ddd';
-        hr.style.margin = '2rem 0';
-        gallery.appendChild(hr);
-        i++;
-        tryLoadNextImage();
-      };
-    };
-
-    img.onerror = () => {
-      // Stops loop when no more images found
-      console.log(`Stopped loading at img${i}.jpg`);
-    };
-  }
-
-  tryLoadNextImage();
-
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox) closeLightbox();
-  });
-</script>
+      tryLoadNext();
+    });
+  </script>
 </body>
 </html>
