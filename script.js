@@ -66,7 +66,6 @@ function navigate(direction) {
 
 // Aspect-ratio-preserving lightbox renderer
 function drawToLightbox(img) {
-  if (!img) return;
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
 
@@ -83,9 +82,14 @@ function drawToLightbox(img) {
     displayWidth = maxHeight * imgRatio;
   }
 
-  lightboxCanvas.width = displayWidth;
-  lightboxCanvas.height = displayHeight;
+  // Set canvas size to full screen for consistent display
+  lightboxCanvas.width = maxWidth;
+  lightboxCanvas.height = maxHeight;
 
-  ctx.clearRect(0, 0, displayWidth, displayHeight);
-  ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+  ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
+
+  // Draw the image centered
+  const offsetX = (maxWidth - displayWidth) / 2;
+  const offsetY = (maxHeight - displayHeight) / 2;
+  ctx.drawImage(img, offsetX, offsetY, displayWidth, displayHeight);
 }
