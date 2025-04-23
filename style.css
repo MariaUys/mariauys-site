@@ -98,10 +98,19 @@ body {
 }
 
 .portfolio-sub a {
-  margin-left: 3rem; /* Adjust as needed */
+  margin-left: 2rem; /* Indents to the right */
   font-size: 1rem;
-  padding-left: 1rem;
+  border-radius: 2rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(to right, #fad0c4, #e0c4f0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: filter 0.2s ease;
   display: block;
+  width: 85%; /* Slightly smaller than main menu */
+}
+
+.portfolio-sub a:hover {
+  filter: brightness(0.95);
 }
 
 .portfolio-toggle .arrow {
