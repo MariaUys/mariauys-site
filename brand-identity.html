@@ -6,7 +6,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+  <!-- Add this just before </body> -->
+<div id="lightbox">
+  <div class="close-btn-lightbox">×</div>
+  <div class="nav-btn nav-left">‹</div>
+  <canvas id="lightboxCanvas"></canvas>
+  <div class="nav-btn nav-right">›</div>
+</div>
   <body class="brand-identity brand-body" oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
