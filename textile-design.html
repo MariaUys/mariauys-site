@@ -3,159 +3,265 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Textile Design</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(120deg, #ffe0f0, #f0e0ff);
       color: #333;
-    }
-    .topbar {
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      background: #ffffffcc;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      position: relative;
-      z-index: 1001;
-    }
-    .hamburger {
-      font-size: 1.6rem;
-      cursor: pointer;
-      margin-right: 1rem;
-      user-select: none;
-    }
-    .logo a {
-      font-size: 1.4rem;
-      font-weight: bold;
-      text-decoration: none;
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .slideout {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: #fff;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      padding: 2rem 1rem;
-      transition: left 0.3s ease;
-      z-index: 1000;
-      overflow-y: auto;
-    }
-    .slideout.open {
-      left: 0;
-    }
-    .slideout ul {
-      list-style: none;
       padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-    .slideout ul li a {
-      text-decoration: none;
-      color: #444;
-      font-size: 1.2rem;
-      font-weight: normal;
-      display: block;
-    }
-    .slideout ul li ul {
-      margin-top: 0.5rem;
-      margin-left: 1rem;
-      display: none;
-    }
-    .slideout ul li.open ul {
-      display: block;
-    }
-    .portfolio-sub a::before {
-      content: "\2022 ";
-      color: #999;
-    }
-    .close-btn {
-      font-size: 1.8rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 1rem;
-      color: #999;
-    }
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 500;
-      display: none;
-    }
-    .portfolio-toggle {
-      cursor: pointer;
-      font-weight: 500;
-    }
-    .portfolio-toggle .arrow {
-      font-size: 0.9rem;
-      margin-left: 0.4rem;
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-    .portfolio-toggle.open .arrow {
-      transform: rotate(180deg);
-    }
-    main {
-      padding: 2rem;
-      position: relative;
-      z-index: 1;
-    }
-    h1 {
-      font-size: 2.2rem;
-    }
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-    }
+    }.topbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #ffffffcc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1001;
+}
+
+.hamburger {
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  user-select: none;
+}
+
+.logo a {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.slideout {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1rem;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.slideout.open {
+  left: 0;
+}
+
+.slideout ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.slideout ul li a {
+  text-decoration: none;
+  color: #444;
+  font-size: 1.2rem;
+  display: block;
+  font-weight: normal;
+}
+
+.slideout ul li ul {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  display: none;
+}
+
+.slideout ul li.open ul {
+  display: block;
+}
+
+.portfolio-toggle {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.portfolio-sub a::before {
+  content: "\2022 ";
+  color: #444;
+}
+
+.portfolio-sub a {
+  font-size: 1rem;
+  padding-left: 1rem;
+  display: block;
+}
+
+.portfolio-toggle .arrow {
+  font-size: 0.9rem;
+  margin-left: 0.4rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.portfolio-toggle.open .arrow {
+  transform: rotate(180deg);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 2000;
+}
+
+#lightbox canvas {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2001;
+}
+
+.nav-left { left: 20px; }
+.nav-right { right: 20px; }
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
   </style>
 </head>
-<body><div id="overlay" onclick="toggleMenu(event)"></div><div class="topbar">
-  <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
-  <div class="logo"><a href="index.html">MU</a></div>
-</div><nav id="mobileMenu" class="slideout">
-  <div class="close-btn" onclick="toggleMenu()">×</div>
-  <ul>
-    <li><a href="about.html">About</a></li>
-    <li class="portfolio-toggle" onclick="toggleDropdown(this)">
-      <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
-      <ul class="portfolio-sub">
-        <li><a href="brand-identity.html">Brand Identity and Logos</a></li>
-        <li><a href="graphic-design.html">Graphic Design</a></li>
-        <li><a href="illustration.html">Illustration</a></li>
-        <li><a href="packaging-design.html">Packaging Design</a></li>
-        <li><a href="stylist.html">Stylist</a></li>
-        <li><a href="textile-design.html">Textile Design</a></li>
-      </ul>
-    </li>
-    <li><a href="afrigarde.html">Afrigarde</a></li>
-    <li><a href="cv.html">CV</a></li>
-    <li><a href="art.html">Art</a></li>
-  </ul>
-</nav><main>
-  <h1>Textile Design</h1>
-  <p>Coming soon: a curated gallery of Textile Design by Maria Uys.</p>
-</main><script>
-  function toggleMenu(e) {
-    const menu = document.getElementById("mobileMenu");
-    const overlay = document.getElementById("overlay");
-    if (e && e.target.closest('.portfolio-sub')) return;
-    menu.classList.toggle("open");
-    overlay.style.display = menu.classList.contains("open") ? "block" : "none";
-  }
-  function toggleDropdown(el) {
-    el.classList.toggle("open");
-  }
-</script></body>
+<body oncontextmenu="return false;">
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="../index.html">MU</a></div>
+  </div>
+  <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="../index.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">Brand Identity and Logos</a></li>
+          <li><a href="graphic-design.html">Graphic Design</a></li>
+          <li><a href="illustration.html">Illustration</a></li>
+          <li><a href="packaging-design.html">Packaging Design</a></li>
+          <li><a href="stylist.html">Stylist</a></li>
+          <li><a href="textile-design.html">Textile Design</a></li>
+        </ul>
+      </li>
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>Textile Design</h1>
+    <div class="gallery" id="gallery"></div>
+  </main>  <div id="lightbox">
+    <div class="close-btn" onclick="closeLightbox()">×</div>
+    <div class="nav-btn nav-left" onclick="navigate(-1)">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
+  </div>  <script>
+    const imageCount = 6;
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxCanvas = document.getElementById('lightboxCanvas');
+    const ctx = lightboxCanvas.getContext('2d');
+    let currentIndex = 0;
+    const images = [];
+
+    function openLightbox(index) {
+      currentIndex = index;
+      drawToLightbox(images[index]);
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+
+    function navigate(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      drawToLightbox(images[currentIndex]);
+    }
+
+    function drawToLightbox(img) {
+      lightboxCanvas.width = img.width;
+      lightboxCanvas.height = img.height;
+      ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
+      ctx.drawImage(img, 0, 0);
+    }
+
+    for (let i = 1; i <= imageCount; i++) {
+      const canvas = document.createElement('canvas');
+      const thumbCtx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = `portfolio/textile-design/images/img${i}.jpg`;
+      images.push(img);
+      img.onload = () => {
+        canvas.width = 300;
+        canvas.height = 300;
+        thumbCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      canvas.onclick = () => openLightbox(i - 1);
+      gallery.appendChild(canvas);
+    }
+
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    function toggleMenu(e) {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("open");
+    }
+
+    function toggleDropdown(element) {
+      element.classList.toggle("open");
+    }
+  </script></body>
 </html>
