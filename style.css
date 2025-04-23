@@ -98,6 +98,7 @@ body {
 }
 
 .portfolio-sub a {
+  margin-left: 1.5rem; /* Adjust as needed */
   font-size: 1rem;
   padding-left: 1rem;
   display: block;
@@ -114,8 +115,7 @@ body {
   transform: rotate(180deg);
 }
 
-.portfolio-sub li::before {
-  content: "•";
+.portfolio-sub li::
   color: #999;
   margin-right: 0.5rem;
   font-size: 1.1rem;
