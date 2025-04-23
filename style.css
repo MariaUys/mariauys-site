@@ -98,10 +98,10 @@ body {
 }
 
 .portfolio-sub a {
-  margin-left: 1.2rem;
-  width: 85%;
+  width: 80%;
+  margin-left: 2rem;
   font-size: .9rem;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 2rem;
   background: linear-gradient(to right, #fad0c4, #e0c4f0);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -123,13 +123,6 @@ body {
 
 .portfolio-toggle.open .arrow {
   transform: rotate(180deg);
-}
-
-.portfolio-sub li::
-  color: #999;
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-  vertical-align: middle;
 }
 
 /* Overlay for sidebar */
