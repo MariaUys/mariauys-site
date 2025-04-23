@@ -10,16 +10,18 @@ body {
 
 /* Topbar */
 .topbar {
-  position: sticky; /* change this from 'relative' or 'fixed' */
-  top: 0;
-  left: 0;
-  z-index: 1001;
-  background: #ffffffcc;
   display: flex;
   align-items: center;
   padding: 1rem;
+  background: #ffffffcc;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;         /* Make it fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
 }
+
 
 
 .hamburger {
@@ -146,7 +148,7 @@ body {
 
 /* Main content */
 main {
-  padding: 2rem;
+  padding: 5rem 2rem 2rem; /* Increased top padding to clear topbar */
   position: relative;
   z-index: 1;
 }
