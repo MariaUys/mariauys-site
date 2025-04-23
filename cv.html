@@ -174,36 +174,36 @@ iframe {
     <h1>CV</h1>
     <iframe id="cvFrame" src="files/Maria_Uys_CV.pdf"></iframe>
   </main>  <script>
-    function toggleMenu(e) {
-      const menu = document.getElementById("mobileMenu");
-      const overlay = document.getElementById("overlay");
-      if (e && e.target.closest('.portfolio-sub')) return;
-      menu.classList.toggle("open");
-      overlay.style.display = menu.classList.contains("open") ? "block" : "none";
-    }
+  function toggleMenu(e) {
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    if (e && e.target.closest('.portfolio-sub')) return;
+    menu.classList.toggle("open");
+    overlay.style.display = menu.classList.contains("open") ? "block" : "none";
+  }
 
-    function toggleDropdown(element) {
-      element.classList.toggle("open");
-    }
+  function toggleDropdown(element) {
+    element.classList.toggle("open");
+  }
 
-    document.addEventListener('click', function(event) {
-      const menu = document.getElementById("mobileMenu");
-      const overlay = document.getElementById("overlay");
-      const hamburger = document.querySelector('.hamburger');
-      if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-        menu.classList.remove("open");
-        overlay.style.display = "none";
-      }
-    });
-
-    // Auto-download on mobile
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      const link = document.createElement('a');
-      link.href = 'files/Maria_Uys_CV.pdf';
-      link.download = 'Maria_Uys_CV.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    const hamburger = document.querySelector('.hamburger');
+    if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+      menu.classList.remove("open");
+      overlay.style.display = "none";
     }
+  });
+
+  // Auto-download on mobile
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    const link = document.createElement('a');
+    link.href = 'portfolio/cv/Maria_Uys_CV.pdf';
+    link.download = 'Maria_Uys_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
   </script></body>
 </html>
