@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.lightbox-trigger').forEach(img => {
     img.addEventListener('click', () => {
       const src = img.getAttribute('data-src') || img.src;
-      openLightboxFromPath(src);
+      openLightboxFromPath(path);
     });
   });
 });
