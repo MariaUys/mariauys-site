@@ -24,8 +24,8 @@ document.addEventListener('click', function(event) {
 document.addEventListener('DOMContentLoaded', () => {
   const cvLink = document.querySelector('.cv-label');
   if (cvLink) {
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      cvLink.textContent = 'Download CV';
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+  const cvLink = document.querySelector('.cv-label');
     } else {
       cvLink.textContent = 'CV';
     }
