@@ -69,6 +69,17 @@ body {
   font-size: 1.2rem;
   display: block;
   font-weight: normal;
+  padding: 0.8rem 1.2rem;
+  background: linear-gradient(to right, #ffd6e0, #e8d6ff);
+  border-radius: 2rem;
+  transition: filter 0.3s ease;
+  max-width: 85%;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.slideout ul li a:hover {
+  filter: brightness(0.95);
 }
 
 .slideout ul li ul {
