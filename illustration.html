@@ -107,20 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tryNextImage(); // Begin loading images
 
-  function openLightbox(index) {
-    currentIndex = index;
-    drawToLightbox(images[index]);
-    lightbox.style.display = 'flex';
-  }
-
-  function closeLightbox() {
-    lightbox.style.display = 'none';
-  }
-
-  function navigate(direction) {
-    currentIndex = (currentIndex + direction + images.length) % images.length;
-    drawToLightbox(images[currentIndex]);
-  }
 
   document.querySelector('.close-btn-lightbox').addEventListener('click', closeLightbox);
   document.querySelector('.nav-left').addEventListener('click', () => navigate(-1));
