@@ -75,21 +75,25 @@ function drawToLightbox(img) {
   let displayWidth, displayHeight;
 
   if (imgRatio > boxRatio) {
-    displayWidth = maxWidth;
-    displayHeight = maxWidth / imgRatio;
+    displayWidth = Math.min(img.naturalWidth, maxWidth);
+    displayHeight = displayWidth / imgRatio;
   } else {
-    displayHeight = maxHeight;
-    displayWidth = maxHeight * imgRatio;
+    displayHeight = Math.min(img.naturalHeight, maxHeight);
+    displayWidth = displayHeight * imgRatio;
   }
 
-  // Set canvas size to full screen for consistent display
-  lightboxCanvas.width = maxWidth;
-  lightboxCanvas.height = maxHeight;
+  // Retina display support
+  const dpr = window.devicePixelRatio || 1;
+  lightboxCanvas.width = displayWidth * dpr;
+  lightboxCanvas.height = displayHeight * dpr;
+  lightboxCanvas.style.width = `${displayWidth}px`;
+  lightboxCanvas.style.height = `${displayHeight}px`;
 
+  // Make drawings scale properly
+  const ctx = lightboxCanvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
-
-  // Draw the image centered
-  const offsetX = (maxWidth - displayWidth) / 2;
-  const offsetY = (maxHeight - displayHeight) / 2;
-  ctx.drawImage(img, offsetX, offsetY, displayWidth, displayHeight);
+  ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
 }
