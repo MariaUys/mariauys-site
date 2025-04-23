@@ -126,20 +126,28 @@
     const thumbCtx = canvas.getContext('2d', { alpha: true });
 
     // High-res canvas
-    const width = 1200;
-    const height = 1200;
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.width = '100%';
-    canvas.style.height = 'auto';
+   img.onload = () => {
+  const aspectRatio = img.width / img.height;
+  const maxWidth = 800; // or adjust this based on your layout
+  const maxHeight = 800;
 
-    const img = new Image();
-    img.src = `portfolio/packaging-design/images/img${i}.jpg`;
-    images.push(img);
+  let displayWidth = maxWidth;
+  let displayHeight = maxWidth / aspectRatio;
 
-    img.onload = () => {
-      thumbCtx.drawImage(img, 0, 0, width, height);
-    };
+  if (displayHeight > maxHeight) {
+    displayHeight = maxHeight;
+    displayWidth = maxHeight * aspectRatio;
+  }
+
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  canvas.style.width = `${displayWidth}px`;
+  canvas.style.height = `${displayHeight}px`;
+
+  thumbCtx.drawImage(img, 0, 0, img.width, img.height);
+};
+
 
     canvas.onclick = () => openLightbox(i - 1);
     gallery.appendChild(canvas);
