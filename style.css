@@ -88,6 +88,10 @@ body {
   display: none;
 }
 
+.slideout ul li ul li {
+  margin-bottom: 1.4rem; /* spacing between sub-items */
+}
+
 .slideout ul li.open ul {
   display: block;
 }
