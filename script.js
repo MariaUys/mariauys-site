@@ -65,15 +65,7 @@ function navigate(direction) {
 }
 
 // Aspect-ratio-preserving lightbox renderer
-function drawToLightbox(img) 
-function openLightboxFromPath(path) {
-  const img = new Image();
-  img.onload = () => {
-    drawToLightbox(img);
-    lightbox.style.display = 'flex';
-  };
-  img.src = path;
-}
+function drawToLightbox(img)
 {
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
@@ -90,7 +82,15 @@ function openLightboxFromPath(path) {
     displayHeight = Math.min(img.naturalHeight, maxHeight);
     displayWidth = displayHeight * imgRatio;
   }
-
+function openLightboxFromPath(path) {
+  const img = new Image();
+  img.onload = () => {
+    drawToLightbox(img);
+    lightbox.style.display = 'flex';
+  };
+  img.src = path;
+}
+  
   // Retina display support
   const dpr = window.devicePixelRatio || 1;
   lightboxCanvas.width = displayWidth * dpr;
