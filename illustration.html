@@ -63,6 +63,9 @@
   let currentIndex = 0;
   const images = [];
 
+  // Auto-count total images
+  const imageCount = 9; // or however many are in your folder
+
   function openLightbox(index) {
     currentIndex = index;
     drawToLightbox(images[index]);
@@ -85,31 +88,29 @@
     ctx.drawImage(img, 0, 0);
   }
 
-  function loadImages() {
-    let index = 1;
-    const basePath = "portfolio/illustration/images"; // change per page if needed
+  for (let i = 1; i <= imageCount; i++) {
+    const canvas = document.createElement('canvas');
+    const thumbCtx = canvas.getContext('2d', { alpha: true });
 
-    function tryLoad() {
-      const img = new Image();
-      img.src = `${basePath}/img${index}.jpg`;
-      img.onload = () => {
-        images.push(img);
-        const canvas = document.createElement('canvas');
-        const thumbCtx = canvas.getContext('2d');
-        canvas.width = 300;
-        canvas.height = 300;
-        thumbCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        canvas.onclick = () => openLightbox(index - 1);
-        gallery.appendChild(canvas);
-        index++;
-        tryLoad(); // try next
-      };
-    }
+    // Higher resolution canvas for better quality
+    const thumbnailWidth = 800;
+    const thumbnailHeight = 800;
+    canvas.width = thumbnailWidth;
+    canvas.height = thumbnailHeight;
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
 
-    tryLoad();
+    const img = new Image();
+    img.src = `portfolio/illustration/images/img${i}.jpg`;
+    images.push(img);
+
+    img.onload = () => {
+      thumbCtx.drawImage(img, 0, 0, thumbnailWidth, thumbnailHeight);
+    };
+
+    canvas.onclick = () => openLightbox(i - 1);
+    gallery.appendChild(canvas);
   }
-
-  loadImages();
 
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox) closeLightbox();
