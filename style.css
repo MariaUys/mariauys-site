@@ -199,3 +199,32 @@ iframe {
   height: 90vh;
   border: none;
 }
+.menu-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #ffe0f0, #f0e0ff);
+  color: #333;
+  border: none;
+  padding: 1rem 1.4rem;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 999px;
+  width: 100%;
+  transition: filter 0.3s ease, background 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.menu-button:hover {
+  filter: brightness(0.95);
+}
+
+.menu-button .arrow {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-button.open .arrow {
+  transform: rotate(180deg);
+}
