@@ -1,11 +1,3 @@
-# Let's prepare the complete and corrected `script.js` content based on the requirements:
-# - Dynamic lightbox
-# - Responsive image sizing with aspect ratio preserved
-# - Support navigation and overlay
-# - Auto-adjusts for CV link on mobile
-# - Menu toggle support
-
-script_js_content = """
 // Global variables
 let lightbox, lightboxCanvas, ctx, currentIndex = 0;
 let images = [];
@@ -14,7 +6,7 @@ let images = [];
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
   lightboxCanvas = document.getElementById('lightboxCanvas');
-  ctx = lightboxCanvas.getContext('2d');
+  if (lightboxCanvas) ctx = lightboxCanvas.getContext('2d');
 
   // Lightbox control
   document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
@@ -74,6 +66,7 @@ function navigate(direction) {
 
 // Aspect-ratio-preserving lightbox renderer
 function drawToLightbox(img) {
+  if (!img) return;
   const maxWidth = window.innerWidth * 0.9;
   const maxHeight = window.innerHeight * 0.8;
 
@@ -93,18 +86,6 @@ function drawToLightbox(img) {
   lightboxCanvas.width = displayWidth;
   lightboxCanvas.height = displayHeight;
 
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
   ctx.clearRect(0, 0, displayWidth, displayHeight);
   ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
 }
-"""
-
-# Save to file so user can download it
-import os
-script_path = "/mnt/data/script.js"
-with open(script_path, "w") as f:
-    f.write(script_js_content)
-
-script_path
-
