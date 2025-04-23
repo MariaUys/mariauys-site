@@ -295,3 +295,37 @@ html, body {
   font-size: 1.1rem;
   color: #444;
 }
+
+.project-grid {
+  padding: 2rem;
+}
+
+.grid-two {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grid-two img {
+  width: 50%;
+  border-radius: 0.5rem;
+}
+
+.grid-full img {
+  width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #555;
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-grid hr {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 2rem 0;
+}
