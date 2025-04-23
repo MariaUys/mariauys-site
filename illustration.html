@@ -110,36 +110,45 @@
   let currentIndex = 0;
   const images = [];
 
-  // Auto-detect image count
+  const tryExtensions = ['jpg', 'jpeg', 'png', 'gif'];
   let i = 1;
-  function loadNextImage() {
+
+  function tryNextExtension(index = 0) {
+    if (index >= tryExtensions.length) {
+      console.log(`No more formats found for img${i}`);
+      return; // Stop if no valid extension
+    }
+
+    const ext = tryExtensions[index];
     const img = new Image();
-    img.src = `portfolio/illustration/images/img${i}.jpg`;
+    img.src = `portfolio/illustration/images/img${i}.${ext}`;
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      const thumbCtx = canvas.getContext('2d', { alpha: true });
+      const thumbCtx = canvas.getContext('2d');
 
-      // Set canvas to image natural dimensions
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
       canvas.style.width = '100%';
       canvas.style.height = 'auto';
 
       thumbCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
       canvas.onclick = () => openLightbox(images.length);
       gallery.appendChild(canvas);
       images.push(img);
 
       i++;
-      loadNextImage(); // Load next
+      tryNextImage(); // Load next
     };
     img.onerror = () => {
-      console.log(`Loaded ${images.length} images`);
+      tryNextExtension(index + 1); // Try next extension
     };
   }
 
-  loadNextImage();
+  function tryNextImage() {
+    tryNextExtension();
+  }
+
+  tryNextImage(); // Start loading
 
   function openLightbox(index) {
     currentIndex = index;
