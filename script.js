@@ -33,32 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function drawToLightbox(img) {
   const canvasWidth = window.innerWidth;
-  const canvasHeight = window.innerHeight;
+  const function drawToLightbox(img) {
+  const maxWidth = window.innerWidth * 0.9;
+  const maxHeight = window.innerHeight * 0.8;
 
-  lightboxCanvas.width = canvasWidth;
-  lightboxCanvas.height = canvasHeight;
+  const ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight);
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  const displayWidth = img.naturalWidth * ratio;
+  const displayHeight = img.naturalHeight * ratio;
 
-  const imgRatio = img.naturalWidth / img.naturalHeight;
-  const maxW = canvasWidth * 0.9;
-  const maxH = canvasHeight * 0.9;
+  lightboxCanvas.width = displayWidth;
+  lightboxCanvas.height = displayHeight;
 
-  let drawW = img.naturalWidth;
-  let drawH = img.naturalHeight;
-
-  if (drawW > maxW || drawH > maxH) {
-    if (imgRatio > maxW / maxH) {
-      drawW = maxW;
-      drawH = drawW / imgRatio;
-    } else {
-      drawH = maxH;
-      drawW = drawH * imgRatio;
-    }
-  }
-
-  const offsetX = (canvasWidth - drawW) / 2;
-  const offsetY = (canvasHeight - drawH) / 2;
-
-  ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+  ctx.clearRect(0, 0, displayWidth, displayHeight);
+  ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
 }
+
