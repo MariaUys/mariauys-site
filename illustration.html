@@ -47,48 +47,37 @@
     <div class="nav-btn nav-right">›</div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const gallery = document.getElementById('gallery');
-      const tryExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-      let imgIndex = 1;
-
-      function tryNextExtension(extIndex = 0) {
-        if (extIndex >= tryExtensions.length) return;
-
-        const ext = tryExtensions[extIndex];
-        const img = new Image();
-        img.src = `portfolio/illustration/images/img${imgIndex}.${ext}`;
-
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-          const thisIndex = images.length;
-          canvas.addEventListener('click', () => openLightbox(thisIndex));
-
-          gallery.appendChild(canvas);
-          images.push(img);
-          imgIndex++;
-          tryNextImage();
-        };
-
-        img.onerror = () => tryNextExtension(extIndex + 1);
-      }
-
-      function tryNextImage() {
-        tryNextExtension();
-      }
-
-      tryNextImage();
-    });
-  </script>
   <script src="script.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const tryExt = ['jpg','jpeg','png','gif'],
+        gallery = document.getElementById('gallery');
+  let idx=1;
+
+  function loadNext() {
+    let e=0, img=new Image();
+    (function tryOne(){
+      if(e>=tryExt.length) return;
+      img.src = `portfolio/illustration/images/img${idx}.${tryExt[e]}`;
+      img.onload = ()=>{
+        const c=document.createElement('canvas'),
+              ctx=c.getContext('2d');
+        c.width=img.naturalWidth; c.height=img.naturalHeight;
+        c.style.width='100%'; c.style.height='auto';
+        ctx.drawImage(img,0,0);
+        const thisI=images.length;
+        c.onclick = ()=> openLightbox(thisI);
+        gallery.appendChild(c);
+        images.push(img);
+        idx++; loadNext();
+      };
+      img.onerror = ()=>{ e++; tryOne(); };
+    })();
+  }
+  loadNext();
+});
+</script>
+
 </body>
 </html>
 
