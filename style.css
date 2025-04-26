@@ -395,3 +395,70 @@ body.packaging .gallery hr {
   background: rgba(0,0,0,0.9) !important;
 }
 
+/* --- Stylist page grids --- */
+.project-grid {
+  padding: 2rem 0;
+}
+
+.project-item {
+  margin-bottom: 2rem;
+}
+
+.project-item hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 2rem 0;
+}
+
+/* Centered, bold captions */
+.project-text {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+/* Utility grid classes */
+.grid-full img {
+  width: 100%;
+  display: block;
+  border-radius: 0.5rem;
+}
+
+.grid-two {
+  display: flex;
+  gap: 1rem;
+}
+
+.grid-two img {
+  width: 50%;
+  border-radius: 0.5rem;
+}
+
+.grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.grid-three img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.grid-four {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.grid-four img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .grid-two { display: grid; grid-template-columns: 1fr 1fr; }
+  .grid-three { grid-template-columns: repeat(2, 1fr); }
+  .grid-four { grid-template-columns: repeat(2, 1fr); }
+}
