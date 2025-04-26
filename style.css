@@ -357,3 +357,41 @@ body.brand-identity {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+/* ---------- Global gallery defaults ---------- */
+.gallery {
+  gap: 1rem;
+  padding: 2rem;
+}
+@media (max-width: 768px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Illustration: 3-column desktop */
+body.illustration .gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Textile: single-column list */
+body.textile .gallery {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Packaging: single-column with separators */
+body.packaging .gallery {
+  display: flex;
+  flex-direction: column;
+}
+body.packaging .gallery hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 2rem 0;
+}
+
+/* Lightbox background always dark */
+#lightbox {
+  background: rgba(0,0,0,0.9) !important;
+}
+
