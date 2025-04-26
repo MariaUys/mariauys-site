@@ -42,6 +42,38 @@
     <canvas id="lightboxCanvas"></canvas>
     <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
   </div>  
+  
   <script src="script.js"></script>
+  
+  <script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const tryExt = ['jpg','jpeg','png','gif'],
+        gallery = document.getElementById('gallery');
+  let idx=1;
+
+  function loadNext() {
+    let e=0, img=new Image();
+    (function tryOne(){
+      if(e>=tryExt.length) return;
+      img.src = `portfolio/textile-design/images/img${idx}.jpg;
+      img.onload = ()=>{
+        const c=document.createElement('canvas'),
+              ctx=c.getContext('2d');
+        c.width=img.naturalWidth; c.height=img.naturalHeight;
+        c.style.width='100%'; c.style.height='auto';
+        ctx.drawImage(img,0,0);
+        const thisI=images.length;
+        c.onclick = ()=> openLightbox(thisI);
+        gallery.appendChild(c);
+        images.push(img);
+        idx++; loadNext();
+      };
+      img.onerror = ()=>{ e++; tryOne(); };
+    })();
+  }
+  loadNext();
+});
+</script>
+
 </body>
     </html>
