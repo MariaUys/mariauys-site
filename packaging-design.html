@@ -48,47 +48,36 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const gallery = document.getElementById('gallery');
-      let i = 1;
+document.addEventListener('DOMContentLoaded', ()=>{
+  const tryExt = ['jpg','jpeg','png','gif'],
+        gallery = document.getElementById('gallery');
+  let idx=1;
 
-      function tryLoadNext() {
-        const img = new Image();
-        img.src = `portfolio/packaging-design/images/img${i}.jpg`;
+  function loadNext() {
+    let e=0, img=new Image();
+    (function tryOne(){
+      if(e>=tryExt.length) return;
+      img.src = `portfolio/packaging-design/images/img${idx}.${tryExt[e]}`;
+      img.onload = ()=>{
+        const c=document.createElement('canvas'),
+              ctx=c.getContext('2d');
+        c.width=img.naturalWidth; c.height=img.naturalHeight;
+        c.style.width='100%'; c.style.height='auto';
+        ctx.drawImage(img,0,0);
+        const thisI=images.length;
+        c.onclick = ()=> openLightbox(thisI);
+        gallery.appendChild(c);
+        images.push(img);
+        idx++; loadNext();
+      };
+      img.onerror = ()=>{ e++; tryOne(); };
+    })();
+  }
+  loadNext();
+});
+</script>
 
-        img.onload = () => {
-          images.push(img);
-
-          const canvas = document.createElement('canvas');
-          const thumbCtx = canvas.getContext('2d');
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
-
-          thumbCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-          canvas.onclick = () => openLightbox(images.length - 1);
-          gallery.appendChild(canvas);
-
-          // Check if the next image exists to decide whether to add a separator
-          const testNext = new Image();
-          testNext.src = `portfolio/packaging-design/images/img${i + 1}.jpg`;
-          testNext.onload = () => {
-            const hr = document.createElement('hr');
-            gallery.appendChild(hr);
-            i++;
-            tryLoadNext();
-          };
-        };
-
-        img.onerror = () => {
-          console.log(`Stopped loading at img${i}.jpg`);
-        };
-      }
-
-      tryLoadNext();
-    });
-  </script>
   <script src="script.js"></script>
+  
 </body>
 </html>
