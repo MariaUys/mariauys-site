@@ -540,3 +540,9 @@ body.stylist .grid-four img {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.project-text {
+  white-space: pre-line;
+  text-align: center;
+  font-weight: bold;
+}
