@@ -1,102 +1,71 @@
-// Global variables
-let lightbox, lightboxCanvas, ctx, currentIndex = 0;
-let images = [];
+// 1) Shared globals
+let lightbox, lightboxCanvas, ctx, currentIndex = 0, images = [];
 
-// Initialize after DOM loads
+// 2) On DOM ready:
 document.addEventListener('DOMContentLoaded', () => {
+  // Cache elements
   lightbox = document.getElementById('lightbox');
   lightboxCanvas = document.getElementById('lightboxCanvas');
-  if (lightboxCanvas) ctx = lightboxCanvas.getContext('2d');
+  ctx = lightboxCanvas.getContext('2d');
 
-  // Lightbox control
+  // Lightbox controls
   document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
   document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
   document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
-  lightbox?.addEventListener('click', e => {
-    if (e.target === lightbox) closeLightbox();
-  });
+  lightbox?.addEventListener('click', e => { if (e.target===lightbox) closeLightbox(); });
 
   // Mobile CV label
   const cvLink = document.querySelector('.cv-label');
-  if (cvLink) {
-    cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
-  }
+  if (cvLink) cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
 });
 
-// Hamburger menu toggle
+// 3) Menu toggle & dropdown
 function toggleMenu(e) {
-  const menu = document.getElementById("mobileMenu");
-  const overlay = document.getElementById("overlay");
-  if (e && e.target.closest('.portfolio-sub')) return;
-  menu.classList.toggle("open");
-  overlay.style.display = menu.classList.contains("open") ? "block" : "none";
+  const menu = document.getElementById('mobileMenu'),
+        overlay = document.getElementById('overlay');
+  if (e?.target.closest('.portfolio-sub')) return;
+  menu.classList.toggle('open');
+  overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
 }
+function toggleDropdown(el){ el.classList.toggle('open'); }
 
-// Dropdown toggle
-function toggleDropdown(element) {
-  element.classList.toggle("open");
-}
-
-// Close menu on outside click
-document.addEventListener('click', function(event) {
-  const menu = document.getElementById("mobileMenu");
-  const overlay = document.getElementById("overlay");
-  const hamburger = document.querySelector('.hamburger');
-  if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-    menu.classList.remove("open");
-    overlay.style.display = "none";
+document.addEventListener('click', e=>{
+  const menu = document.getElementById('mobileMenu'),
+        overlay = document.getElementById('overlay'),
+        ham = document.querySelector('.hamburger');
+  if (!menu.contains(e.target) && !ham.contains(e.target)) {
+    menu.classList.remove('open');
+    overlay.style.display='none';
   }
 });
 
-// Lightbox navigation
-function openLightbox(index) {
-  currentIndex = index;
-  drawToLightbox(images[index]);
-  lightbox.style.display = 'flex';
+// 4) Lightbox functions
+function openLightbox(i) {
+  currentIndex = i;
+  drawToLightbox(images[i]);
+  lightbox.style.display='flex';
 }
+function closeLightbox(){ lightbox.style.display='none'; }
+function navigate(dir){ openLightbox((currentIndex+dir+images.length)%images.length); }
 
-function closeLightbox() {
-  lightbox.style.display = 'none';
-}
+// 5) Draw with correct aspect ratio & retina support
+function drawToLightbox(img) {
+  const maxW = window.innerWidth * .9,
+        maxH = window.innerHeight * .8,
+        ratio = Math.min(maxW/img.naturalWidth, maxH/img.naturalHeight),
+        dispW = img.naturalWidth*ratio,
+        dispH = img.naturalHeight*ratio,
+        dpr = window.devicePixelRatio || 1;
 
-function navigate(direction) {
-  currentIndex = (currentIndex + direction + images.length) % images.length;
-  drawToLightbox(images[currentIndex]);
-}
+  lightboxCanvas.width  = dispW*dpr;
+  lightboxCanvas.height = dispH*dpr;
+  lightboxCanvas.style.width  = dispW+'px';
+  lightboxCanvas.style.height = dispH+'px';
 
-// Aspect-ratio-preserving lightbox renderer
-function drawToLightbox(img)
-{
-  const maxWidth = window.innerWidth * 0.9;
-  const maxHeight = window.innerHeight * 0.8;
-
-  const imgRatio = img.naturalWidth / img.naturalHeight;
-  const boxRatio = maxWidth / maxHeight;
-
-  let displayWidth, displayHeight;
-
-  if (imgRatio > boxRatio) {
-    displayWidth = Math.min(img.naturalWidth, maxWidth);
-    displayHeight = displayWidth / imgRatio;
-  } else {
-    displayHeight = Math.min(img.naturalHeight, maxHeight);
-    displayWidth = displayHeight * imgRatio;
-  }
-
-  // Retina display support
-  const dpr = window.devicePixelRatio || 1;
-  lightboxCanvas.width = displayWidth * dpr;
-  lightboxCanvas.height = displayHeight * dpr;
-  lightboxCanvas.style.width = `${displayWidth}px`;
-  lightboxCanvas.style.height = `${displayHeight}px`;
-
-  // Make drawings scale properly
-  const ctx = lightboxCanvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  ctx.imageSmoothingEnabled = false;
-  ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
-  ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.imageSmoothingEnabled = true;
+  ctx.clearRect(0,0,dispW,dispH);
+  ctx.drawImage(img,0,0,dispW,dispH);
 }
 
 function openLightboxFromPath(path) {
