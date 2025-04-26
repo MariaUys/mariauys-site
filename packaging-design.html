@@ -6,44 +6,6 @@
   <title>Packaging Design</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .gallery canvas {
-      width: 100%;
-      height: auto;
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      cursor: pointer;
-    }
-
-    .gallery hr {
-      border: none;
-      border-top: 2px solid #ddd;
-      margin: 2rem 0;
-    }
-
-    @media screen and (max-width: 768px) {
-      .gallery {
-        gap: 1.5rem;
-        padding: 1.5rem;
-      }
-
-      .gallery canvas {
-        border-radius: 0.8rem;
-      }
-
-      .gallery hr {
-        margin: 1.5rem 0;
-      }
-    }
-  </style>
 </head>
 <body class="packaging" oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
