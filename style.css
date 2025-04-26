@@ -462,3 +462,81 @@ body.packaging .gallery hr {
   .grid-three { grid-template-columns: repeat(2, 1fr); }
   .grid-four { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ======================================
+   Stylist page overrides
+   ====================================== */
+
+body.stylist .project-grid {
+  padding: 2rem 0;
+}
+
+body.stylist .project-item {
+  margin-bottom: 2rem;
+}
+
+body.stylist .project-item hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 2rem 0;
+}
+
+/* Centered, bold captions */
+body.stylist .project-text {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+/* Full-width project hero image */
+body.stylist .grid-full img {
+  width: 100%;
+  display: block;
+  border-radius: 0.5rem;
+}
+
+/* Two-up row */
+body.stylist .grid-two {
+  display: flex;
+  gap: 1rem;
+}
+body.stylist .grid-two img {
+  width: 50%;
+  border-radius: 0.5rem;
+}
+
+/* Three-up row */
+body.stylist .grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+body.stylist .grid-three img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* Four-up row */
+body.stylist .grid-four {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+body.stylist .grid-four img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+  body.stylist .grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  body.stylist .grid-three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  body.stylist .grid-four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
