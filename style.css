@@ -546,3 +546,35 @@ body.stylist .grid-four img {
   text-align: center;
   font-weight: bold;
 }
+
+/* ===== Graphic Design Page ===== */
+body.graphic-design .gif-container {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+body.graphic-design .gif-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* For your rows of 2 / 3 images: */
+body.graphic-design .gallery-row {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+body.graphic-design .gallery-row.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+body.graphic-design .gallery-row.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+body.graphic-design .gallery-row img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
