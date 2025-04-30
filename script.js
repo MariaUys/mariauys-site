@@ -99,3 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// === Graphic Design gallery builder ===
+if (document.body.classList.contains('graphic-design')) {
+  const galleryRoot = document.getElementById('gallery');
+  const layout = [2,3,3,2,3];        // number of columns each row
+  let imgIndex = 1;
+
+  layout.forEach(cols => {
+    // Create a row container
+    const row = document.createElement('div');
+    row.className = `gallery-row cols-${cols}`;
+
+    // Append 'cols' images
+    for (let i = 0; i < cols; i++, imgIndex++) {
+      const img = new Image();
+      img.src = `portfolio/graphic-design/images/img${imgIndex}.jpg`;
+      img.alt = `Graphic Design ${imgIndex}`;
+      img.addEventListener('click', () => openLightbox(imgIndex - 1));
+      images.push(img);
+      row.appendChild(img);
+    }
+
+    galleryRoot.appendChild(row);
+  });
+}
