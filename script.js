@@ -3,71 +3,63 @@ let lightbox, lightboxCanvas, ctx, currentIndex = 0, images = [];
 
 // 2) On DOM ready:
 document.addEventListener('DOMContentLoaded', () => {
-  // Cache elements
-  lightbox = document.getElementById('lightbox');
-  lightboxCanvas = document.getElementById('lightboxCanvas');
-  ctx = lightboxCanvas.getContext('2d');
+  lightbox        = document.getElementById('lightbox');
+  lightboxCanvas  = document.getElementById('lightboxCanvas');
+  ctx             = lightboxCanvas.getContext('2d');
 
   // Lightbox controls
-  document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
-  document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
-  document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
-  lightbox?.addEventListener('click', e => { if (e.target===lightbox) closeLightbox(); });
+  document.querySelector('.close-btn-lightbox')
+          ?.addEventListener('click', closeLightbox);
+  document.querySelector('.nav-left')
+          ?.addEventListener('click', () => navigate(-1));
+  document.querySelector('.nav-right')
+          ?.addEventListener('click', () => navigate(1));
+  lightbox?.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
 
-  // Mobile CV label
+  // CV label toggle
   const cvLink = document.querySelector('.cv-label');
-  if (cvLink) cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
+  if (cvLink) {
+    cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent)
+                         ? 'Download CV'
+                         : 'CV';
+  }
+
+  // Wire up static lightbox triggers
+  document.querySelectorAll('.lightbox-trigger').forEach(el => {
+    el.addEventListener('click', () => {
+      const src = el.getAttribute('data-src') || el.src;
+      openLightboxFromPath(src);
+    });
+  });
 });
 
-// 3) Menu toggle & dropdown
+// 3) Menu toggles
 function toggleMenu(e) {
-  const menu = document.getElementById('mobileMenu'),
+  const menu    = document.getElementById('mobileMenu'),
         overlay = document.getElementById('overlay');
   if (e?.target.closest('.portfolio-sub')) return;
   menu.classList.toggle('open');
   overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
 }
-function toggleDropdown(el){ el.classList.toggle('open'); }
-
-document.addEventListener('click', e=>{
-  const menu = document.getElementById('mobileMenu'),
+function toggleDropdown(el) {
+  el.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const menu    = document.getElementById('mobileMenu'),
         overlay = document.getElementById('overlay'),
-        ham = document.querySelector('.hamburger');
+        ham     = document.querySelector('.hamburger');
   if (!menu.contains(e.target) && !ham.contains(e.target)) {
     menu.classList.remove('open');
-    overlay.style.display='none';
+    overlay.style.display = 'none';
   }
 });
 
-// 4) Lightbox functions
-function openLightbox(i) {
-  currentIndex = i;
-  drawToLightbox(images[i]);
-  lightbox.style.display='flex';
+// 4) Lightbox core
+function openLightboxPath(indexOrPath) {
+  // not used here
 }
-function closeLightbox(){ lightbox.style.display='none'; }
-function navigate(dir){ openLightbox((currentIndex+dir+images.length)%images.length); }
-
-// 5) Draw with correct aspect ratio & retina support
-function drawToLightbox(img) {
-  const maxW = window.innerWidth * .9,
-        maxH = window.innerHeight * .8,
-        ratio = Math.min(maxW/img.naturalWidth, maxH/img.naturalHeight),
-        dispW = img.naturalWidth*ratio,
-        dispH = img.naturalHeight*ratio,
-        dpr = window.devicePixelRatio || 1;
-
-  lightboxCanvas.width  = dispW*dpr;
-  lightboxCanvas.height = dispH*dpr;
-  lightboxCanvas.style.width  = dispW+'px';
-  lightboxCanvas.style.height = dispH+'px';
-
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.imageSmoothingEnabled = true;
-  ctx.clearRect(0,0,dispW,dispH);
-  ctx.drawImage(img,0,0,dispW,dispH);
-}
-
 function openLightboxFromPath(path) {
   const img = new Image();
   img.onload = () => {
@@ -76,50 +68,29 @@ function openLightboxFromPath(path) {
   };
   img.src = path;
 }
+function closeLightbox() {
+  lightbox.style.display = 'none';
+}
+function navigate(direction) {
+  // unused in static-path mode
+}
 
-// Hover swap for Afrigarde grid
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.afri-item img').forEach(img => {
-    const original = img.src;
-    const hover = img.getAttribute('data-hover');
-    if (hover) {
-      img.addEventListener('mouseenter', () => img.src = hover);
-      img.addEventListener('mouseleave', () => img.src = original);
-    }
-  });
-});
+// 5) Preserve aspect ratio & retina
+function drawToLightbox(img) {
+  const maxW   = window.innerWidth * 0.9,
+        maxH   = window.innerHeight * 0.8,
+        ratio  = Math.min(maxW/img.naturalWidth, maxH/img.naturalHeight),
+        dispW  = img.naturalWidth * ratio,
+        dispH  = img.naturalHeight * ratio,
+        dpr    = window.devicePixelRatio || 1;
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Lightbox trigger for static img tags
-  document.querySelectorAll('.lightbox-trigger').forEach(img => {
-    img.addEventListener('click', () => {
-      const src = img.getAttribute('data-src') || img.src;
-      openLightboxFromPath(path);
-    });
-  });
-});
+  lightboxCanvas.width  = dispW * dpr;
+  lightboxCanvas.height = dispH * dpr;
+  lightboxCanvas.style.width  = dispW + 'px';
+  lightboxCanvas.style.height = dispH + 'px';
 
-// === Graphic Design gallery builder ===
-if (document.body.classList.contains('graphic-design')) {
-  const galleryRoot = document.getElementById('gallery');
-  const layout = [2,3,3,2,3];        // number of columns each row
-  let imgIndex = 1;
-
-  layout.forEach(cols => {
-    // Create a row container
-    const row = document.createElement('div');
-    row.className = `gallery-row cols-${cols}`;
-
-    // Append 'cols' images
-    for (let i = 0; i < cols; i++, imgIndex++) {
-      const img = new Image();
-      img.src = `portfolio/graphic-design/images/img${imgIndex}.jpg`;
-      img.alt = `Graphic Design ${imgIndex}`;
-      img.addEventListener('click', () => openLightbox(imgIndex - 1));
-      images.push(img);
-      row.appendChild(img);
-    }
-
-    galleryRoot.appendChild(row);
-  });
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = true;
+  ctx.clearRect(0, 0, dispW, dispH);
+  ctx.drawImage(img, 0, 0, dispW, dispH);
 }
