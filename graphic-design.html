@@ -1,41 +1,61 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Graphic Design</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-specific */
+    .hero-gif {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+    .gallery-two,
+    .gallery-three {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .gallery-two { grid-template-columns: repeat(2, 1fr); }
+    .gallery-three { grid-template-columns: repeat(3, 1fr); }
+    .gallery img.lightbox-trigger {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
-  
-<body>
+<body oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="hamburger" onclick="toggleMenu(event)">☰</div>
     <div class="logo"><a href="index.html">MU</a></div>
-  </div>  
+  </div>
   <nav id="mobileMenu" class="slideout">
-  <div class="close-btn" onclick="toggleMenu()">×</div>
-  <ul>
-    <li><a href="../index.html" class="menu-button">About</a></li>
-    <li class="portfolio-toggle" onclick="toggleDropdown(this)">
-      <a href="#" class="menu-button">Portfolio <span class="arrow">&#9662;</span></a>
-      <ul class="portfolio-sub">
-        <li><a href="brand-identity.html">&bull; Brand Identity and Logos</a></li>
-        <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
-        <li><a href="illustration.html">&bull; Illustration</a></li>
-        <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
-        <li><a href="stylist.html">&bull; Stylist</a></li>
-        <li><a href="textile-design.html">&bull; Textile Design</a></li>
-      </ul>
-    </li>
-    <li><a href="afrigarde.html" class="menu-button">Afrigarde</a></li>
-    <li><a href="cv.html" class="cv-label"></a></li>
-    <li><a href="art.html" class="menu-button">Art</a></li>
-  </ul>
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="index.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">▾</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">• Brand Identity</a></li>
+          <li><a href="graphic-design.html">• Graphic Design</a></li>
+          <li><a href="illustration.html">• Illustration</a></li>
+          <li>…</li>
+        </ul>
+      </li>
+      <li><a href="cv.html" class="cv-label"></a></li>
+    </ul>
   </nav>
-  <main>
-    <h1>Graphic Design</h1>
-    <p>Coming soon: a curated gallery of Graphic Design work by Maria Uys.</p>
-  </main> <script src="script.js" defer></script>
-</body>
-</html>
