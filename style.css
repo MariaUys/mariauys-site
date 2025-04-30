@@ -547,34 +547,26 @@ body.stylist .grid-four img {
   font-weight: bold;
 }
 
-/* ===== Graphic Design Page ===== */
-body.graphic-design .gif-container {
-  width: 100%;
-  overflow: hidden;
-  margin-bottom: 2rem;
+/* ————————————— Graphic Design Page ————————————— */
+body.graphic-design .graphic-gif img {
+  width: 100%; height: auto; display: block; margin-bottom: 2rem;
 }
-body.graphic-design .gif-container img {
-  display: block;
-  width: 100%;
-  height: auto;
+body.graphic-design .graphic-title {
+  text-align: center; font-weight: 600; margin: 1rem 0 2rem; font-size: 1.4rem;
 }
-
-/* For your rows of 2 / 3 images: */
-body.graphic-design .gallery-row {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
+body.graphic-design .graphic-gallery {
+  display: grid; gap: 1rem; padding: 0 2rem 2rem;
 }
-body.graphic-design .gallery-row.cols-2 {
+body.graphic-design .graphic-gallery.two-up {
   grid-template-columns: repeat(2, 1fr);
 }
-body.graphic-design .gallery-row.cols-3 {
+body.graphic-design .graphic-gallery.three-up {
   grid-template-columns: repeat(3, 1fr);
 }
-body.graphic-design .gallery-row img {
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-  border-radius: 0.5rem;
+body.graphic-design .graphic-gallery img {
+  width: 100%; height: auto; cursor: pointer; border-radius: 0.5rem;
 }
-
+/* ensure the <hr> between rows spans edge-to-edge */
+body.graphic-design hr {
+  border: none; border-top: 2px solid #ddd; margin: 2rem 0;
+}
