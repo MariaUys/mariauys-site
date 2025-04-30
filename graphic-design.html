@@ -6,44 +6,11 @@
   <title>Graphic Design | Maria Uys</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* page-specific */
-    .graphic-gif img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 2rem;
-    }
-    .graphic-title {
-      text-align: center;
-      font-weight: 600;
-      margin: 1rem 0 2rem;
-      font-size: 1.4rem;
-    }
-    .graphic-gallery {
-      display: grid;
-      gap: 1rem;
-      padding: 0 2rem 2rem;
-    }
-    /* 2-up row */
-    .graphic-gallery.two-up {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    /* 3-up row */
-    .graphic-gallery.three-up {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    /* ensure images fill their grid cell */
-    .graphic-gallery img {
-      width: 100%;
-      height: auto;
-      cursor: pointer;
-      border-radius: 0.5rem;
-    }
-  </style>
 </head>
-<body oncontextmenu="return false;">
-  <!-- global topbar/nav -->
+
+<!-- add the page-specific body class -->
+<body class="graphic-design" oncontextmenu="return false;">
+  <!-- global overlay + topbar/nav -->
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
@@ -71,78 +38,78 @@
   </nav>
 
   <main>
-    <!-- 1. looping GIF -->
+    <!-- 1) looping GIF -->
     <div class="graphic-gif">
       <img src="portfolio/graphic-design/img1.gif" alt="Graphic design animation">
     </div>
 
-    <!-- 2. centered bold title/desc -->
+    <!-- 2) centered bold title/description -->
     <div class="graphic-title">
       <h1>Graphic Design</h1>
       <p>Logo Design.</p>
     </div>
 
-    <!-- 3. 2-up row -->
+    <!-- 3) 2-up row -->
     <section class="graphic-gallery two-up">
       <img src="portfolio/graphic-design/images/img2.jpg"
            alt="Design 1"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img2.jpg')">
+           data-src="portfolio/graphic-design/images/img2.jpg">
       <img src="portfolio/graphic-design/images/img3.jpg"
            alt="Design 2"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img3.jpg')">
+           data-src="portfolio/graphic-design/images/img3.jpg">
     </section>
     <hr>
 
-    <!-- 4. 3-up row -->
+    <!-- 4) 3-up row -->
     <section class="graphic-gallery three-up">
       <img src="portfolio/graphic-design/images/img4.jpg"
            alt="Design 3"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img4.jpg')">
+           data-src="portfolio/graphic-design/images/img4.jpg">
       <img src="portfolio/graphic-design/images/img5.jpg"
            alt="Design 4"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img5.jpg')">
+           data-src="portfolio/graphic-design/images/img5.jpg">
       <img src="portfolio/graphic-design/images/img6.jpg"
            alt="Design 5"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img6.jpg')">
+           data-src="portfolio/graphic-design/images/img6.jpg">
     </section>
     <hr>
 
-    <!-- 5. another 3-up row -->
+    <!-- 5) another 3-up row -->
     <section class="graphic-gallery three-up">
       <img src="portfolio/graphic-design/images/img7.jpg"
            alt="Design 6"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img7.jpg')">
+           data-src="portfolio/graphic-design/images/img7.jpg">
       <img src="portfolio/graphic-design/images/img8.jpg"
            alt="Design 7"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img8.jpg')">
+           data-src="portfolio/graphic-design/images/img8.jpg">
       <img src="portfolio/graphic-design/images/img9.jpg"
            alt="Design 8"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img9.jpg')">
+           data-src="portfolio/graphic-design/images/img9.jpg">
     </section>
     <hr>
 
-    <!-- 6. final 2-up row -->
+    <!-- 6) final 2-up row -->
     <section class="graphic-gallery two-up">
       <img src="portfolio/graphic-design/images/img10.jpg"
            alt="Design 9"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img10.jpg')">
+           data-src="portfolio/graphic-design/images/img10.jpg">
       <img src="portfolio/graphic-design/images/img11.jpg"
            alt="Design 10"
            class="lightbox-trigger"
-           onclick="openLightboxFromPath('portfolio/graphic-design/images/img11.jpg')">
+           data-src="portfolio/graphic-design/images/img11.jpg">
     </section>
   </main>
 
-  <!-- global lightbox container (already wired in script.js) -->
+  <!-- shared lightbox container -->
   <div id="lightbox">
     <div class="close-btn-lightbox">×</div>
     <div class="nav-btn nav-left">‹</div>
@@ -153,4 +120,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
