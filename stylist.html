@@ -1,154 +1,170 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stylist</title>
+  <title>Stylist | Maria Uys</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
 </head>
-  
-<body class="stylist" oncontextmenu="return false">
-  <div id="overlay" onclick="toggleMenu(event)"></div><div class="topbar">
-  <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
-  <div class="logo"><a href="index.html">MU</a></div>
-</div><nav id="mobileMenu" class="slideout">
-  <div class="close-btn" onclick="toggleMenu()">×</div>
-  <ul>
-    <li><a href="about.html">About</a></li>
-    <li class="portfolio-toggle" onclick="toggleDropdown(this)">
-      <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
-      <ul class="portfolio-sub">
-        <li><a href="brand-identity.html">&bull; Brand Identity and Logos</a></li>
-        <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
-        <li><a href="illustration.html">&bull; Illustration</a></li>
-        <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
-        <li><a href="stylist.html">&bull; Stylist</a></li>
-        <li><a href="textile-design.html">&bull; Textile Design</a></li>
-      </ul>
-    </li>
-    <li><a href="afrigarde.html">Afrigarde</a></li>
-   <li><a href="cv.html" class="cv-label"></a></li>
-    <li><a href="art.html">Art</a></li>
-  </ul>
-</nav>
-  
- <main>
-  <h1>Stylist</h1>
-  <section class="project-grid">
+<body class="stylist" oncontextmenu="return false;">
+  <!-- Overlay + Topbar/Nav -->
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="index.html">MU</a></div>
+  </div>
+  <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">&bull; Brand Identity</a></li>
+          <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
+          <li><a href="illustration.html">&bull; Illustration</a></li>
+          <li><a href="packaging-design.html">&bull; Packaging</a></li>
+          <li><a href="stylist.html">&bull; Stylist</a></li>
+          <li><a href="textile-design.html">&bull; Textile</a></li>
+        </ul>
+      </li>
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+      <li><a href="cv.html" class="cv-label"></a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
 
-    <!-- Project 1: 1 image, text, then 2 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img1.jpg" alt="">
-      </div>
-      <p class="project-text">Grethe Rosseau for Afrigarde
-Stylist: Maria Uys
-MUA: Gareth Coleman</p>
-      <div class="grid-two">
-        <img src="portfolio/stylist/images/img2.jpg" alt="">
-        <img src="portfolio/stylist/images/img3.jpg" alt="">
-      </div>
-    </div>
-    <hr>
+  <main>
+    <h1>Stylist</h1>
+    <section class="project-grid">
 
-    <!-- Project 2: 1 image, text, then 2 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img4.jpg" alt="">
+      <!-- Project 1 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img1.jpg" alt="Project 1">
+        </div>
+        <p class="project-text">
+          Grethe Rosseau for Afrigarde<br>
+          Stylist: Maria Uys<br>
+          MUA: Gareth Coleman
+        </p>
+        <div class="grid-two">
+          <img src="portfolio/stylist/images/img2.jpg" alt="Project 1 – Detail 1">
+          <img src="portfolio/stylist/images/img3.jpg" alt="Project 1 – Detail 2">
+        </div>
       </div>
-      <p class="project-text">Grethe Rosseau for Afrigarde
-Stylist: Del Lombard
-MUA: Cecilia Fourie</p>
-      <div class="grid-two">
-        <img src="portfolio/stylist/images/img5.jpg" alt="">
-        <img src="portfolio/stylist/images/img6.jpg" alt="">
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- Project 3: 1 image, text, then 3 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img7.jpg" alt="">
+      <!-- Project 2 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img4.jpg" alt="Project 2">
+        </div>
+        <p class="project-text">
+          Grethe Rosseau for Afrigarde<br>
+          Stylist: Del Lombard<br>
+          MUA: Cecilia Fourie
+        </p>
+        <div class="grid-two">
+          <img src="portfolio/stylist/images/img5.jpg" alt="Project 2 – Detail 1">
+          <img src="portfolio/stylist/images/img6.jpg" alt="Project 2 – Detail 2">
+        </div>
       </div>
-      <p class="project-text">Jurgen Hoffman for Sketchers
-Stylist: Maria Uys
-MUA: Eric Schmidt-Mohan</p>
-      <div class="grid-three">
-        <img src="portfolio/stylist/images/img8.jpg" alt="">
-        <img src="portfolio/stylist/images/img9.jpg" alt="">
-        <img src="portfolio/stylist/images/img10.jpg" alt="">
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- Project 4: 1 image, text, then 2 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img11.jpg" alt="">
+      <!-- Project 3 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img7.jpg" alt="Project 3">
+        </div>
+        <p class="project-text">
+          Jurgen Hoffman for Sketchers<br>
+          Stylist: Maria Uys<br>
+          MUA: Eric Schmidt-Mohan
+        </p>
+        <div class="grid-three">
+          <img src="portfolio/stylist/images/img8.jpg" alt="Project 3 – 1">
+          <img src="portfolio/stylist/images/img9.jpg" alt="Project 3 – 2">
+          <img src="portfolio/stylist/images/img10.jpg" alt="Project 3 – 3">
+        </div>
       </div>
-      <p class="project-text">Grethe Rosseau for Kat van Duinen
-Stylist: Maria Uys
-MUA: Sam Ellenberger</p>
-      <div class="grid-two">
-        <img src="portfolio/stylist/images/img12.jpg" alt="">
-        <img src="portfolio/stylist/images/img13.jpg" alt="">
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- Project 5: 1 image, text only -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img14.jpg" alt="">
+      <!-- Project 4 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img11.jpg" alt="Project 4">
+        </div>
+        <p class="project-text">
+          Grethe Rosseau for Kat van Duinen<br>
+          Stylist: Maria Uys<br>
+          MUA: Sam Ellenberger
+        </p>
+        <div class="grid-two">
+          <img src="portfolio/stylist/images/img12.jpg" alt="Project 4 – 1">
+          <img src="portfolio/stylist/images/img13.jpg" alt="Project 4 – 2">
+        </div>
       </div>
-      <p class="project-text">Dylan Louw for Afrigarde
-Stylist: Maria Uys
-MUA: Gareth Coleman</p>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- Project 6: 1 image, text, then 3 side-by-side, then another 3 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img15.jpg" alt="">
+      <!-- Project 5 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img14.jpg" alt="Project 5">
+        </div>
+        <p class="project-text">
+          Dylan Louw for Afrigarde<br>
+          Stylist: Maria Uys<br>
+          MUA: Gareth Coleman
+        </p>
       </div>
-      <p class="project-text">Jurgen Hoffman for Sketchers
-Stylist: Maria Uys
-MUA: Eric Schmidt-Mohan</p>
-      <div class="grid-three">
-        <img src="portfolio/stylist/images/img16.jpg" alt="">
-        <img src="portfolio/stylist/images/img17.jpg" alt="">
-        <img src="portfolio/stylist/images/img18.jpg" alt="">
-      </div>
-      <div class="grid-three">
-        <img src="portfolio/stylist/images/img19.jpg" alt="">
-        <img src="portfolio/stylist/images/img20.jpg" alt="">
-        <img src="portfolio/stylist/images/img21.jpg" alt="">
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <!-- Project 7: 1 image, text, then 4 side-by-side -->
-    <div class="project-item">
-      <div class="grid-full">
-        <img src="portfolio/stylist/images/img22.jpg" alt="">
+      <!-- Project 6 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img15.jpg" alt="Project 6">
+        </div>
+        <p class="project-text">
+          Jurgen Hoffman for Sketchers<br>
+          Stylist: Maria Uys<br>
+          MUA: Eric Schmidt-Mohan
+        </p>
+        <div class="grid-three">
+          <img src="portfolio/stylist/images/img16.jpg" alt="Project 6 – Row 1">
+          <img src="portfolio/stylist/images/img17.jpg" alt="Project 6 – Row 1">
+          <img src="portfolio/stylist/images/img18.jpg" alt="Project 6 – Row 1">
+        </div>
+        <div class="grid-three">
+          <img src="portfolio/stylist/images/img19.jpg" alt="Project 6 – Row 2">
+          <img src="portfolio/stylist/images/img20.jpg" alt="Project 6 – Row 2">
+          <img src="portfolio/stylist/images/img21.jpg" alt="Project 6 – Row 2">
+        </div>
       </div>
-      <p class="project-text">Christina Colson for Grethe Rosseau
-Stylist: Maria Uys
-MUA: Sam Ellenberger</p>
-      <div class="grid-four">
-        <img src="portfolio/stylist/images/img23.jpg" alt="">
-        <img src="portfolio/stylist/images/img24.jpg" alt="">
-        <img src="portfolio/stylist/images/img25.jpg" alt="">
-        <img src="portfolio/stylist/images/img26.jpg" alt="">
+      <hr>
+
+      <!-- Project 7 -->
+      <div class="project-item">
+        <div class="grid-full">
+          <img src="portfolio/stylist/images/img22.jpg" alt="Project 7">
+        </div>
+        <p class="project-text">
+          Christina Colson for Grethe Rosseau<br>
+          Stylist: Maria Uys<br>
+          MUA: Sam Ellenberger
+        </p>
+        <div class="grid-four">
+          <img src="portfolio/stylist/images/img23.jpg" alt="Project 7 – 1">
+          <img src="portfolio/stylist/images/img24.jpg" alt="Project 7 – 2">
+          <img src="portfolio/stylist/images/img25.jpg" alt="Project 7 – 3">
+          <img src="portfolio/stylist/images/img26.jpg" alt="Project 7 – 4">
+        </div>
       </div>
-    </div>
-    <hr>
 
-  </section>
-</main>
+    </section>
+  </main>
 
-<script src="script.js" defer></script>>
+  <script src="script.js" defer></script>
 </body>
 </html>
