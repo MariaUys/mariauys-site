@@ -570,3 +570,47 @@ body.graphic-design .graphic-gallery img {
 body.graphic-design hr {
   border: none; border-top: 2px solid #ddd; margin: 2rem 0;
 }
+
+/* Afrigarde page */
+body.afrigarde .afrigarde-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+body.afrigarde .image-hover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+body.afrigarde .image-hover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.4s ease-in-out;
+}
+
+body.afrigarde .hover-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+body.afrigarde .image-hover:hover .hover-img {
+  opacity: 1;
+}
+
+body.afrigarde .image-hover:hover .default-img {
+  opacity: 0;
+}
+
+body.afrigarde .caption {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
