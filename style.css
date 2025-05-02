@@ -1,55 +1,115 @@
-/* Global styles */
-body {
+/* ==========================================================================
+   VARIABLES (THEME CONFIGURATION)
+   ========================================================================== */
+:root {
+  /* — Colors — */
+  --color-bg-gradient-start: #ffe0f0;
+  --color-bg-gradient-end:   #f0e0ff;
+  --color-primary:           #ff9a9e;
+  --color-secondary:         #fad0c4;
+  --color-accent:            #e0c4f0;
+  --color-text:              #333333;
+  --color-overlay-light:     rgba(0,0,0,0.1);
+  --color-overlay-dark:      rgba(0,0,0,0.4);
+  --color-light:             #ffffff;
+  --color-dark:              #000000;
+
+  /* — Typography — */
+  --font-base:           'Poppins', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-bold:    600;
+
+  /* — Spacing Scale — */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+
+  /* — Radii — */
+  --radius-sm: 0.4rem;
+  --radius-md: 1rem;
+  --radius-pill: 999px;
+
+  /* — Shadows — */
+  --shadow-light:  0 2px 6px var(--color-overlay-light);
+  --shadow-strong: 0 4px 12px rgba(0,0,0,0.05);
+
+  /* — Gradients — */
+  --gradient-bg: linear-gradient(
+    120deg,
+    var(--color-bg-gradient-start),
+    var(--color-bg-gradient-end)
+  );
+  --gradient-menu: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+}
+
+/* ==========================================================================
+   GLOBAL RESET & BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(120deg, #ffe0f0, #f0e0ff);
-  color: #333;
   padding: 0;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background: var(--gradient-bg);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
   user-select: none;
 }
 
-/* Topbar */
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
 .topbar {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background: #ffffffcc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;         /* Make it fixed */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm);
+  background: var(--color-light);
+  box-shadow: var(--shadow-light);
   z-index: 1001;
 }
 
-
-
 .hamburger {
   font-size: 1.6rem;
+  margin-right: var(--space-sm);
   cursor: pointer;
-  margin-right: 1rem;
-  user-select: none;
 }
 
 .logo a {
   font-size: 1.4rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  background: var(--gradient-menu);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Sidebar */
+/* ==========================================================================
+   SLIDEOUT MENU
+   ========================================================================== */
 .slideout {
   position: fixed;
   top: 0;
-  left: -500px;
+  left: -100%;
   width: 280px;
   height: 100%;
-  background-color: #fff;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem 1rem;
+  background: var(--color-light);
+  box-shadow: var(--shadow-light);
+  padding: var(--space-md) var(--space-sm);
   transition: left 0.3s ease;
   z-index: 1000;
   overflow-y: auto;
@@ -61,674 +121,143 @@ body {
 
 .slideout ul {
   list-style: none;
-  padding: 2rem 0 0; /* adds space from top */
-  margin: 1;
+  margin: 0;
+  padding: var(--space-md) 0 0;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: var(--space-sm);
 }
 
 .slideout ul li a {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  margin: 0 auto;
+  max-width: 85%;
+  font-size: 1.2rem;
   text-decoration: none;
   color: #444;
-  font-size: 1.2rem;
-  display: block;
-  font-weight: normal;
-  padding: 0.8rem 1.2rem;
   background: linear-gradient(to right, #ffd6e0, #e8d6ff);
-  border-radius: 2rem;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-strong);
   transition: filter 0.3s ease;
-  max-width: 85%;
-  margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .slideout ul li a:hover {
   filter: brightness(0.95);
 }
 
-.slideout ul li ul {
-  margin-top: 0.5rem;
-  margin-left: 0rem;
-  display: none;
-}
-
-.slideout ul li ul li {
-  margin-bottom: 1.4rem; /* spacing between sub-items */
-}
-
-.slideout ul li.open ul {
-  display: block;
-}
-
 .portfolio-toggle {
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
 }
 
-.portfolio-sub a {
-  margin-left: 2rem;
-  width: calc(100% - 3rem);
-  font-size: 0.95rem;
-  padding: 0.4rem 1rem;
-  border-radius: 2rem;
-  background: linear-gradient(to right, #fad0c4, #e0c4f0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+.portfolio-sub {
+  display: none;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.portfolio-toggle.open .portfolio-sub {
   display: block;
-  transition: filter 0.2s ease;
-  margin-bottom: 1.4rem; /* <-- Controls vertical spacing */
-}
-
-.portfolio-sub a:hover {
-  filter: brightness(0.95);
 }
 
 .portfolio-toggle .arrow {
-  font-size: 0.9rem;
   margin-left: 0.4rem;
   transition: transform 0.3s ease;
-  display: inline-block;
 }
 
 .portfolio-toggle.open .arrow {
   transform: rotate(180deg);
 }
 
-/* Overlay for sidebar */
+/* ==========================================================================
+   OVERLAY
+   ========================================================================== */
 #overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 500;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: var(--color-overlay-dark);
   display: none;
+  z-index: 500;
 }
 
-/* Main content */
+/* ==========================================================================
+   MAIN & SECTIONS
+   ========================================================================== */
 main {
-  padding: 5rem 2rem 2rem; /* Increased top padding to clear topbar */
+  padding: calc(var(--space-lg) + var(--space-sm)) var(--space-md) var(--space-md);
   position: relative;
   z-index: 1;
 }
 
-/* Gallery */
+/* ==========================================================================
+   GALLERIES & CANVAS
+   ========================================================================== */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-  padding: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap: var(--space-sm);
+  padding: var(--space-md);
 }
 
-canvas {
+canvas,
+.gallery img {
   width: 100%;
   height: auto;
-  background: #fff;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  background: var(--color-light);
+  box-shadow: var(--shadow-strong);
 }
 
-/* Lightbox */
+/* ==========================================================================
+   LIGHTBOX
+   ========================================================================== */
 #lightbox {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.9);
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background: rgba(0,0,0,0.9);
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  z-index: 2000;
+  z-index:2000;
 }
 
 #lightbox canvas {
   max-width: 90%;
   max-height: 80vh;
-  background: #000; /* Now black */
-  border-radius: 1rem;
+  border-radius: var(--radius-md);
 }
-
 
 .nav-btn {
   position: absolute;
   top: 50%;
   font-size: 2rem;
-  color: white;
+  color: var(--color-light);
   cursor: pointer;
   user-select: none;
   z-index: 2001;
 }
 
-.nav-left {
-  left: 20px;
-}
-
-.nav-right {
-  right: 20px;
-}
+.nav-left { left: 20px; }
+.nav-right { right: 20px; }
 
 .close-btn-lightbox {
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: var(--space-sm);
+  right: var(--space-sm);
   font-size: 2rem;
-  color: white;
+  color: var(--color-light);
   cursor: pointer;
 }
 
-/* PDF iframe */
-iframe {
-  width: 100%;
-  height: 90vh;
-  border: none;
-}
-.menu-button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to right, #ffe0f0, #f0e0ff);
-  color: #333;
-  border: none;
-  padding: 1rem 1.4rem;
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  border-radius: 999px;
-  width: 100%;
-  transition: filter 0.3s ease, background 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.menu-button:hover {
-  filter: brightness(0.95);
-}
-
-.menu-button .arrow {
-  font-size: 1.4rem;
-  transition: transform 0.3s ease;
-}
-
-.menu-button.open .arrow {
-  transform: rotate(180deg);
-}
-
-/* Change CV menu label to "Download CV" only on mobile */
+/* ==========================================================================
+   MEDIA QUERIES
+   ========================================================================== */
 @media screen and (max-width: 768px) {
-  .cv-label {
-    font-size: 0; /* Hide original text */
-    position: relative;
-  }
-
-  .cv-label::before {
-    content: "Download CV";
-    font-size: 1.2rem; /* Restore text size for the new label */
-    color: #444; /* Adjust to match your menu */
-  }
-}
-
-html, body {
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-.afrigarde-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-.afri-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-}
-
-.afri-item p {
-  margin-top: 0.75rem;
-  font-size: 1.1rem;
-  color: #444;
-}
-
-.project-grid {
-  padding: 2rem;
-}
-
-.grid-two {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.grid-two img {
-  width: 50%;
-  border-radius: 0.5rem;
-}
-
-.grid-full img {
-  width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.project-description {
-  font-size: 1rem;
-  color: #555;
-  padding: 0 1rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-}
-
-.project-grid hr {
-  border: none;
-  border-top: 2px solid #ccc;
-  margin: 2rem 0;
-}
-
-.grid-small {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.8rem;
-}
-
-.grid-small img {
-  width: 100%;
-  border-radius: 0.4rem;
-}
-
-@media screen and (max-width: 768px) {
-  .grid-small {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-body.brand-identity {
-  background: radial-gradient(circle at 20% 40%, #ffe0f0 0%, transparent 30%),
-              radial-gradient(circle at 80% 60%, #f0e0ff 0%, transparent 30%),
-              radial-gradient(circle at 50% 90%, #fad0c4 0%, transparent 30%);
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* ---------- Global gallery defaults ---------- */
-.gallery {
-  gap: 1rem;
-  padding: 2rem;
-}
-@media (max-width: 768px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* Illustration: 3-column desktop */
-body.illustration .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 2rem;
-}
-
-@media screen and (max-width: 768px) {
-  body.illustration .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Textile: single-column list */
-/* Textile: single-column list with separators */
-body.textile .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 0;               /* we’ll space via the <hr> */
-  padding: 2rem;
-}
-
-body.textile .gallery canvas {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-body.textile .gallery hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* Packaging: one item per row with separators */
-body.packaging .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* separators handle spacing */
-  padding: 2rem;
-}
-
-body.packaging .gallery canvas {
-  width: 100%;
-  height: auto;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  cursor: pointer;
-}
-
-body.packaging .gallery hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* reuse the same responsive tweaks if needed */
-@media screen and (max-width: 768px) {
-  body.packaging .gallery {
-    padding: 1.5rem;
-  }
-  body.packaging .gallery hr {
-    margin: 1.5rem 0;
-  }
-}
-
-/* Lightbox background always dark */
-#lightbox {
-  background: rgba(0,0,0,0.9) !important;
-}
-
-/* --- Stylist page grids --- */
-.project-grid {
-  padding: 2rem 0;
-}
-
-.project-item {
-  margin-bottom: 2rem;
-}
-
-.project-item hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* Centered, bold captions */
-.project-text {
-  text-align: center;
-  font-weight: 600;
-  margin: 1rem 0;
-}
-
-/* Utility grid classes */
-.grid-full img {
-  width: 100%;
-  display: block;
-  border-radius: 0.5rem;
-}
-
-.grid-two {
-  display: flex;
-  gap: 1rem;
-}
-
-.grid-two img {
-  width: 50%;
-  border-radius: 0.5rem;
-}
-
-.grid-three {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.grid-three img {
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-.grid-four {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.grid-four img {
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-/* Responsive tweaks */
-@media screen and (max-width: 768px) {
-  .grid-two { display: grid; grid-template-columns: 1fr 1fr; }
-  .grid-three { grid-template-columns: repeat(2, 1fr); }
-  .grid-four { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* ======================================
-   Stylist page overrides
-   ====================================== */
-
-body.stylist .project-grid {
-  padding: 2rem 0;
-}
-
-body.stylist .project-item {
-  margin-bottom: 2rem;
-}
-
-body.stylist .project-item hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* Centered, bold captions */
-body.stylist .project-text {
-  text-align: center;
-  font-weight: 600;
-  margin: 1rem 0;
-}
-
-/* Full-width project hero image */
-body.stylist .grid-full img {
-  width: 100%;
-  display: block;
-  border-radius: 0.5rem;
-}
-
-/* Two-up row */
-body.stylist .grid-two {
-  display: flex;
-  gap: 1rem;
-}
-body.stylist .grid-two img {
-  width: 50%;
-  border-radius: 0.5rem;
-}
-
-/* Three-up row */
-body.stylist .grid-three {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-body.stylist .grid-three img {
-  width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Four-up row */
-body.stylist .grid-four {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-body.stylist .grid-four img {
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-/* Mobile adjustments */
-@media screen and (max-width: 768px) {
-  body.stylist .grid-two {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  body.stylist .grid-three {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  body.stylist .grid-four {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.project-text {
-  white-space: pre-line;
-  text-align: center;
-  font-weight: bold;
-}
-
-/* ————————————— Graphic Design Page ————————————— */
-body.graphic-design .graphic-gif img {
-  width: 100%; height: auto; display: block; margin-bottom: 2rem;
-}
-body.graphic-design .graphic-title {
-  text-align: center; font-weight: 600; margin: 1rem 0 2rem; font-size: 1.4rem;
-}
-body.graphic-design .graphic-gallery {
-  display: grid; gap: 1rem; padding: 0 2rem 2rem;
-}
-body.graphic-design .graphic-gallery.two-up {
-  grid-template-columns: repeat(2, 1fr);
-}
-body.graphic-design .graphic-gallery.three-up {
-  grid-template-columns: repeat(3, 1fr);
-}
-body.graphic-design .graphic-gallery img {
-  width: 100%; height: auto; cursor: pointer; border-radius: 0.5rem;
-}
-/* ensure the <hr> between rows spans edge-to-edge */
-body.graphic-design hr {
-  border: none; border-top: 2px solid #ddd; margin: 2rem 0;
-}
-
-/* Afrigarde page */
-body.afrigarde .afrigarde-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-body.afrigarde .image-hover {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1rem;
-}
-
-body.afrigarde .image-hover img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: opacity 0.4s ease-in-out;
-}
-
-body.afrigarde .hover-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-
-body.afrigarde .image-hover:hover .hover-img {
-  opacity: 1;
-}
-
-body.afrigarde .image-hover:hover .default-img {
-  opacity: 0;
-}
-
-body.afrigarde .caption {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-}
-
-/* Brand-Identity page */
-body.brand-identity .project-grid {
-  padding: 2rem 0;
-}
-
-body.brand-identity .grid-two,
-body.brand-identity .grid-full {
-  margin-bottom: 1rem;
-}
-
-body.brand-identity .grid-two img {
-  width: 50%;
-  border-radius: 0.5rem;
-}
-
-body.brand-identity .grid-full img {
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-body.brand-identity .project-description {
-  text-align: center;
-  font-weight: 600;
-  margin: 1rem 0;
-}
-
-body.brand-identity .grid-small {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-
-body.brand-identity .grid-small img {
-  width: 100%;
-  border-radius: 0.4rem;
-}
-
-@media screen and (max-width: 768px) {
-  body.brand-identity .grid-small {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* — CV page styles — */
-body.cv main {
-  padding: 2rem 1rem;
-}
-
-body.cv #cvContent p.cv-message {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 1rem;
-  color: #444;
-}
-
-body.cv #cvContent a {
-  text-decoration: underline;
-  color: inherit;
-}
-
-body.cv iframe {
-  width: 100%;
-  height: 90vh;
-  border: none;
-}
-
-body.cv-page main h1 {
-  margin-top: 4rem; /* tweak this value as needed */
+  .gallery { grid-template-columns: repeat(2,1fr); }
+  .slideout { width: 240px; }
 }
