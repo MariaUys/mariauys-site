@@ -94,3 +94,21 @@ function drawToLightbox(img) {
   ctx.clearRect(0, 0, dispW, dispH);
   ctx.drawImage(img, 0, 0, dispW, dispH);
 }
+
+// Hover-swap for Afrigarde (optional, CSS handles most of it)
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.body.classList.contains('afrigarde')) return;
+  document.querySelectorAll('.image-hover').forEach(container => {
+    const defaultImg = container.querySelector('.default-img');
+    const hoverImg   = container.querySelector('.hover-img');
+    // if you wanted JS fallback instead of CSS-only:
+    container.addEventListener('mouseenter', () => {
+      defaultImg.style.opacity = 0;
+      hoverImg.style.opacity   = 1;
+    });
+    container.addEventListener('mouseleave', () => {
+      defaultImg.style.opacity = 1;
+      hoverImg.style.opacity   = 0;
+    });
+  });
+});
