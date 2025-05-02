@@ -1,11 +1,14 @@
+// script.js
+
 // 1) Shared globals
-let lightbox, lightboxCanvas, ctx, currentIndex = 0, images = [];
+let lightbox, lightboxCanvas, ctx, currentIndex = 0;
+let images = [];
 
 // 2) On DOM ready:
 document.addEventListener('DOMContentLoaded', () => {
-  lightbox        = document.getElementById('lightbox');
-  lightboxCanvas  = document.getElementById('lightboxCanvas');
-  ctx             = lightboxCanvas.getContext('2d');
+  lightbox       = document.getElementById('lightbox');
+  lightboxCanvas = document.getElementById('lightboxCanvas');
+  ctx            = lightboxCanvas.getContext('2d');
 
   // Lightbox controls
   document.querySelector('.close-btn-lightbox')
@@ -26,16 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
                          : 'CV';
   }
 
-  // Wire up static lightbox triggers
-  document.querySelectorAll('.lightbox-trigger').forEach(el => {
-    el.addEventListener('click', () => {
-      const src = el.getAttribute('data-src') || el.src;
-      openLightboxFromPath(src);
-    });
+  // ––– Register all static triggers into images[] –––
+  document.querySelectorAll('.lightbox-trigger').forEach((el, idx) => {
+    // stash the source and preload
+    const src = el.getAttribute('data-src') || el.src;
+    const img = new Image();
+    img.src = src;
+    images.push(img);
+
+    // wire it up
+    el.addEventListener('click', () => openLightbox(idx));
   });
 });
 
-// 3) Menu toggles
+// 3) Menu toggles (unchanged)
 function toggleMenu(e) {
   const menu    = document.getElementById('mobileMenu'),
         overlay = document.getElementById('overlay');
@@ -57,9 +64,15 @@ document.addEventListener('click', e => {
 });
 
 // 4) Lightbox core
-function openLightboxPath(indexOrPath) {
-  // not used here
+
+// Open by array index
+function openLightbox(index) {
+  currentIndex = index;
+  drawToLightbox(images[index]);
+  lightbox.style.display = 'flex';
 }
+
+// Convenience: open a one-off path
 function openLightboxFromPath(path) {
   const img = new Image();
   img.onload = () => {
@@ -68,42 +81,28 @@ function openLightboxFromPath(path) {
   };
   img.src = path;
 }
+
 function closeLightbox() {
   lightbox.style.display = 'none';
 }
+
+// cycle through images[]
 function navigate(direction) {
-  // unused in static-path mode
+  currentIndex = (currentIndex + direction + images.length) % images.length;
+  drawToLightbox(images[currentIndex]);
 }
 
-// Hover-swap for Afrigarde (optional, CSS handles most of it)
-document.addEventListener('DOMContentLoaded', () => {
-  if (!document.body.classList.contains('afrigarde')) return;
-  document.querySelectorAll('.image-hover').forEach(container => {
-    const defaultImg = container.querySelector('.default-img');
-    const hoverImg   = container.querySelector('.hover-img');
-    // if you wanted JS fallback instead of CSS-only:
-    container.addEventListener('mouseenter', () => {
-      defaultImg.style.opacity = 0;
-      hoverImg.style.opacity   = 1;
-    });
-    container.addEventListener('mouseleave', () => {
-      defaultImg.style.opacity = 1;
-      hoverImg.style.opacity   = 0;
-    });
-  });
-});
-
-// 5) Preserve aspect ratio & retina
+// 5) Draw preserving aspect ratio + Retina
 function drawToLightbox(img) {
-  const maxW   = window.innerWidth * 0.9,
-        maxH   = window.innerHeight * 0.8,
-        ratio  = Math.min(maxW/img.naturalWidth, maxH/img.naturalHeight),
-        dispW  = img.naturalWidth * ratio,
-        dispH  = img.naturalHeight * ratio,
-        dpr    = window.devicePixelRatio || 1;
+  const maxW  = window.innerWidth * 0.9,
+        maxH  = window.innerHeight * 0.8,
+        ratio = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight),
+        dispW = img.naturalWidth * ratio,
+        dispH = img.naturalHeight * ratio,
+        dpr   = window.devicePixelRatio || 1;
 
-  lightboxCanvas.width  = dispW * dpr;
-  lightboxCanvas.height = dispH * dpr;
+  lightboxCanvas.width        = dispW * dpr;
+  lightboxCanvas.height       = dispH * dpr;
   lightboxCanvas.style.width  = dispW + 'px';
   lightboxCanvas.style.height = dispH + 'px';
 
@@ -113,4 +112,17 @@ function drawToLightbox(img) {
   ctx.drawImage(img, 0, 0, dispW, dispH);
 }
 
-
+// (Optional) Afrigarde hover‐swap fallback in JS, if you prefer
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.body.classList.contains('afrigarde')) return;
+  document.querySelectorAll('.image-hover').forEach(container => {
+    const def = container.querySelector('.default-img'),
+          hov = container.querySelector('.hover-img');
+    container.addEventListener('mouseenter', () => {
+      def.style.opacity = 0; hov.style.opacity = 1;
+    });
+    container.addEventListener('mouseleave', () => {
+      def.style.opacity = 1; hov.style.opacity = 0;
+    });
+  });
+});
