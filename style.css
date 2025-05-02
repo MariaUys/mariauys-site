@@ -614,3 +614,47 @@ body.afrigarde .caption {
   font-weight: 500;
   color: #333;
 }
+
+/* Brand-Identity page */
+body.brand-identity .project-grid {
+  padding: 2rem 0;
+}
+
+body.brand-identity .grid-two,
+body.brand-identity .grid-full {
+  margin-bottom: 1rem;
+}
+
+body.brand-identity .grid-two img {
+  width: 50%;
+  border-radius: 0.5rem;
+}
+
+body.brand-identity .grid-full img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+body.brand-identity .project-description {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+body.brand-identity .grid-small {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+body.brand-identity .grid-small img {
+  width: 100%;
+  border-radius: 0.4rem;
+}
+
+@media screen and (max-width: 768px) {
+  body.brand-identity .grid-small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
