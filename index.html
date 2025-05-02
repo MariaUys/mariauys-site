@@ -2,44 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maria Uys Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maria Uys — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-  
-<body>
-  </div>
- <div class="topbar">
-  <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
-  <div class="logo"><a href="#">MU</a></div>
-  </div>
-</div>
+<body oncontextmenu="return false;">
+  <!-- overlay for mobile menu -->
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+
+  <!-- topbar + hamburger -->
+  <header class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="index.html">MU</a></div>
+  </header>
+
+  <!-- slide-out nav -->
   <nav id="mobileMenu" class="slideout">
-    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <div class="close-btn" onclick="toggleMenu()">&times;</div>
     <ul>
-      <li><a href="#">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li class="portfolio-toggle" onclick="toggleDropdown(this)">
-  <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
-  <ul class="portfolio-sub">
-  <li><a href="brand-identity.html">&bull; Brand Identity and Logos</a></li>
-  <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
-  <li><a href="illustration.html">&bull; Illustration</a></li>
-  <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
-  <li><a href="stylist.html">&bull; Stylist</a></li>
-  <li><a href="textile-design.html">&bull; Textile Design</a></li>
-  </ul>
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">&bull; Brand Identity</a></li>
+          <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
+          <li><a href="illustration.html">&bull; Illustration</a></li>
+          <li><a href="packaging-design.html">&bull; Packaging</a></li>
+          <li><a href="stylist.html">&bull; Stylist</a></li>
+          <li><a href="textile-design.html">&bull; Textile</a></li>
+        </ul>
       </li>
-      <li><a href="#">Afrigarde</a></li>
-    <li><a href="cv.html" class="cv-label"></a></li>
-      <li><a href="#">Art</a></li>
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+      <li><a href="cv.html" class="cv-label"></a></li>
+      <li><a href="art.html">Art</a></li>
     </ul>
   </nav>
 
   <main>
-    <h1>Maria Uys Portfolio</h1>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Maria Uys</h1>
+        <p>Multidisciplinary Designer & Illustrator</p>
+        <a href="#overview" class="cta-button">Explore My Work</a>
+      </div>
+      <!-- you can add a background image or animation here via CSS -->
+    </section>
+
+    <!-- AT A GLANCE OVERVIEW -->
+    <section id="overview" class="grid-snippets">
+      <a href="brand-identity.html" class="snippet">
+        <img src="portfolio/brand-identity/images/img1.jpg" alt="Brand Identity">
+        <h3>Brand Identity</h3>
+        <p>Logos & systems for print, web & packaging.</p>
+      </a>
+      <a href="graphic-design.html" class="snippet">
+        <img src="portfolio/graphic-design/images/img1.gif" alt="Graphic Design">
+        <h3>Graphic Design</h3>
+        <p>Posters, flyers & motion loops.</p>
+      </a>
+      <a href="illustration.html" class="snippet">
+        <img src="portfolio/illustration/images/img1.jpg" alt="Illustration">
+        <h3>Illustration</h3>
+        <p>Hand-drawn art & digital work.</p>
+      </a>
+      <a href="packaging-design.html" class="snippet">
+        <img src="portfolio/packaging-design/images/img1.jpg" alt="Packaging Design">
+        <h3>Packaging</h3>
+        <p>Product mockups & bespoke packaging.</p>
+      </a>
+      <a href="stylist.html" class="snippet">
+        <img src="portfolio/stylist/images/img1.jpg" alt="Stylist">
+        <h3>Stylist</h3>
+        <p>Editorial styling & fashion shoots.</p>
+      </a>
+      <a href="textile-design.html" class="snippet">
+        <img src="portfolio/textile-design/images/img1.jpg" alt="Textile Design">
+        <h3>Textile</h3>
+        <p>Surface patterns & fabric prints.</p>
+      </a>
+      <a href="afrigarde.html" class="snippet">
+        <img src="portfolio/afrigarde/thumb1.jpg" alt="Afrigarde">
+        <h3>Afrigarde</h3>
+        <p>Jewellery collections & lookbooks.</p>
+      </a>
+      <a href="cv.html" class="snippet">
+        <img src="portfolio/cv/Maria_Uys_CV_thumb.jpg" alt="Download CV">
+        <h3>Download CV</h3>
+        <p>Your gateway to my résumé.</p>
+      </a>
+      <a href="art.html" class="snippet">
+        <img src="portfolio/art/images/img1.jpg" alt="Art">
+        <h3>Art</h3>
+        <p>Personal projects & exhibitions.</p>
+      </a>
+    </section>
   </main>
 
- <script src="script.js" defer></script>
+  <!-- shared lightbox container -->
+  <div id="lightbox">
+    <div class="close-btn-lightbox">&times;</div>
+    <div class="nav-btn nav-left">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right">›</div>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
