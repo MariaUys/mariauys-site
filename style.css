@@ -1,85 +1,74 @@
-/* ==========================================================================
-   VARIABLES (THEME CONFIGURATION)
-   ========================================================================== */
+/*==============================================================================
+  THEME VARIABLES
+==============================================================================*/
 :root {
-  /* — Colors — */
-  --color-bg-gradient-start: #ffe0f0;
-  --color-bg-gradient-end:   #f0e0ff;
-  --color-primary:           #ff9a9e;
-  --color-secondary:         #fad0c4;
-  --color-accent:            #e0c4f0;
-  --color-text:              #333333;
-  --color-overlay-light:     rgba(0,0,0,0.1);
-  --color-overlay-dark:      rgba(0,0,0,0.4);
-  --color-light:             #ffffff;
-  --color-dark:              #000000;
+  /* fonts & text */
+  --font-main: 'Poppins', sans-serif;
+  --color-text: #333;
 
-  /* — Typography — */
-  --font-base:           'Poppins', sans-serif;
-  --font-weight-regular: 400;
-  --font-weight-bold:    600;
+  /* main background gradient */
+  --color-bg-start: #ffe0f0;
+  --color-bg-end:   #f0e0ff;
+  --gradient-bg:    linear-gradient(120deg, var(--color-bg-start), var(--color-bg-end));
 
-  /* — Spacing Scale — */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
+  /* lightbox overlay */
+  --overlay-light: rgba(0, 0, 0, 0.4);
+  --overlay-dark:  rgba(0, 0, 0, 0.9);
 
-  /* — Radii — */
-  --radius-sm: 0.4rem;
+  /* menu colors */
+  --menu-bg:       #ffffffcc;
+  --menu-link-bg:  linear-gradient(to right, #ffd6e0, #e8d6ff);
+  --submenu-bg:    linear-gradient(to right, #fad0c4, #e0c4f0);
+
+  /* accents (logo gradient) */
+  --gradient-logo: linear-gradient(to right, #ff9a9e, #fad0c4);
+
+  /* radii & spacing */
+  --radius-sm: 0.5rem;
   --radius-md: 1rem;
-  --radius-pill: 999px;
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2rem;
 
-  /* — Shadows — */
-  --shadow-light:  0 2px 6px var(--color-overlay-light);
-  --shadow-strong: 0 4px 12px rgba(0,0,0,0.05);
-
-  /* — Gradients — */
-  --gradient-bg: linear-gradient(
-    120deg,
-    var(--color-bg-gradient-start),
-    var(--color-bg-gradient-end)
-  );
-  --gradient-menu: linear-gradient(
-    to right,
-    var(--color-primary),
-    var(--color-secondary)
-  );
+  /* shadows */
+  --shadow-light: 0 2px 6px rgba(0,0,0,0.1);
+  --shadow-md:    0 4px 8px rgba(0,0,0,0.05);
 }
 
-/* ==========================================================================
-   GLOBAL RESET & BASE
-   ========================================================================== */
+
+/*==============================================================================
+  GLOBAL RESET & BASE
+==============================================================================*/
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html, body {
+body {
   margin: 0;
-  padding: 0;
-  font-family: var(--font-base);
+  font-family: var(--font-main);
   color: var(--color-text);
   background: var(--gradient-bg);
+  user-select: none;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  user-select: none;
 }
 
-/* ==========================================================================
-   TOPBAR
-   ========================================================================== */
+
+/*==============================================================================
+  TOPBAR & NAV
+==============================================================================*/
 .topbar {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
+  padding: var(--space-sm);
+  background: var(--menu-bg);
+  box-shadow: var(--shadow-light);
   display: flex;
   align-items: center;
-  padding: var(--space-sm);
-  background: var(--color-light);
-  box-shadow: var(--shadow-light);
   z-index: 1001;
 }
 
@@ -87,177 +76,281 @@ html, body {
   font-size: 1.6rem;
   margin-right: var(--space-sm);
   cursor: pointer;
+  user-select: none;
 }
 
 .logo a {
   font-size: 1.4rem;
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-  background: var(--gradient-menu);
+  font-weight: bold;
+  background: var(--gradient-logo);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-decoration: none;
 }
 
-/* ==========================================================================
-   SLIDEOUT MENU
-   ========================================================================== */
+/* slideout menu */
 .slideout {
   position: fixed;
-  top: 0;
-  left: -100%;
-  width: 280px;
-  height: 100%;
+  top: 0; left: -300px;
+  width: 280px; height: 100%;
   background: var(--color-light);
   box-shadow: var(--shadow-light);
-  padding: var(--space-md) var(--space-sm);
-  transition: left 0.3s ease;
-  z-index: 1000;
+  padding: var(--space-lg) var(--space-md);
+  transition: left .3s;
   overflow-y: auto;
+  z-index: 1000;
 }
-
-.slideout.open {
-  left: 0;
-}
+.slideout.open { left: 0; }
 
 .slideout ul {
   list-style: none;
+  padding: var(--space-lg) 0 0;
   margin: 0;
-  padding: var(--space-md) 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
 }
+.slideout li + li { margin-top: var(--space-sm); }
 
-.slideout ul li a {
+.slideout a {
   display: block;
-  padding: 0.8rem 1.2rem;
-  margin: 0 auto;
-  max-width: 85%;
-  font-size: 1.2rem;
   text-decoration: none;
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: 999px;
+  background: var(--menu-link-bg);
   color: #444;
-  background: linear-gradient(to right, #ffd6e0, #e8d6ff);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-strong);
-  transition: filter 0.3s ease;
+  transition: filter .3s;
 }
-
-.slideout ul li a:hover {
-  filter: brightness(0.95);
-}
+.slideout a:hover { filter: brightness(0.95); }
 
 .portfolio-toggle {
   cursor: pointer;
-  font-weight: var(--font-weight-bold);
+  font-weight: 600;
 }
+.portfolio-toggle .arrow { margin-left: .4rem; transition: transform .3s; }
+.portfolio-toggle.open .arrow { transform: rotate(180deg); }
 
 .portfolio-sub {
   display: none;
-  margin-left: 1rem;
-  margin-top: 0.5rem;
+  margin-top: var(--space-xs);
 }
-
-.portfolio-toggle.open .portfolio-sub {
+.portfolio-sub.open {
   display: block;
 }
-
-.portfolio-toggle .arrow {
-  margin-left: 0.4rem;
-  transition: transform 0.3s ease;
+.portfolio-sub a {
+  background: var(--submenu-bg);
+  margin-left: var(--space-md);
 }
 
-.portfolio-toggle.open .arrow {
-  transform: rotate(180deg);
-}
 
-/* ==========================================================================
-   OVERLAY
-   ========================================================================== */
+/* overlay behind menu */
 #overlay {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: var(--color-overlay-dark);
+  background: var(--overlay-light);
   display: none;
   z-index: 500;
 }
 
-/* ==========================================================================
-   MAIN & SECTIONS
-   ========================================================================== */
+
+/*==============================================================================
+  MAIN CONTENT WRAPPER
+==============================================================================*/
 main {
-  padding: calc(var(--space-lg) + var(--space-sm)) var(--space-md) var(--space-md);
+  padding: calc(var(--space-xl) + var(--space-md)) var(--space-md) var(--space-md);
   position: relative;
   z-index: 1;
 }
 
-/* ==========================================================================
-   GALLERIES & CANVAS
-   ========================================================================== */
-.gallery {
+
+/*==============================================================================
+  GLOBAL GALLERY & CANVAS
+==============================================================================*/
+.gallery,
+.afrigarde-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
   gap: var(--space-sm);
   padding: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
 canvas,
-.gallery img {
+.gallery img,
+.afrigarde-gallery img {
   width: 100%;
   height: auto;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  background: var(--color-light);
-  box-shadow: var(--shadow-strong);
+  background: #fff;
+  box-shadow: var(--shadow-md);
 }
 
-/* ==========================================================================
-   LIGHTBOX
-   ========================================================================== */
+
+/* Lightbox container */
 #lightbox {
   position: fixed;
-  top:0; left:0;
-  width:100vw; height:100vh;
-  background: rgba(0,0,0,0.9);
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: var(--overlay-dark);
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  z-index:2000;
+  z-index: 2000;
 }
 
 #lightbox canvas {
   max-width: 90%;
   max-height: 80vh;
+  background: #000;
   border-radius: var(--radius-md);
 }
 
-.nav-btn {
+.nav-btn,
+.close-btn-lightbox {
   position: absolute;
-  top: 50%;
   font-size: 2rem;
-  color: var(--color-light);
+  color: #fff;
   cursor: pointer;
   user-select: none;
   z-index: 2001;
 }
+.nav-left  { left:  1rem; top: 50%; }
+.nav-right { right: 1rem; top: 50%; }
+.close-btn-lightbox { top: 1rem; right: 1rem; }
 
-.nav-left { left: 20px; }
-.nav-right { right: 20px; }
 
-.close-btn-lightbox {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  font-size: 2rem;
-  color: var(--color-light);
-  cursor: pointer;
+/*==============================================================================
+  PAGE-SPECIFIC OVERRIDES
+==============================================================================*/
+
+/* — Illustration — */
+body.illustration .gallery {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width:768px) {
+  body.illustration .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* ==========================================================================
-   MEDIA QUERIES
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-  .gallery { grid-template-columns: repeat(2,1fr); }
-  .slideout { width: 240px; }
+/* — Textile — */
+body.textile .gallery {
+  display: flex;
+  flex-direction: column;
+}
+body.textile .gallery hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: var(--space-lg) 0;
+}
+
+/* — Packaging — */
+body.packaging .gallery {
+  display: flex;
+  flex-direction: column;
+}
+body.packaging .gallery hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: var(--space-lg) 0;
+}
+
+/* — Stylists — */
+body.stylist .project-grid {
+  padding: var(--space-lg) 0;
+}
+body.stylist .project-item + .project-item {
+  margin-top: var(--space-lg);
+}
+body.stylist .project-text {
+  text-align: center;
+  font-weight: 600;
+  margin: var(--space-sm) 0;
+}
+body.stylist .grid-two { display: flex; gap: var(--space-sm); }
+body.stylist .grid-three { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-sm); }
+body.stylist .grid-four  { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-sm); }
+@media (max-width:768px) {
+  body.stylist .grid-three,
+  body.stylist .grid-four { grid-template-columns: repeat(2,1fr); }
+}
+
+/* — Brand Identity — */
+body.brand-identity .project-grid {
+  padding: var(--space-lg) 0;
+}
+body.brand-identity .grid-two img { width: 50%; }
+body.brand-identity .grid-full img { width: 100%; margin-bottom: var(--space-sm); }
+body.brand-identity .project-description {
+  text-align: center;
+  font-weight: 600;
+  margin: var(--space-sm) 0 var(--space-md);
+}
+body.brand-identity .grid-small {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+@media (max-width:768px) {
+  body.brand-identity .grid-small {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+/* — Afrigarde — */
+body.afrigarde .afri-item {
+  text-align: center;
+}
+body.afrigarde .caption {
+  margin-top: var(--space-xs);
+  font-weight: 500;
+}
+.image-hover {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+.image-hover .hover-img {
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  transition: opacity .4s;
+}
+.image-hover:hover .hover-img { opacity: 1; }
+.image-hover:hover .default-img { opacity: 0; }
+
+/* — Graphic Design — */
+body.graphic-design .graphic-gif img {
+  width: 100%;
+  margin-bottom: var(--space-lg);
+}
+body.graphic-design .graphic-title {
+  text-align: center;
+  font-weight: 600;
+  margin: var(--space-sm) 0 var(--space-lg);
+}
+body.graphic-design .graphic-gallery.two-up {
+  grid-template-columns: repeat(2,1fr);
+}
+body.graphic-design .graphic-gallery.three-up {
+  grid-template-columns: repeat(3,1fr);
+}
+body.graphic-design hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: var(--space-lg) 0;
+}
+
+/* — CV Page — */
+body.cv main {
+  padding-top: calc(var(--space-lg) + var(--space-sm));
+}
+body.cv #cvContent p {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+body.cv iframe {
+  width: 100%;
+  height: 90vh;
+  border: none;
 }
