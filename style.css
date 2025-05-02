@@ -371,6 +371,14 @@ body.brand-identity {
 body.illustration .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  body.illustration .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Textile: single-column list */
