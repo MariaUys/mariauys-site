@@ -711,3 +711,7 @@ body.cv iframe {
   height: 90vh;
   border: none;
 }
+
+body.cv-page main h1 {
+  margin-top: 4rem; /* tweak this value as needed */
+}
