@@ -7,10 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
-<!-- add the page-specific body class -->
 <body class="graphic-design" oncontextmenu="return false;">
-  <!-- global overlay + topbar/nav -->
+  <!-- overlay + topbar/nav (global) -->
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
@@ -39,98 +37,69 @@
 
   <main>
     <h1>Graphic Design</h1>
-    
-  <!-- 1) looping GIF (now img1.gif) -->
-  <div class="graphic-gif">
-    <img src="portfolio/graphic-design/images/img1.gif" alt="Graphic design animation">
-  </div>
 
-  <!-- 2) centered bold title/desc -->
-  <div class="graphic-title">
-    <p>Logo Design.</p>
-  </div>
+    <!-- 1) looping GIF -->
+    <div class="graphic-gif">
+      <img src="portfolio/graphic-design/images/img1.gif" alt="Graphic design animation">
+    </div>
 
-  <!-- 3-up row #1 (img2–img4) -->
-  <section class="graphic-gallery three-up">
-    <img src="portfolio/graphic-design/images/img2.jpg"
-         alt="Design 1"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img2.jpg">
-    <img src="portfolio/graphic-design/images/img3.jpg"
-         alt="Design 2"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img3.jpg">
-    <img src="portfolio/graphic-design/images/img4.jpg"
-         alt="Design 3"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img4.jpg">
-  </section>
-  <hr>
+    <!-- 2) centered bold subtitle -->
+    <div class="graphic-title">
+      <p>Logo Design.</p>
+    </div>
 
-  <!-- 3-up row #2 (img5–img7) -->
-  <section class="graphic-gallery three-up">
-    <img src="portfolio/graphic-design/images/img5.jpg"
-         alt="Design 4"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img5.jpg">
-    <img src="portfolio/graphic-design/images/img6.jpg"
-         alt="Design 5"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img6.jpg">
-    <img src="portfolio/graphic-design/images/img7.jpg"
-         alt="Design 6"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img7.jpg">
-  </section>
-  <hr>
+    <!-- 3-up row #1 (img2–4) -->
+    <section class="graphic-gallery three-up">
+      <img src="portfolio/graphic-design/images/img2.jpg" alt="Design 1"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img2.jpg">
+      <img src="portfolio/graphic-design/images/img3.jpg" alt="Design 2"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img3.jpg">
+      <img src="portfolio/graphic-design/images/img4.jpg" alt="Design 3"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img4.jpg">
+    </section>
+    <hr>
 
-  <!-- 3-up row #3 (img8–img10) -->
-  <section class="graphic-gallery three-up">
-    <img src="portfolio/graphic-design/images/img8.jpg"
-         alt="Design 7"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img8.jpg">
-    <img src="portfolio/graphic-design/images/img9.jpg"
-         alt="Design 8"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img9.jpg">
-    <img src="portfolio/graphic-design/images/img10.jpg"
-         alt="Design 9"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img10.jpg">
-  </section>
-  <hr>
+    <!-- 3-up row #2 (img5–7) -->
+    <section class="graphic-gallery three-up">
+      <img src="portfolio/graphic-design/images/img5.jpg" alt="Design 4"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img5.jpg">
+      <img src="portfolio/graphic-design/images/img6.jpg" alt="Design 5"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img6.jpg">
+      <img src="portfolio/graphic-design/images/img7.jpg" alt="Design 6"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img7.jpg">
+    </section>
+    <hr>
 
-  <!-- 2-up row (img11–img12) -->
-  <section class="graphic-gallery two-up">
-    <img src="portfolio/graphic-design/images/img11.jpg"
-         alt="Design 10"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img11.jpg">
-    <img src="portfolio/graphic-design/images/img12.jpg"
-         alt="Design 11"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img12.jpg">
-  </section>
-  <hr>
+    <!-- 3-up row #3 (img8–10) -->
+    <section class="graphic-gallery three-up">
+      <img src="portfolio/graphic-design/images/img8.jpg" alt="Design 7"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img8.jpg">
+      <img src="portfolio/graphic-design/images/img9.jpg" alt="Design 8"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img9.jpg">
+      <img src="portfolio/graphic-design/images/img10.jpg" alt="Design 9"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img10.jpg">
+    </section>
+    <hr>
 
-  <!-- final 3-up row (img13–img15) -->
-  <section class="graphic-gallery three-up">
-    <img src="portfolio/graphic-design/images/img13.jpg"
-         alt="Design 12"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img13.jpg">
-    <img src="portfolio/graphic-design/images/img14.jpg"
-         alt="Design 13"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img14.jpg">
-    <img src="portfolio/graphic-design/images/img15.jpg"
-         alt="Design 14"
-         class="lightbox-trigger"
-         data-src="portfolio/graphic-design/images/img15.jpg">
-  </section>
-</main>
+    <!-- 2-up row (img11–12) -->
+    <section class="graphic-gallery two-up">
+      <img src="portfolio/graphic-design/images/img11.jpg" alt="Design 10"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img11.jpg">
+      <img src="portfolio/graphic-design/images/img12.jpg" alt="Design 11"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img12.jpg">
+    </section>
+    <hr>
 
+    <!-- final 3-up row (img13–15) -->
+    <section class="graphic-gallery three-up">
+      <img src="portfolio/graphic-design/images/img13.jpg" alt="Design 12"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img13.jpg">
+      <img src="portfolio/graphic-design/images/img14.jpg" alt="Design 13"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img14.jpg">
+      <img src="portfolio/graphic-design/images/img15.jpg" alt="Design 14"
+           class="lightbox-trigger" data-src="portfolio/graphic-design/images/img15.jpg">
+    </section>
+  </main>
 
   <!-- shared lightbox container -->
   <div id="lightbox">
@@ -140,8 +109,17 @@
     <div class="nav-btn nav-right">›</div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- global + page-specific scripts -->
+  <script src="script.js" defer></script>
+  <script defer>
+    // initialize Image triggers for this page
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.lightbox-trigger').forEach(img => {
+        img.addEventListener('click', () => {
+          openLightboxFromPath(img.dataset.src);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
-
-
