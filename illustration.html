@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Illustration</title>
+  <title>Illustration | Maria Uys</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-  
-<body class="illustration" oncontextmenu="return false;"> 
+<body class="illustration" oncontextmenu="return false;">
+  <!-- overlay + topbar/nav (global) -->
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
@@ -21,12 +21,12 @@
       <li class="portfolio-toggle" onclick="toggleDropdown(this)">
         <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
         <ul class="portfolio-sub">
-          <li><a href="brand-identity.html">&bull; Brand Identity and Logos</a></li>
+          <li><a href="brand-identity.html">&bull; Brand Identity</a></li>
           <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
           <li><a href="illustration.html">&bull; Illustration</a></li>
-          <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
+          <li><a href="packaging-design.html">&bull; Packaging</a></li>
           <li><a href="stylist.html">&bull; Stylist</a></li>
-          <li><a href="textile-design.html">&bull; Textile Design</a></li>
+          <li><a href="textile-design.html">&bull; Textile</a></li>
         </ul>
       </li>
       <li><a href="afrigarde.html">Afrigarde</a></li>
@@ -40,6 +40,7 @@
     <div class="gallery" id="gallery"></div>
   </main>
 
+  <!-- shared lightbox container -->
   <div id="lightbox">
     <div class="close-btn-lightbox">×</div>
     <div class="nav-btn nav-left">‹</div>
@@ -47,38 +48,51 @@
     <div class="nav-btn nav-right">›</div>
   </div>
 
-  <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  const tryExt = ['jpg','jpeg','png','gif'],
-        gallery = document.getElementById('gallery');
-  let idx=1;
-
-  function loadNext() {
-    let e=0, img=new Image();
-    (function tryOne(){
-      if(e>=tryExt.length) return;
-      img.src = `portfolio/illustration/images/img${idx}.${tryExt[e]}`;
-      img.onload = ()=>{
-        const c=document.createElement('canvas'),
-              ctx=c.getContext('2d');
-        c.width=img.naturalWidth; c.height=img.naturalHeight;
-        c.style.width='100%'; c.style.height='auto';
-        ctx.drawImage(img,0,0);
-        const thisI=images.length;
-        c.onclick = ()=> openLightbox(thisI);
-        gallery.appendChild(c);
-        images.push(img);
-        idx++; loadNext();
-      };
-      img.onerror = ()=>{ e++; tryOne(); };
-    })();
-  }
-  loadNext();
-});
-</script>
-
+  <!-- global script.js -->
   <script src="script.js" defer></script>
 
+  <!-- page-specific loader -->
+  <script defer>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tryExt = ['jpg','jpeg','png','gif'],
+          gallery = document.getElementById('gallery');
+    let idx = 1;
+
+    function loadNext() {
+      let e = 0,
+          img = new Image();
+
+      (function tryOne() {
+        if (e >= tryExt.length) return; 
+        img.src = `portfolio/illustration/images/img${idx}.${tryExt[e]}`;
+
+        img.onload = () => {
+          const c = document.createElement('canvas'),
+                ctx = c.getContext('2d');
+          c.width  = img.naturalWidth;
+          c.height = img.naturalHeight;
+          c.style.width  = '100%';
+          c.style.height = 'auto';
+          ctx.drawImage(img, 0, 0);
+
+          const thisI = images.length;
+          c.addEventListener('click', () => openLightbox(thisI));
+          gallery.appendChild(c);
+
+          images.push(img);
+          idx++;
+          loadNext();
+        };
+
+        img.onerror = () => {
+          e++;
+          tryOne();
+        };
+      })();
+    }
+
+    loadNext();
+  });
+  </script>
 </body>
 </html>
-
