@@ -658,3 +658,26 @@ body.brand-identity .grid-small img {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* — CV page styles — */
+body.cv main {
+  padding: 2rem 1rem;
+}
+
+body.cv #cvContent p.cv-message {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+body.cv #cvContent a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+body.cv iframe {
+  width: 100%;
+  height: 90vh;
+  border: none;
+}
