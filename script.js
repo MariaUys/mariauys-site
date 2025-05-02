@@ -1,106 +1,93 @@
 // script.js
 
-// 1) Shared globals
+// Shared globals
 let lightbox, lightboxCanvas, ctx, currentIndex = 0;
 let images = [];
 
-// 2) On DOM ready:
-  lightbox       = document.getElementById('lightbox');
-  const canvasEl = document.getElementById('lightboxCanvas');
-  if (canvasEl) {
-    lightboxCanvas = canvasEl;
-    ctx            = canvasEl.getContext('2d');
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Cache lightbox elements
+  lightbox = document.getElementById('lightbox');
+  lightboxCanvas = document.getElementById('lightboxCanvas');
+  if (lightboxCanvas) {
+    ctx = lightboxCanvas.getContext('2d');
   }
 
   // Lightbox controls
   document.querySelector('.close-btn-lightbox')
-          ?.addEventListener('click', closeLightbox);
+    ?.addEventListener('click', closeLightbox);
   document.querySelector('.nav-left')
-          ?.addEventListener('click', () => navigate(-1));
+    ?.addEventListener('click', () => navigate(-1));
   document.querySelector('.nav-right')
-          ?.addEventListener('click', () => navigate(1));
+    ?.addEventListener('click', () => navigate(1));
   lightbox?.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // CV label toggle
+  // Mobile CV label
   const cvLink = document.querySelector('.cv-label');
   if (cvLink) {
-    cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent)
-                         ? 'Download CV'
-                         : 'CV';
+    cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) 
+      ? 'Download CV' 
+      : 'CV';
   }
 
-  // ––– Register all static triggers into images[] –––
+  // Wire up any <img class="lightbox-trigger" data-src="...">
   document.querySelectorAll('.lightbox-trigger').forEach((el, idx) => {
-    // stash the source and preload
-    const src = el.getAttribute('data-src') || el.src;
+    const src = el.dataset.src || el.src;
+    // preload into our images[]
     const img = new Image();
     img.src = src;
     images.push(img);
 
-    // wire it up
     el.addEventListener('click', () => openLightbox(idx));
   });
+
+  // Afrigarde hover-swap fallback (CSS handles it; JS fallback optional)
+  if (document.body.classList.contains('afrigarde')) {
+    document.querySelectorAll('.image-hover').forEach(container => {
+      const def = container.querySelector('.default-img');
+      const hov = container.querySelector('.hover-img');
+      container.addEventListener('mouseenter', () => {
+        def.style.opacity = 0; hov.style.opacity = 1;
+      });
+      container.addEventListener('mouseleave', () => {
+        def.style.opacity = 1; hov.style.opacity = 0;
+      });
+    });
+  }
 });
 
-// 3) Menu toggles (unchanged)
+// Menu toggles
 function toggleMenu(e) {
-  const menu    = document.getElementById('mobileMenu'),
+  const menu = document.getElementById('mobileMenu'),
         overlay = document.getElementById('overlay');
   if (e?.target.closest('.portfolio-sub')) return;
   menu.classList.toggle('open');
   overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
 }
+
 function toggleDropdown(el) {
   el.classList.toggle('open');
 }
+
 document.addEventListener('click', e => {
-  const menu    = document.getElementById('mobileMenu'),
+  const menu = document.getElementById('mobileMenu'),
         overlay = document.getElementById('overlay'),
-        ham     = document.querySelector('.hamburger');
+        ham = document.querySelector('.hamburger');
   if (!menu.contains(e.target) && !ham.contains(e.target)) {
     menu.classList.remove('open');
     overlay.style.display = 'none';
   }
 });
 
-// after your other DOMContentLoaded handlers:
-document.querySelectorAll('.graphic-gallery img').forEach(img => {
-  img.addEventListener('error', () => {
-    // only run once
-    if (img.dataset.triedAlt) return;
-    img.dataset.triedAlt = true;
-
-    // build list of alternates based on what failed
-    const ext = img.src.split('.').pop().toLowerCase();
-    const alts = ext === 'jpg'
-      ? ['jpeg','png','gif']
-      : ext === 'png'
-      ? ['jpg','jpeg','gif']
-      : ['jpg','jpeg','png'];
-    
-    for (let alt of alts) {
-      const candidate = img.src.replace(/\.\w+$/, '.' + alt);
-      // test it
-      const tester = new Image();
-      tester.onload = () => img.src = candidate;    // if it loads, swap
-      tester.onerror = () => {};                    // no sweat
-      tester.src = candidate;
-    }
-  });
-});
-
-// 4) Lightbox core
-
-// Open by array index
+// Lightbox core
 function openLightbox(index) {
   currentIndex = index;
   drawToLightbox(images[index]);
   lightbox.style.display = 'flex';
 }
 
-// Convenience: open a one-off path
 function openLightboxFromPath(path) {
   const img = new Image();
   img.onload = () => {
@@ -114,13 +101,12 @@ function closeLightbox() {
   lightbox.style.display = 'none';
 }
 
-// cycle through images[]
 function navigate(direction) {
   currentIndex = (currentIndex + direction + images.length) % images.length;
   drawToLightbox(images[currentIndex]);
 }
 
-// 5) Draw preserving aspect ratio + Retina
+// Draw with aspect‐ratio + retina support
 function drawToLightbox(img) {
   const maxW  = window.innerWidth * 0.9,
         maxH  = window.innerHeight * 0.8,
@@ -129,8 +115,8 @@ function drawToLightbox(img) {
         dispH = img.naturalHeight * ratio,
         dpr   = window.devicePixelRatio || 1;
 
-  lightboxCanvas.width        = dispW * dpr;
-  lightboxCanvas.height       = dispH * dpr;
+  lightboxCanvas.width  = dispW * dpr;
+  lightboxCanvas.height = dispH * dpr;
   lightboxCanvas.style.width  = dispW + 'px';
   lightboxCanvas.style.height = dispH + 'px';
 
@@ -139,18 +125,3 @@ function drawToLightbox(img) {
   ctx.clearRect(0, 0, dispW, dispH);
   ctx.drawImage(img, 0, 0, dispW, dispH);
 }
-
-// (Optional) Afrigarde hover‐swap fallback in JS, if you prefer
-document.addEventListener('DOMContentLoaded', () => {
-  if (!document.body.classList.contains('afrigarde')) return;
-  document.querySelectorAll('.image-hover').forEach(container => {
-    const def = container.querySelector('.default-img'),
-          hov = container.querySelector('.hover-img');
-    container.addEventListener('mouseenter', () => {
-      def.style.opacity = 0; hov.style.opacity = 1;
-    });
-    container.addEventListener('mouseleave', () => {
-      def.style.opacity = 1; hov.style.opacity = 0;
-    });
-  });
-});
