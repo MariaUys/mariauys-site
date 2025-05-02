@@ -6,58 +6,15 @@
   <title>Afrigarde</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .afrigarde-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-.image-hover {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 1rem;
-}
-
-.image-hover img {
-  display: block;
-  width: 100%;
-  transition: opacity 0.4s ease-in-out;
-  border-radius: 1rem;
-}
-
-.hover-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-
-.image-hover:hover .hover-img {
-  opacity: 1;
-}
-
-.image-hover:hover .default-img {
-  opacity: 0;
-}
-
-.caption {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-}
-  </style>
 </head>
-<body>
+
+<body class="afrigarde" oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
     <div class="logo"><a href="../index.html">MU</a></div>
   </div>
+
   <nav id="mobileMenu" class="slideout">
     <div class="close-btn" onclick="toggleMenu()">×</div>
     <ul>
@@ -80,35 +37,44 @@
   </nav>
 
   <main>
-  <h1>Afrigarde Neckpieces</h1>
-  <div class="afrigarde-gallery">
-    <div class="afri-item">
-      <a href="neckpiece1.html">
-        <img src="portfolio/afrigarde/thumb1.jpg" 
-             data-hover="portfolio/afrigarde/hover1.jpg" 
-             alt="Neckpiece 1">
-        <p>Neckpiece 1</p>
-      </a>
-    </div>
-    <div class="afri-item">
-      <a href="neckpiece2.html">
-        <img src="portfolio/afrigarde/thumb2.jpg" 
-             data-hover="portfolio/afrigarde/hover2.jpg" 
-             alt="Neckpiece 2">
-        <p>Neckpiece 2</p>
-      </a>
-    </div>
-    <div class="afri-item">
-      <a href="neckpiece3.html">
-        <img src="portfolio/afrigarde/thumb3.jpg" 
-             data-hover="portfolio/afrigarde/hover3.jpg" 
-             alt="Neckpiece 3">
-        <p>Neckpiece 3</p>
-      </a>
-    </div>
-  </div>
-</main>
-      <!-- Add more grid-item blocks as needed -->
+    <h1>Afrigarde Neckpieces</h1>
+    <div class="afrigarde-gallery">
+      <div class="afri-item">
+        <a href="neckpiece1.html">
+          <div class="image-hover">
+            <img class="default-img" src="portfolio/afrigarde/thumb1.jpg" 
+                 data-hover="portfolio/afrigarde/hover1.jpg"
+                 alt="Neckpiece 1">
+            <img class="hover-img" src="portfolio/afrigarde/hover1.jpg"
+                 alt="Neckpiece 1 hover">
+          </div>
+          <p class="caption">Neckpiece 1</p>
+        </a>
+      </div>
+      <div class="afri-item">
+        <a href="neckpiece2.html">
+          <div class="image-hover">
+            <img class="default-img" src="portfolio/afrigarde/thumb2.jpg" 
+                 data-hover="portfolio/afrigarde/hover2.jpg"
+                 alt="Neckpiece 2">
+            <img class="hover-img" src="portfolio/afrigarde/hover2.jpg"
+                 alt="Neckpiece 2 hover">
+          </div>
+          <p class="caption">Neckpiece 2</p>
+        </a>
+      </div>
+      <div class="afri-item">
+        <a href="neckpiece3.html">
+          <div class="image-hover">
+            <img class="default-img" src="portfolio/afrigarde/thumb3.jpg" 
+                 data-hover="portfolio/afrigarde/hover3.jpg"
+                 alt="Neckpiece 3">
+            <img class="hover-img" src="portfolio/afrigarde/hover3.jpg"
+                 alt="Neckpiece 3 hover">
+          </div>
+          <p class="caption">Neckpiece 3</p>
+        </a>
+      </div>
     </div>
   </main>
 
