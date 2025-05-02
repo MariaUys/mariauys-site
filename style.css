@@ -711,8 +711,3 @@ body.cv iframe {
   height: 90vh;
   border: none;
 }
-
-/* push CV title below fixed topbar */
-main h1 {
-  margin-top: 4rem;  /* adjust as needed */
-}
