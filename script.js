@@ -5,12 +5,13 @@ let lightbox, lightboxCanvas, ctx, currentIndex = 0;
 let images = [];
 
 // 2) On DOM ready:
-document.addEventListener('DOMContentLoaded', () => {
   lightbox       = document.getElementById('lightbox');
-  lightboxCanvas = document.getElementById('lightboxCanvas');
-  ctx            = lightboxCanvas.getContext('2d');
+  const canvasEl = document.getElementById('lightboxCanvas');
+  if (canvasEl) {
+    lightboxCanvas = canvasEl;
+    ctx            = canvasEl.getContext('2d');
+  }
 
-  
   // Lightbox controls
   document.querySelector('.close-btn-lightbox')
           ?.addEventListener('click', closeLightbox);
