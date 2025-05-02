@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="en">
-  
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Textile Design</title>
+  <title>Textile Design | Maria Uys</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-  
-<body class="textile oncontextmenu="return false;">
+<body class="textile" oncontextmenu="return false;">
+  <!-- Overlay + Topbar/Nav -->
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
@@ -30,66 +30,67 @@
         </ul>
       </li>
       <li><a href="afrigarde.html">Afrigarde</a></li>
-     <li><a href="cv.html" class="cv-label"></a></li>
+      <li><a href="cv.html" class="cv-label"></a></li>
       <li><a href="art.html">Art</a></li>
     </ul>
-  </nav>  
-  
+  </nav>
+
   <main>
     <h1>Textile Design</h1>
     <div class="gallery" id="gallery"></div>
-  </main>  <div id="lightbox">
-    <div class="close-btn-lightbox" onclick="closeLightbox()">×</div>
-    <div class="nav-btn nav-left" onclick="navigate(-1)">‹</div>
+  </main>
+
+  <!-- Shared lightbox container -->
+  <div id="lightbox">
+    <div class="close-btn-lightbox">×</div>
+    <div class="nav-btn nav-left">‹</div>
     <canvas id="lightboxCanvas"></canvas>
-    <div class="nav-btn nav-right" onclick="navigate(1)">›</div>
-  </div>  
-  
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const gallery = document.getElementById('gallery');
-  const lightboxTriggers = [];  // if you want click-to-lightbox later
-  const tryExt = ['jpg','jpeg','png','gif'];
-  let idx = 1;
+    <div class="nav-btn nav-right">›</div>
+  </div>
 
-  function tryNextExt(extIndex = 0) {
-    if (extIndex >= tryExt.length) {
-      // no more formats for img{idx} → stop
-      return;
-    }
-    const ext = tryExt[extIndex];
-    const img = new Image();
-    img.src = `portfolio/textile-design/images/img${idx}.${ext}`;
-    img.onload = () => {
-      // create a canvas thumbnail (or just append the <img> directly)
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width  = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      canvas.style.width  = '100%';
-      canvas.style.height = 'auto';
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      // click in future? store in lightboxTriggers if you like
-      // canvas.addEventListener('click', () => openLightbox(…));
-
-      gallery.appendChild(canvas);
-
-      idx++;
-      tryNextImage();
-    };
-    img.onerror = () => tryNextExt(extIndex + 1);
-  }
-
-  function tryNextImage() {
-    tryNextExt();
-  }
-
-  tryNextImage();
-});
-</script>
-
+  <!-- Your global script -->
   <script src="script.js" defer></script>
-  
+
+  <!-- Page-specific: auto-detect & load all textile images -->
+  <script defer>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.getElementById('gallery');
+    const exts    = ['jpg','jpeg','png','gif'];
+    let idx = 1;
+
+    function tryLoad() {
+      let e = 0, img = new Image();
+
+      (function attempt() {
+        if (e >= exts.length) return; // no more formats
+        img.src = `portfolio/textile-design/images/img${idx}.${exts[e]}`;
+        img.onload = () => {
+          // Use canvas for consistent sizing:
+          const c = document.createElement('canvas');
+          const ctx = c.getContext('2d');
+          c.width  = img.naturalWidth;
+          c.height = img.naturalHeight;
+          c.style.width  = '100%';
+          c.style.height = 'auto';
+          ctx.drawImage(img, 0, 0, c.width, c.height);
+
+          // If you want lightbox later, you could add:
+          // c.classList.add('lightbox-trigger');
+          // c.dataset.src = img.src;
+
+          gallery.appendChild(c);
+          idx++;
+          tryLoad(); // load next image
+        };
+        img.onerror = () => {
+          e++;
+          attempt(); // try next extension
+        };
+      })();
+    }
+
+    tryLoad();
+  });
+  </script>
 </body>
-    </html>
+</html>
