@@ -382,10 +382,12 @@ body.illustration .gallery {
 }
 
 /* Textile: single-column list */
-body.textile .gallery {
-  display: flex;
-  flex-direction: column;
+body.textile .gallery canvas + hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 2rem 0;
 }
+
 
 /* Packaging: one item per row with separators */
 body.packaging .gallery {
