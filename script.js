@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxCanvas = document.getElementById('lightboxCanvas');
   ctx            = lightboxCanvas.getContext('2d');
 
+  
   // Lightbox controls
   document.querySelector('.close-btn-lightbox')
           ?.addEventListener('click', closeLightbox);
@@ -61,6 +62,32 @@ document.addEventListener('click', e => {
     menu.classList.remove('open');
     overlay.style.display = 'none';
   }
+});
+
+// after your other DOMContentLoaded handlers:
+document.querySelectorAll('.graphic-gallery img').forEach(img => {
+  img.addEventListener('error', () => {
+    // only run once
+    if (img.dataset.triedAlt) return;
+    img.dataset.triedAlt = true;
+
+    // build list of alternates based on what failed
+    const ext = img.src.split('.').pop().toLowerCase();
+    const alts = ext === 'jpg'
+      ? ['jpeg','png','gif']
+      : ext === 'png'
+      ? ['jpg','jpeg','gif']
+      : ['jpg','jpeg','png'];
+    
+    for (let alt of alts) {
+      const candidate = img.src.replace(/\.\w+$/, '.' + alt);
+      // test it
+      const tester = new Image();
+      tester.onload = () => img.src = candidate;    // if it loads, swap
+      tester.onerror = () => {};                    // no sweat
+      tester.src = candidate;
+    }
+  });
 });
 
 // 4) Lightbox core
