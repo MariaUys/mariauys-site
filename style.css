@@ -387,15 +387,37 @@ body.textile .gallery {
   flex-direction: column;
 }
 
-/* Packaging: single-column with separators */
+/* Packaging: one item per row with separators */
 body.packaging .gallery {
   display: flex;
   flex-direction: column;
+  gap: 0; /* separators handle spacing */
+  padding: 2rem;
 }
+
+body.packaging .gallery canvas {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  cursor: pointer;
+}
+
 body.packaging .gallery hr {
   border: none;
   border-top: 2px solid #ddd;
   margin: 2rem 0;
+}
+
+/* reuse the same responsive tweaks if needed */
+@media screen and (max-width: 768px) {
+  body.packaging .gallery {
+    padding: 1.5rem;
+  }
+  body.packaging .gallery hr {
+    margin: 1.5rem 0;
+  }
 }
 
 /* Lightbox background always dark */
