@@ -544,6 +544,7 @@ body.stylist .grid-three {
 body.stylist .grid-three img {
   width: 100%;
   border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Four-up row */
