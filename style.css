@@ -594,6 +594,12 @@ body.stylist .grid-four img {
   font-weight: bold;
 }
 
+/* Extra vertical room between stacked grid-three rows on Stylist */
+body.stylist .grid-three--spaced { margin-bottom: 1.5rem; }
+
+<img src="portfolio/stylist/images/img5.jpg" alt="">
+<img src="portfolio/stylist/images/img6.jpg" alt="" onerror="this.onerror=null;this.src='portfolio/stylist/images/img6.png'">
+
 /* ————————————— Graphic Design Page ————————————— */
 body.graphic-design .graphic-gif img {
   width: 100%; height: auto; display: block; margin-bottom: 2rem;
