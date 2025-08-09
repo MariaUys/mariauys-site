@@ -191,6 +191,8 @@ canvas {
   border-radius: 1rem;
 }
 
+#lightbox img#lightboxFallback { display:none; }
+
 
 .nav-btn {
   position: absolute;
