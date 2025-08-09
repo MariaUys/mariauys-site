@@ -752,3 +752,21 @@ body.stylist .grid-two img {
   height: auto;                          /* preserve aspect ratio */
   display: block;
 }
+
+/* Stylist: stop 2-up images from stretching */
+body.stylist .project-item .grid-two{
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1rem !important;
+  align-items: start !important;   /* don't stretch to equal heights */
+  justify-items: stretch;
+}
+
+body.stylist .project-item .grid-two img{
+  width: 100% !important;
+  height: auto !important;         /* preserve aspect ratio */
+  max-width: 100% !important;
+  max-height: none !important;
+  object-fit: contain !important;  /* safe guard if height got set */
+  display: block;
+}
