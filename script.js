@@ -41,6 +41,17 @@ lightbox?.appendChild(_lbFallbackImg);
     if (e.target === lightbox) closeLightbox();
   });
 
+  // once after you set up 'lightbox':
+if (!document.getElementById('lightboxFallback')) {
+  const f = document.createElement('img');
+  f.id = 'lightboxFallback';
+  f.style.display = 'none';
+  f.style.maxWidth = '90%';
+  f.style.maxHeight = '80vh';
+  f.style.borderRadius = '1rem';
+  lightbox.appendChild(f);
+}
+
   // --- CV label text (mobile vs desktop) ---
   const cvLink = document.querySelector('.cv-label');
   if (cvLink) {
@@ -226,22 +237,47 @@ function tryNextAlt(list, i, original) {
 // Canvas drawing (retina + aspect ratio preserved)
 // ------------------------------------------------------------
 function drawToLightbox(img) {
-  if (!lightboxCanvas || !ctx) return;
+  const fb = document.getElementById('lightboxFallback');
 
-  const maxW  = window.innerWidth  * 0.9;
-  const maxH  = window.innerHeight * 0.8;
+  if (!img || !img.naturalWidth) {
+    // show fallback <img>
+    if (fb) {
+      lightboxCanvas.style.display = 'none';
+      fb.src = img?.src || '';
+      fb.style.display = 'block';
+    }
+    return;
+  }
+
+  // normal canvas path
+  const maxW = window.innerWidth * 0.9;
+  const maxH = window.innerHeight * 0.8;
   const ratio = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
-  const dispW = Math.max(1, img.naturalWidth  * ratio);
-  const dispH = Math.max(1, img.naturalHeight * ratio);
+  const dispW = img.naturalWidth * ratio;
+  const dispH = img.naturalHeight * ratio;
   const dpr   = window.devicePixelRatio || 1;
 
-  lightboxCanvas.width        = Math.round(dispW * dpr);
-  lightboxCanvas.height       = Math.round(dispH * dpr);
-  lightboxCanvas.style.width  = `${dispW}px`;
-  lightboxCanvas.style.height = `${dispH}px`;
+  lightboxCanvas.width  = dispW * dpr;
+  lightboxCanvas.height = dispH * dpr;
+  lightboxCanvas.style.width  = dispW + 'px';
+  lightboxCanvas.style.height = dispH + 'px';
 
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.imageSmoothingEnabled = true;
-  ctx.clearRect(0, 0, dispW, dispH);
-  ctx.drawImage(img, 0, 0, dispW, dispH);
+  const ctx = lightboxCanvas.getContext('2d');
+  try {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.clearRect(0, 0, dispW, dispH);
+    ctx.drawImage(img, 0, 0, dispW, dispH);
+
+    // canvas succeeded → hide fallback
+    if (fb) fb.style.display = 'none';
+    lightboxCanvas.style.display = 'block';
+  } catch (e) {
+    // if canvas drawing fails for any reason, use fallback <img>
+    if (fb) {
+      lightboxCanvas.style.display = 'none';
+      fb.src = img.src;
+      fb.style.display = 'block';
+    }
+  }
 }
