@@ -738,3 +738,17 @@ body.cv iframe {
 body.cv-page main h1 {
   margin-top: 4rem; /* tweak this value as needed */
 }
+
+/* Fix: prevent stretching on Stylist two-up rows */
+body.stylist .grid-two {
+  display: grid;                         /* use grid for clean 2 columns */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  align-items: start;                    /* don't stretch items vertically */
+}
+
+body.stylist .grid-two img {
+  width: 100%;
+  height: auto;                          /* preserve aspect ratio */
+  display: block;
+}
