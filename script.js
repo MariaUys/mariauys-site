@@ -17,6 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox       = document.getElementById('lightbox') || null;
   lightboxCanvas = document.getElementById('lightboxCanvas') || null;
   ctx            = lightboxCanvas ? lightboxCanvas.getContext('2d') : null;
+  // create a fallback <img> we can show if canvas can't draw
+window._lbFallbackImg = document.createElement('img');
+_lbFallbackImg.id = 'lightboxFallback';
+_lbFallbackImg.style.display   = 'none';
+_lbFallbackImg.style.maxWidth  = '90%';
+_lbFallbackImg.style.maxHeight = '80vh';
+_lbFallbackImg.style.borderRadius = '1rem';
+lightbox?.appendChild(_lbFallbackImg);
+
 
   // --- Lightbox controls (only if present) ---
   document.querySelector('.close-btn-lightbox')
@@ -168,29 +177,49 @@ function navigate(dir) {
 // Image loading with extension fallback
 // ------------------------------------------------------------
 function loadAndDraw(src) {
+  if (!ctx || !lightboxCanvas) return;
+
+  // always hide fallback when we *try* canvas
+  if (window._lbFallbackImg) window._lbFallbackImg.style.display = 'none';
+  lightboxCanvas.style.display = 'block';
+
   const img = new Image();
+  img.crossOrigin = 'anonymous'; // safe default
   img.onload  = () => drawToLightbox(img);
   img.onerror = () => {
     const alts = altCandidates(src);
-    tryNextAlt(alts, 0);
+    tryNextAlt(alts, 0, src);
   };
   img.src = src;
 }
 
 function altCandidates(src) {
+  // try both lower + UPPER case exts (Netlify is case-sensitive)
   const m = src.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const base = m ? src.slice(0, -m[0].length) : src;
-  const order = ['jpeg','jpg','png','gif','webp'];
-  const cur = m ? m[1].toLowerCase() : '';
-  return order.filter(ext => ext !== cur).map(ext => `${base}.${ext}`);
+  const lower = ['jpeg','jpg','png','gif','webp'];
+  const upper = lower.map(e => e.toUpperCase());
+  const cur   = m ? m[1] : '';
+  return [...lower, ...upper].filter(e => e !== cur).map(e => `${base}.${e}`);
 }
 
-function tryNextAlt(list, i) {
-  if (i >= list.length) return;
-  const img = new Image();
-  img.onload  = () => drawToLightbox(img);
-  img.onerror = () => tryNextAlt(list, i+1);
-  img.src = list[i];
+function tryNextAlt(list, i, original) {
+  if (i >= list.length) {
+    // last resort: show a normal <img> instead of canvas so it never looks broken
+    if (window._lbFallbackImg) {
+      lightboxCanvas.style.display = 'none';
+      _lbFallbackImg.src = original;   // still try the original URL
+      _lbFallbackImg.onload  = () => { _lbFallbackImg.style.display = 'block'; };
+      _lbFallbackImg.onerror = () => { _lbFallbackImg.style.display = 'none'; };
+    }
+    return;
+  }
+  const attempt = list[i];
+  const test = new Image();
+  test.crossOrigin = 'anonymous';
+  test.onload  = () => drawToLightbox(test);
+  test.onerror = () => tryNextAlt(list, i + 1, original);
+  test.src = attempt;
 }
 
 // ------------------------------------------------------------
