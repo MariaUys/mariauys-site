@@ -126,6 +126,24 @@ function drawToLightbox(img) {
   ctx.drawImage(img, 0, 0, dispW, dispH);
 }
 
+// ——— Graphic Design page initializer ———
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.body.classList.contains('graphic-design')) return;
+
+  // Build a per-page image list so arrows work within this page only
+  images = [];
+
+  const triggers = document.querySelectorAll('.graphic-design .lightbox-trigger');
+  triggers.forEach((el, idx) => {
+    const src = el.getAttribute('data-src') || el.src;
+    const img = new Image();
+    img.src = src;        // preload
+    images.push(img);
+
+    el.addEventListener('click', () => openLightbox(idx), { passive: true });
+  });
+});
+
 // ---- Graphic Design: lazy-load + extension fallback + lightbox wiring ----
 document.addEventListener('DOMContentLoaded', () => {
   if (!document.body.classList.contains('graphic-design')) return;
