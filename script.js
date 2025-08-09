@@ -125,3 +125,47 @@ function drawToLightbox(img) {
   ctx.clearRect(0, 0, dispW, dispH);
   ctx.drawImage(img, 0, 0, dispW, dispH);
 }
+
+// ---- Graphic Design: lazy-load + extension fallback + lightbox wiring ----
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.body.classList.contains('graphic-design')) return;
+
+  const tryOrder = ['jpg','jpeg','png','gif','webp'];
+
+  document.querySelectorAll('.graphic-gallery img').forEach((img) => {
+    // Speed: lazy-load all gallery images
+    img.loading = 'lazy';
+
+    // Lightbox: click opens the big view using data-src (fallback to src)
+    img.addEventListener('click', () => {
+      const src = img.getAttribute('data-src') || img.src;
+      openLightboxFromPath(src);
+    });
+
+    // Resilience: if the file extension is wrong, try alternates
+    let tried = new Set();
+    let trying = false;
+
+    img.addEventListener('error', () => {
+      if (trying) return; // guard against loops
+      const m = img.src.match(/^(.*)\.(\w+)(\?.*)?$/);
+      if (!m) return;
+
+      const [, base, ext, query=''] = m;
+      tried.add(ext.toLowerCase());
+
+      const candidates = tryOrder.filter(e => !tried.has(e));
+      if (!candidates.length) return;
+
+      trying = true;
+      (function tryNext(i = 0) {
+        if (i >= candidates.length) { trying = false; return; }
+        const candidate = `${base}.${candidates[i]}${query}`;
+        const test = new Image();
+        test.onload = () => { img.src = candidate; trying = false; };
+        test.onerror = () => tryNext(i + 1);
+        test.src = candidate;
+      })();
+    });
+  });
+});
