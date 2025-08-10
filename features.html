@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="External articles and pages featuring Maria Uys." />
+  <title>Features | Maria Uys</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="features" oncontextmenu="return false;">
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="index.html">MU</a></div>
+  </div>
+  <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="index.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="brand-identity.html">&bull; Brand Identity & Logos</a></li>
+          <li><a href="graphic-design.html">&bull; Graphic Design</a></li>
+          <li><a href="illustration.html">&bull; Illustration</a></li>
+          <li><a href="packaging-design.html">&bull; Packaging Design</a></li>
+          <li><a href="stylist.html">&bull; Styling</a></li>
+          <li><a href="textile-design.html">&bull; Textile Design</a></li>
+        </ul>
+      </li>
+      <li><a href="afrigarde.html">Afrigarde</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="cv.html" class="cv-label">CV</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Features</h1>
+    <p class="feature-intro">Articles and external pages featuring Maria.</p>
+    <section class="features-list">
+      <a class="feature" href="https://www.designindaba.com/articles/creative-work/every-surface-canvas" target="_blank" rel="noopener">
+        <img src="features/design-indaba-canvas.svg" alt="Every Surface a Canvas thumbnail" />
+        <span>Every Surface a Canvas – Design Indaba</span>
+      </a>
+
+      <a class="feature" href="https://artsandculture.google.com/asset/maria-uys-is-a-cape-town-based-surface-designer-and-a-2015-emerging-creative-maria-uys/5AGnWt3a2Ib_tA" target="_blank" rel="noopener">
+        <img src="features/google-arts.svg" alt="Google Arts &amp; Culture feature thumbnail" />
+        <span>Google Arts &amp; Culture Feature</span>
+      </a>
+
+      <a class="feature" href="https://www.designindaba.com/articles/roundup/focus-south-african-designers-working-wool" target="_blank" rel="noopener">
+        <img src="features/design-indaba-wool.svg" alt="Designers Working with Wool thumbnail" />
+        <span>South African Designers Working with Wool – Design Indaba</span>
+      </a>
+
+      <a class="feature" href="https://www.designindaba.com/events/design-indaba-expo-2015" target="_blank" rel="noopener">
+        <img src="features/design-indaba-expo.svg" alt="Design Indaba Expo 2015 thumbnail" />
+        <span>Design Indaba Expo 2015</span>
+      </a>
+
+      <a class="feature" href="https://visi.co.za/design-indaba-2015-40-emerging-creatives/" target="_blank" rel="noopener">
+        <img src="features/visi.svg" alt="VISI article thumbnail" />
+        <span>VISI: 40 Emerging Creatives</span>
+      </a>
+
+      <a class="feature" href="https://thelivinghabitat.com/the-hunt-for-sas-hottest-young-emerging-creatives-has-begun/" target="_blank" rel="noopener">
+        <img src="features/living-habitat.svg" alt="The Living Habitat article thumbnail" />
+        <span>The Living Habitat: Emerging Creatives Hunt</span>
+      </a>
+
+      <a class="feature" href="https://www.sadecor.co.za/interior-design-blog/events/design-indaba-the-hunt-for-sas-hottest-young-emerging-creatives-has-begun/" target="_blank" rel="noopener">
+        <img src="features/sadecor.svg" alt="SA Décor &amp; Design article thumbnail" />
+        <span>SA Décor &amp; Design: Emerging Creatives</span>
+      </a>
+
+      <a class="feature" href="https://www.topbilling.com/articles/Shining-the-spotlight-on-the-women-behind-Afrigarde.html?articleID=3090" target="_blank" rel="noopener">
+        <img src="features/topbilling.svg" alt="Top Billing Afrigarde article thumbnail" />
+        <span>Top Billing: Afrigarde Spotlight</span>
+      </a>
+
+      <a class="feature" href="https://www.topbilling.com/Print-Friendly.php?url=%2Farticles%2FShining-the-spotlight-on-the-women-behind-Afrigarde.html%3FarticleID%3D3090" target="_blank" rel="noopener">
+        <img src="features/topbilling-print.svg" alt="Top Billing Afrigarde print thumbnail" />
+        <span>Top Billing: Afrigarde (Print)</span>
+      </a>
+
+      <a class="feature" href="https://www.youtube.com/watch?v=LU5vfaBzK7s" target="_blank" rel="noopener">
+        <img src="features/youtube-interview.svg" alt="YouTube interview thumbnail" />
+        <span>YouTube: Afrigarde Interview</span>
+      </a>
+
+      <a class="feature" href="https://www.behance.net/gallery/79721463/AFRIGARDE-2019" target="_blank" rel="noopener">
+        <img src="features/behance.svg" alt="Behance project thumbnail" />
+        <span>Behance: AFRIGARDE 2019</span>
+      </a>
+
+      <a class="feature" href="https://m.youtube.com/shorts/c7KqIpFRUcg" target="_blank" rel="noopener">
+        <img src="features/youtube-shorts.svg" alt="YouTube Shorts thumbnail" />
+        <span>YouTube Shorts: Afrigarde</span>
+      </a>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
