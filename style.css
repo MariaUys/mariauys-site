@@ -717,6 +717,13 @@ body.afrigarde .caption {
   color: #333;
 }
 
+/* Features page */
+body.features .feature img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Brand-Identity page */
 body.brand-identity .project-grid {
   padding: 2rem 0;
