@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maria Uys — Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maria Uys — Designer & Artist</title>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body oncontextmenu="return false;">
-  <!-- overlay for mobile menu -->
-  <div id="overlay" onclick="toggleMenu(event)"></div>
 
-  <!-- topbar + hamburger -->
-  <header class="topbar">
+<body class="home" oncontextmenu="return false;">
+  <!-- existing topbar + nav -->
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+  <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
     <div class="logo"><a href="index.html">MU</a></div>
-  </header>
-
-  <!-- slide-out nav -->
+  </div>
   <nav id="mobileMenu" class="slideout">
-    <div class="close-btn" onclick="toggleMenu()">&times;</div>
+    <div class="close-btn" onclick="toggleMenu()">×</div>
     <ul>
-      <li><a href="about.html">About</a></li>
+      <li><a href="index.html">About</a></li>
       <li class="portfolio-toggle" onclick="toggleDropdown(this)">
         <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
         <ul class="portfolio-sub">
@@ -34,80 +35,70 @@
         </ul>
       </li>
       <li><a href="afrigarde.html">Afrigarde</a></li>
-      <li><a href="cv.html" class="cv-label"></a></li>
+      <li><a href="cv.html" class="cv-label">CV</a></li>
       <li><a href="art.html">Art</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Maria Uys</h1>
-        <p>Multidisciplinary Designer & Illustrator</p>
-        <a href="#overview" class="cta-button">Explore My Work</a>
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="hero-bg">
+        <!-- use your existing GIF as a soft motion backdrop; keep animation intact -->
+        <img src="portfolio/graphic-design/images/img1.gif" data-no-cdn alt="" aria-hidden="true" loading="eager" decoding="async">
       </div>
-      <!-- you can add a background image or animation here via CSS -->
+      <div class="hero-copy">
+        <h1><span>Maria Uys</span></h1>
+        <p class="tagline">Brand Identity · Packaging · Illustration · Textile · Styling</p>
+        <a class="btn" href="#work">View the work ↓</a>
+      </div>
     </section>
 
-    <!-- AT A GLANCE OVERVIEW -->
-    <section id="overview" class="grid-snippets">
-      <a href="brand-identity.html" class="snippet">
-        <img src="portfolio/brand-identity/images/img1.jpg" alt="Brand Identity">
+    <!-- AT A GLANCE -->
+    <section id="work" class="cards">
+      <a class="card reveal" href="brand-identity.html">
+        <img src="portfolio/brand-identity/images/img3.jpg" alt="Brand Identity" loading="lazy" decoding="async">
         <h3>Brand Identity</h3>
-        <p>Logos & systems for print, web & packaging.</p>
       </a>
-      <a href="graphic-design.html" class="snippet">
-        <img src="portfolio/graphic-design/images/img1.gif" alt="Graphic Design">
+
+      <a class="card reveal" href="graphic-design.html">
+        <img src="portfolio/graphic-design/images/img2.jpg" alt="Graphic Design" loading="lazy" decoding="async">
         <h3>Graphic Design</h3>
-        <p>Posters, flyers & motion loops.</p>
       </a>
-      <a href="illustration.html" class="snippet">
-        <img src="portfolio/illustration/images/img1.jpg" alt="Illustration">
+
+      <a class="card reveal" href="illustration.html">
+        <img src="portfolio/illustration/images/img1.jpg" alt="Illustration" loading="lazy" decoding="async">
         <h3>Illustration</h3>
-        <p>Hand-drawn art & digital work.</p>
       </a>
-      <a href="packaging-design.html" class="snippet">
-        <img src="portfolio/packaging-design/images/img1.jpg" alt="Packaging Design">
+
+      <a class="card reveal" href="packaging-design.html">
+        <img src="portfolio/packaging-design/images/img1.jpg" alt="Packaging Design" loading="lazy" decoding="async">
         <h3>Packaging</h3>
-        <p>Product mockups & bespoke packaging.</p>
       </a>
-      <a href="stylist.html" class="snippet">
-        <img src="portfolio/stylist/images/img1.jpg" alt="Stylist">
+
+      <a class="card reveal" href="stylist.html">
+        <img src="portfolio/stylist/images/img1.jpg" alt="Stylist" loading="lazy" decoding="async">
         <h3>Stylist</h3>
-        <p>Editorial styling & fashion shoots.</p>
       </a>
-      <a href="textile-design.html" class="snippet">
-        <img src="portfolio/textile-design/images/img1.jpg" alt="Textile Design">
+
+      <a class="card reveal" href="textile-design.html">
+        <img src="portfolio/textile-design/images/img1.jpg" alt="Textile Design" loading="lazy" decoding="async">
         <h3>Textile</h3>
-        <p>Surface patterns & fabric prints.</p>
-      </a>
-      <a href="afrigarde.html" class="snippet">
-        <img src="portfolio/afrigarde/thumb1.jpg" alt="Afrigarde">
-        <h3>Afrigarde</h3>
-        <p>Jewellery collections & lookbooks.</p>
-      </a>
-      <a href="cv.html" class="snippet">
-        <img src="portfolio/cv/Maria_Uys_CV_thumb.jpg" alt="Download CV">
-        <h3>Download CV</h3>
-        <p>Your gateway to my résumé.</p>
-      </a>
-      <a href="art.html" class="snippet">
-        <img src="portfolio/art/images/img1.jpg" alt="Art">
-        <h3>Art</h3>
-        <p>Personal projects & exhibitions.</p>
       </a>
     </section>
   </main>
 
-  <!-- shared lightbox container -->
-  <div id="lightbox">
-    <div class="close-btn-lightbox">&times;</div>
-    <div class="nav-btn nav-left">‹</div>
-    <canvas id="lightboxCanvas"></canvas>
-    <div class="nav-btn nav-right">›</div>
-  </div>
+  <!-- your shared lightbox is not needed here, so we omit it -->
 
   <script src="script.js" defer></script>
+  <script defer>
+    // tiny scroll-reveal (no libs)
+    document.addEventListener('DOMContentLoaded', () => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    });
+  </script>
 </body>
 </html>
