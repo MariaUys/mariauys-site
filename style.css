@@ -907,8 +907,12 @@ body.home main { padding-top: 5rem; }
 }
 
 @media (max-width: 900px) {
-  .cards .card { grid-column: span 12; } /* 1-up on mobile */
-  .cards .card img { height: 220px; }
+  .cards .card {
+    grid-column: span 12; /* 1-up on mobile */
+  }
+  .cards .card img {
+    height: 220px;
+  }
 }
 
 /* ===== Scroll reveal ===== */
