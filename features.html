@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Curriculum vitae of designer and artist Maria Uys." />
-  <title>CV | Maria Uys</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="External articles and pages featuring Maria Uys." />
+  <title>Features | Maria Uys</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="cv-page" oncontextmenu="return false;">
+<body class="features" oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
@@ -37,40 +37,17 @@
   </nav>
 
   <main>
-    <h1>CV</h1>
-    <div id="cvContent"></div>
+    <h1>Features</h1>
+    <p class="feature-intro">Articles and external pages featuring Maria.</p>
+    <section class="features-list">
+      <a class="feature" href="https://example.com" target="_blank" rel="noopener">
+        <img src="https://s.wordpress.com/mshots/v1/https://example.com?w=600" alt="Example feature preview">
+        <span>Example Feature Title</span>
+      </a>
+      <!-- Add additional feature links here -->
+    </section>
   </main>
 
-  <!-- global scripts -->
   <script src="script.js" defer></script>
-
- 
-  <!-- page-specific: embed or download -->
-    <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
-      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-      const container = document.getElementById('cvContent');
-      const pdfPath  = 'portfolio/cv/Maria_Uys_CV.pdf';
-
-      if (isMobile) {
-        // trigger download
-        const a = document.createElement('a');
-        a.href = pdfPath;
-        a.download = 'Maria_Uys_CV.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        container.innerHTML = `
-          <p class="cv-message">
-            Your download should begin shortly.<br><br>
-            <a href="${pdfPath}" download>Click here if it doesn’t</a>
-          </p>`;
-      } else {
-        // embed in desktop view
-        container.innerHTML = `<iframe src="${pdfPath}" title="Maria Uys CV"></iframe>`;
-      }
-    });
-  </script>
 </body>
 </html>
