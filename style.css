@@ -2,22 +2,24 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg, #ffdee9, #f2e2ff, #e2f0ff, #e6fff5);
-  background-size: 600% 600%;
-  animation: gradientShift 30s ease infinite;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PGZpbHRlciBpZD0ibiIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMC4xIi8+PC9zdmc+"), linear-gradient(-45deg, #ffdee9, #f2e2ff, #e2f0ff, #e6fff5);
+  background-size: auto, 600% 600%;
+  background-position: 0 0, 0% 50%;
+  animation: gradientShift 8s ease infinite;
+  filter: brightness(1.1);
   padding: 0;
   user-select: none;
 }
 
 @keyframes gradientShift {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 0, 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 0 0, 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 0, 0% 50%;
   }
 }
 
