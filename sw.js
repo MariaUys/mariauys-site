@@ -1,17 +1,15 @@
-const CACHE_NAME = 'mariauys-site-cache-v1';
+const CACHE_NAME = 'mariauys-site-cache-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
-  '/afrigarde.html',
   '/brand-identity.html',
   '/graphic-design.html',
   '/illustration.html',
   '/packaging-design.html',
   '/stylist.html',
   '/textile-design.html',
-  '/art.html',
   '/cv.html',
   '/instagram-logo.svg'
 ];
