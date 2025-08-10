@@ -2,9 +2,23 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #ffffff;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #e0c3fc, #8ec5fc);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
   padding: 0;
   user-select: none;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Topbar */
@@ -351,7 +365,6 @@ html, body {
 }
 
 body.brand-identity {
-  background: #ffffff;
 }
 
 /* ---------- Global gallery defaults ---------- */
@@ -920,4 +933,25 @@ body.home main { padding-top: 5rem; }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
 main
+}
+
+/* --- Vibrant cursor trail --- */
+.trail {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  animation: trailFade 0.8s linear forwards;
+}
+
+@keyframes trailFade {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
 }

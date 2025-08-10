@@ -62,6 +62,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Bind ALL lightbox triggers on the page ----
   wireTriggers('.lightbox-trigger');
+
+  // Colorful cursor trail
+  document.addEventListener('mousemove', e => {
+    const trail = document.createElement('div');
+    const size = Math.random() * 12 + 8;
+    trail.className = 'trail';
+    trail.style.width = trail.style.height = `${size}px`;
+    trail.style.left = `${e.pageX}px`;
+    trail.style.top = `${e.pageY}px`;
+    trail.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 800);
+  });
 });
 
 // ---------- triggers ----------
