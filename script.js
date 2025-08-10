@@ -140,3 +140,46 @@ function testURL(url, timeout = 8000) {
     img.src = url + (url.includes('?') ? '&' : '?') + 'probe=' + Date.now();
   });
 }
+
+// ---- Cloudinary "fetch" optimizer (client-only, no secrets needed) ----
+(function () {
+  const CLOUD = 'ddx7wc9ko'; // your cloud name
+  // Skip when opening files locally (file://). Runs on http(s) only.
+  if (!/^https?:/.test(location.protocol)) return;
+
+  const CDN_BASE = `https://res.cloudinary.com/${CLOUD}/image/fetch`;
+
+  document.querySelectorAll('img').forEach(img => {
+    // Opt-out: add data-no-cdn to any <img> you don't want transformed (e.g. your GIF hero)
+    if (img.hasAttribute('data-no-cdn')) return;
+
+    const raw = img.getAttribute('data-src') || img.getAttribute('src');
+    if (!raw) return;
+    // Skip data URLs and (optionally) GIFs to keep animation untouched
+    if (/^data:/.test(raw) || /\.gif(\?.*)?$/i.test(raw)) return;
+
+    // Make absolute URL for Cloudinary to fetch
+    const abs = raw.startsWith('http') ? raw : new URL(raw, location.href).href;
+
+    // Wait a tick so layout width is known
+    requestAnimationFrame(() => {
+      const cssW = Math.ceil(img.getBoundingClientRect().width || 800);
+
+      // Auto format + quality, auto DPR, don't upscale (c_limit), constrain by current width
+      const optimized =
+        `${CDN_BASE}/f_auto,q_auto,dpr_auto,c_limit,w_${cssW}/${encodeURIComponent(abs)}`;
+
+      // Try the optimized URL first; if it fails, keep the original
+      const tester = new Image();
+      tester.onload = () => {
+        img.src = optimized;
+        if (img.dataset) img.dataset.src = optimized; // so your lightbox uses the optimized URL too
+      };
+      tester.onerror = () => { /* leave original src as-is */ };
+      tester.referrerPolicy = 'no-referrer';
+      tester.src = optimized;
+    });
+  });
+})();
+
+<img src="portfolio/graphic-design/images/img1.gif" data-no-cdn alt="">
