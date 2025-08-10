@@ -915,10 +915,11 @@ footer.social-footer {
 }
 footer.social-footer a {
   display: inline-block;
-  padding: 0.4rem;
-  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  line-height: 0;
 }
 footer.social-footer a:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
