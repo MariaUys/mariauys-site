@@ -1,0 +1,20 @@
+{
+  "name": "mariauys-site",
+  "version": "1.0.0",
+  "description": "Static site build tooling",
+  "main": "script.js",
+  "scripts": {
+    "test": "npm run build",
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "cleancss -o dist/style.min.css style.css",
+    "build:js": "terser script.js -o dist/script.min.js -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.43.1"
+  }
+}
