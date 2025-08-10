@@ -302,13 +302,17 @@ html, body {
 }
 
 .grid-two {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
+  align-items: start;
 }
 
 .grid-two img {
-  width: 50%;
+  width: 100%;
+  height: auto;
+  display: block;
   border-radius: 0.5rem;
 }
 
@@ -467,12 +471,16 @@ body.packaging .gallery hr {
 }
 
 .grid-two {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  align-items: start;
 }
 
 .grid-two img {
-  width: 50%;
+  width: 100%;
+  height: auto;
+  display: block;
   border-radius: 0.5rem;
 }
 
@@ -500,7 +508,6 @@ body.packaging .gallery hr {
 
 /* Responsive tweaks */
 @media screen and (max-width: 768px) {
-  .grid-two { display: grid; grid-template-columns: 1fr 1fr; }
   .grid-three { grid-template-columns: repeat(2, 1fr); }
   .grid-four { grid-template-columns: repeat(2, 1fr); }
 }
