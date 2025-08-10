@@ -7,7 +7,7 @@
     "test": "npm run build",
     "build": "npm run build:css && npm run build:js",
     "build:css": "cleancss -o dist/style.min.css style.css",
-    "build:js": "terser script.js -o dist/script.min.js -c -m"
+    "build:js": "terser script.js -o dist/script.min.js -c"
   },
   "keywords": [],
   "author": "",
