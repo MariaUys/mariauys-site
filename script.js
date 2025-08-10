@@ -62,6 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Bind ALL lightbox triggers on the page ----
   wireTriggers('.lightbox-trigger');
+
+  // Subtle cursor trail
+  let lastTrail = 0;
+  document.addEventListener('mousemove', e => {
+    const now = Date.now();
+    if (now - lastTrail < 25) return;
+    lastTrail = now;
+    const trail = document.createElement('div');
+    trail.className = 'trail';
+    trail.style.left = `${e.pageX}px`;
+    trail.style.top = `${e.pageY}px`;
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 400);
+  });
 });
 
 // ---------- triggers ----------
