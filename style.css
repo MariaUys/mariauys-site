@@ -1,3 +1,4 @@
+/* Poppins via Google Fonts; binary font files omitted */
 /* Global styles */
 body {
   margin: 0;
@@ -11,16 +12,7 @@ body {
   user-select: none;
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0 0, 0% 50%;
-  }
-  50% {
-    background-position: 0 0, 100% 50%;
-  }
-  100% {
-    background-position: 0 0, 0% 50%;
-  }
+
 }
 
 /* Topbar */
@@ -298,8 +290,9 @@ html, body {
 }
 
 .afri-item img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
@@ -316,18 +309,26 @@ html, body {
 }
 
 .grid-two {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
+  align-items: start;
 }
 
+
 .grid-two img {
-  width: 50%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
   border-radius: 0.5rem;
 }
 
 .grid-full img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -353,8 +354,11 @@ html, body {
   gap: 0.8rem;
 }
 
+
 .grid-small img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.4rem;
 }
 
@@ -473,19 +477,28 @@ body.packaging .gallery hr {
 }
 
 /* Utility grid classes */
+
 .grid-full img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   display: block;
   border-radius: 0.5rem;
 }
 
 .grid-two {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  align-items: start;
 }
 
+
 .grid-two img {
-  width: 50%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
   border-radius: 0.5rem;
 }
 
@@ -495,8 +508,11 @@ body.packaging .gallery hr {
   gap: 1rem;
 }
 
+
 .grid-three img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
@@ -506,14 +522,16 @@ body.packaging .gallery hr {
   gap: 1rem;
 }
 
+
 .grid-four img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
 /* Responsive tweaks */
 @media screen and (max-width: 768px) {
-  .grid-two { display: grid; grid-template-columns: 1fr 1fr; }
   .grid-three { grid-template-columns: repeat(2, 1fr); }
   .grid-four { grid-template-columns: repeat(2, 1fr); }
 }
@@ -545,7 +563,9 @@ body.stylist .project-text {
 
 /* Full-width project hero image */
 body.stylist .grid-full img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   display: block;
   border-radius: 0.5rem;
 }
@@ -556,7 +576,9 @@ body.stylist .grid-two {
   gap: 1rem;
 }
 body.stylist .grid-two img {
-  width: 50%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
@@ -567,7 +589,9 @@ body.stylist .grid-three {
   gap: 1rem;
 }
 body.stylist .grid-three img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
 }
@@ -579,7 +603,9 @@ body.stylist .grid-four {
   gap: 1rem;
 }
 body.stylist .grid-four img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
@@ -606,12 +632,13 @@ body.stylist .grid-four img {
 /* Extra vertical room between stacked grid-three rows on Stylist */
 body.stylist .grid-three--spaced { margin-bottom: 1.5rem; }
 
-<img src="portfolio/stylist/images/img5.jpg" alt="">
-<img src="portfolio/stylist/images/img6.jpg" alt="" onerror="this.onerror=null;this.src='portfolio/stylist/images/img6.png'">
-
 /* ————————————— Graphic Design Page ————————————— */
 body.graphic-design .graphic-gif img {
-  width: 100%; height: auto; display: block; margin-bottom: 2rem;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 2rem;
 }
 body.graphic-design .graphic-title {
   text-align: center; font-weight: 600; margin: 1rem 0 2rem; font-size: 1.4rem;
@@ -626,7 +653,11 @@ body.graphic-design .graphic-gallery.three-up {
   grid-template-columns: repeat(3, 1fr);
 }
 body.graphic-design .graphic-gallery img {
-  width: 100%; height: auto; cursor: pointer; border-radius: 0.5rem;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  cursor: pointer;
+  border-radius: 0.5rem;
 }
 /* ensure the <hr> between rows spans edge-to-edge */
 body.graphic-design hr {
@@ -635,8 +666,9 @@ body.graphic-design hr {
 
 /* ===== Graphic Design (page-scoped) ===== */
 body.graphic-design .graphic-gif img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   display: block;
   margin-bottom: 2rem;
 }
@@ -663,8 +695,9 @@ body.graphic-design .graphic-gallery.three-up {
 }
 
 body.graphic-design .graphic-gallery img {
-  width: 100%;
+  width: auto;
   height: auto;            /* prevents distortion */
+  max-width: 100%;
   border-radius: 0.5rem;
   cursor: pointer;
   display: block;
@@ -702,8 +735,9 @@ body.afrigarde .image-hover {
 }
 
 body.afrigarde .image-hover img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   display: block;
   transition: opacity 0.4s ease-in-out;
 }
@@ -732,8 +766,9 @@ body.afrigarde .caption {
 
 /* Features page */
 body.features .feature img {
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
   display: block;
 }
 
@@ -748,12 +783,16 @@ body.brand-identity .grid-full {
 }
 
 body.brand-identity .grid-two img {
-  width: 50%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
 body.brand-identity .grid-full img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
 }
 
@@ -771,7 +810,9 @@ body.brand-identity .grid-small {
 }
 
 body.brand-identity .grid-small img {
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.4rem;
 }
 
@@ -817,8 +858,9 @@ body.stylist .grid-two {
 }
 
 body.stylist .grid-two img {
-  width: 100%;
+  width: auto;
   height: auto;                          /* preserve aspect ratio */
+  max-width: 100%;
   display: block;
 }
 
@@ -832,7 +874,7 @@ body.stylist .project-item .grid-two{
 }
 
 body.stylist .project-item .grid-two img{
-  width: 100% !important;
+  width: auto !important;
   height: auto !important;         /* preserve aspect ratio */
   max-width: 100% !important;
   max-height: none !important;
@@ -909,7 +951,11 @@ body.home main { padding-top: 5rem; }
   box-shadow: 0 16px 36px rgba(0,0,0,.10);
 }
 .cards .card img {
-  display: block; width: 100%; height: 260px; object-fit: cover;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 260px;
 }
 .cards .card h3 {
   position: absolute; left: 0; right: 0; bottom: 0;
@@ -924,28 +970,10 @@ body.home main { padding-top: 5rem; }
     grid-column: span 12; /* 1-up on mobile */
   }
   .cards .card img {
-    height: 220px;
+    max-height: 220px;
   }
 }
 
 /* ===== Scroll reveal ===== */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: translateY(0); }
-/* --- Subtle cursor trail --- */
-.trail {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  pointer-events: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.7);
-  transform: translate(-50%, -50%);
-  animation: trailFade 0.4s ease-out forwards;
-}
-
-@keyframes trailFade {
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
-  }
-}
