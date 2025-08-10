@@ -1,283 +1,191 @@
-// script.js
-// ------------------------------------------------------------
-// One lightbox to rule them all (works for both <img> triggers
-// and canvas-driven pages that push into a global images[]).
-// ------------------------------------------------------------
+// script.js (clean + robust)
 
-let lightbox, lightboxCanvas, ctx;
-let lightboxSources = [];      // for <img class="lightbox-trigger"> pages
-let lightboxIndex   = 0;
-let useBuffer       = false;   // true when navigating the images[] buffer
+let lightbox, canvas, ctx;
+let galleryImages = [];   // images for the current page only
+let currentIndex = 0;
 
-// For canvas pages (illustration / packaging) that push images here:
-let images = [];               // don't remove - used by those inline scripts
-
+// ---------- Init ----------
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Cache elements safely ---
-  lightbox       = document.getElementById('lightbox') || null;
-  lightboxCanvas = document.getElementById('lightboxCanvas') || null;
-  ctx            = lightboxCanvas ? lightboxCanvas.getContext('2d') : null;
-  // create a fallback <img> we can show if canvas can't draw
-window._lbFallbackImg = document.createElement('img');
-_lbFallbackImg.id = 'lightboxFallback';
-_lbFallbackImg.style.display   = 'none';
-_lbFallbackImg.style.maxWidth  = '90%';
-_lbFallbackImg.style.maxHeight = '80vh';
-_lbFallbackImg.style.borderRadius = '1rem';
-lightbox?.appendChild(_lbFallbackImg);
+  lightbox = document.getElementById('lightbox');
+  canvas   = document.getElementById('lightboxCanvas');
+  if (canvas) ctx = canvas.getContext('2d');
 
+  // Fallback <img> inside the lightbox (shown if canvas can’t draw)
+  if (lightbox && !document.getElementById('lightboxFallback')) {
+    const fb = document.createElement('img');
+    fb.id = 'lightboxFallback';
+    fb.style.display    = 'none';
+    fb.style.maxWidth   = '90%';
+    fb.style.maxHeight  = '80vh';
+    fb.style.borderRadius = '1rem';
+    lightbox.appendChild(fb);
+  }
 
-  // --- Lightbox controls (only if present) ---
-  document.querySelector('.close-btn-lightbox')
-    ?.addEventListener('click', closeLightbox);
+  // Controls
+  document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
+  document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
+  document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
+  lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  document.querySelector('.nav-left')
-    ?.addEventListener('click', () => navigate(-1));
-
-  document.querySelector('.nav-right')
-    ?.addEventListener('click', () => navigate(1));
-
-  lightbox?.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
+  // Menu (unchanged)
+  window.toggleMenu = function (e) {
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+    if (e?.target.closest('.portfolio-sub')) return;
+    menu.classList.toggle('open');
+    overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
+  };
+  window.toggleDropdown = el => el.classList.toggle('open');
+  document.addEventListener('click', e => {
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+    const ham = document.querySelector('.hamburger');
+    if (!menu.contains(e.target) && !ham.contains(e.target)) {
+      menu.classList.remove('open');
+      overlay.style.display = 'none';
+    }
   });
 
-  // once after you set up 'lightbox':
-if (!document.getElementById('lightboxFallback')) {
-  const f = document.createElement('img');
-  f.id = 'lightboxFallback';
-  f.style.display = 'none';
-  f.style.maxWidth = '90%';
-  f.style.maxHeight = '80vh';
-  f.style.borderRadius = '1rem';
-  lightbox.appendChild(f);
-}
-
-  // --- CV label text (mobile vs desktop) ---
+  // Mobile CV label
   const cvLink = document.querySelector('.cv-label');
-  if (cvLink) {
-    cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
+  if (cvLink) cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
+
+  // Page-specific: wire triggers
+  if (document.body.classList.contains('graphic-design')) {
+    wireTriggers('.graphic-design .lightbox-trigger');
   }
-
-  // --- Sidebar / hamburger wiring ---
-  // (Other handlers live below as plain functions)
-
-  // --- Collect .lightbox-trigger images (if any) for this page ---
-  const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
-  if (triggers.length) {
-    lightboxSources = triggers.map(el => el.getAttribute('data-src') || el.src);
-    triggers.forEach((el, i) => {
-      el.addEventListener('click', () => openLightboxAt(i), { passive: true });
-    });
+  if (document.body.classList.contains('brand-identity')) {
+    wireTriggers('.brand-identity .lightbox-trigger');
   }
-
-  // --- Optional Afrigarde hover fallback (CSS already handles it) ---
-  if (document.body.classList.contains('afrigarde')) {
-    document.querySelectorAll('.image-hover').forEach(container => {
-      const def = container.querySelector('.default-img');
-      const hov = container.querySelector('.hover-img');
-      if (!def || !hov) return;
-      container.addEventListener('mouseenter', () => { def.style.opacity = 0; hov.style.opacity = 1; });
-      container.addEventListener('mouseleave', () => { def.style.opacity = 1; hov.style.opacity = 0; });
-    });
+  if (document.body.classList.contains('illustration')) {
+    wireTriggers('.illustration .lightbox-trigger');
   }
-
-  // --- Resilient file-extension fallback for gallery <img> elements ---
-  const tryOrder = ['jpeg','jpg','png','gif','webp'];
-  document.querySelectorAll('.graphic-gallery img, .grid-small img, .grid-two img, .grid-three img, .grid-four img')
-    .forEach((img) => {
-      img.loading = img.loading || 'lazy';
-      let trying = false, tried = new Set();
-      img.addEventListener('error', () => {
-        if (trying) return;
-        const m = img.src.match(/^(.*)\.(\w+)(\?.*)?$/);
-        if (!m) return;
-        const [, base, ext, query=''] = m;
-        tried.add(ext.toLowerCase());
-        const candidates = tryOrder.filter(e => !tried.has(e));
-        if (!candidates.length) return;
-        trying = true;
-        (function next(i=0){
-          if (i >= candidates.length) { trying = false; return; }
-          const candidate = `${base}.${candidates[i]}${query}`;
-          const test = new Image();
-          test.onload  = () => { img.src = candidate; trying = false; };
-          test.onerror = () => next(i+1);
-          test.src = candidate;
-        })();
-      });
-    });
-});
-
-// ------------------------------------------------------------
-// Menu
-// ------------------------------------------------------------
-function toggleMenu(e) {
-  const menu    = document.getElementById('mobileMenu');
-  const overlay = document.getElementById('overlay');
-  if (!menu || !overlay) return;
-  if (e?.target?.closest('.portfolio-sub')) return;
-  menu.classList.toggle('open');
-  overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
-}
-
-function toggleDropdown(el) {
-  el?.classList?.toggle('open');
-}
-
-document.addEventListener('click', (e) => {
-  const menu = document.getElementById('mobileMenu');
-  const overlay = document.getElementById('overlay');
-  const ham = document.querySelector('.hamburger');
-  if (!menu || !overlay || !ham) return;
-  if (!menu.contains(e.target) && !ham.contains(e.target)) {
-    menu.classList.remove('open');
-    overlay.style.display = 'none';
+  if (document.body.classList.contains('packaging')) {
+    wireTriggers('.packaging .lightbox-trigger');
+  }
+  if (document.body.classList.contains('stylist')) {
+    wireTriggers('.stylist .lightbox-trigger');
+  }
+  if (document.body.classList.contains('textile')) {
+    wireTriggers('.textile .lightbox-trigger');
   }
 });
 
-// ------------------------------------------------------------
-// Lightbox API (works with both sources list and images[] buffer)
-// ------------------------------------------------------------
-function openLightboxAt(i) {
-  // Use sources list from .lightbox-trigger images
-  if (!lightbox || !lightboxCanvas || !ctx || !lightboxSources.length) return;
-  useBuffer = false;
-  lightboxIndex = i;
-  loadAndDraw(lightboxSources[i]);
-  lightbox.style.display = 'flex';
+// ---------- Wire gallery thumbnails to lightbox ----------
+function wireTriggers(selector) {
+  galleryImages = []; // reset per page
+  const order = ['jpg','jpeg','png','gif','webp'];
+
+  document.querySelectorAll(selector).forEach((thumb, idx) => {
+    // Lazy by default
+    thumb.loading = 'lazy';
+
+    // Preload the big source for lightbox
+    const src = thumb.dataset.src || thumb.src;
+    const img = new Image();
+    img.onload  = () => {/* ready */};
+    img.onerror = () => console.warn('[preload fail]', src);
+    img.src = src;
+    galleryImages.push(img);
+
+    // Click → open by index (waits for load inside openLightbox)
+    thumb.addEventListener('click', () => openLightbox(idx), { passive: true });
+
+    // If the thumb itself 404s, try alternate extensions
+    thumb.addEventListener('error', () => {
+      const m = (thumb.src || '').match(/^(.*)\.(\w+)(\?.*)?$/);
+      if (!m) return;
+      const [, base, ext, q=''] = m;
+      const candidates = order.filter(e => e !== ext.toLowerCase());
+      (function tryNext(i=0){
+        if (i >= candidates.length) return;
+        const candidate = `${base}.${candidates[i]}${q}`;
+        const t = new Image();
+        t.onload  = () => { thumb.src = candidate; };
+        t.onerror = () => tryNext(i+1);
+        t.src = candidate;
+      })();
+    });
+  });
 }
 
-// Support legacy calls from canvas pages that push into images[]
-function openLightbox(index) {
-  if (!lightbox || !lightboxCanvas || !ctx) return;
-  if (!images.length || !images[index]) return;
-  useBuffer = true;
-  lightboxIndex = index;
-  drawToLightbox(images[index]);
-  lightbox.style.display = 'flex';
+// ---------- Lightbox core ----------
+function openLightbox(i) {
+  currentIndex = i;
+  const img = galleryImages[i];
+  if (!img) return;
+
+  if (img.complete && img.naturalWidth > 0) {
+    draw(img);
+    lightbox.style.display = 'flex';
+  } else {
+    img.onload = () => {
+      draw(img);
+      lightbox.style.display = 'flex';
+    };
+    img.onerror = () => {
+      showFallback(img.src);
+      lightbox.style.display = 'flex';
+    };
+  }
 }
 
-// Convenience: open with a raw path (still navigates among sources if present)
+// Convenience for pages that pass a direct path
 function openLightboxFromPath(path) {
-  if (!lightbox || !lightboxCanvas || !ctx) return;
-  useBuffer = false;
-  const idx = lightboxSources.indexOf(path);
-  lightboxIndex = idx >= 0 ? idx : 0;
-  loadAndDraw(path);
-  lightbox.style.display = 'flex';
+  const img = new Image();
+  img.onload  = () => { draw(img); lightbox.style.display = 'flex'; };
+  img.onerror = () => { showFallback(path); lightbox.style.display = 'flex'; };
+  img.src = path;
 }
 
-function closeLightbox() {
-  if (!lightbox) return;
-  lightbox.style.display = 'none';
-}
+function closeLightbox() { if (lightbox) lightbox.style.display = 'none'; }
 
 function navigate(dir) {
-  if (!lightbox || !lightboxCanvas || !ctx) return;
-  const total = useBuffer && images.length ? images.length : lightboxSources.length;
-  if (!total) return;
-  lightboxIndex = (lightboxIndex + dir + total) % total;
-  if (useBuffer && images.length) {
-    drawToLightbox(images[lightboxIndex]);
-  } else {
-    loadAndDraw(lightboxSources[lightboxIndex]);
-  }
+  const len = galleryImages.length;
+  if (!len) return;
+  currentIndex = (currentIndex + dir + len) % len;
+  openLightbox(currentIndex);
 }
 
-// ------------------------------------------------------------
-// Image loading with extension fallback
-// ------------------------------------------------------------
-function loadAndDraw(src) {
-  if (!ctx || !lightboxCanvas) return;
-
-  // always hide fallback when we *try* canvas
-  if (window._lbFallbackImg) window._lbFallbackImg.style.display = 'none';
-  lightboxCanvas.style.display = 'block';
-
-  const img = new Image();
-  img.crossOrigin = 'anonymous'; // safe default
-  img.onload  = () => drawToLightbox(img);
-  img.onerror = () => {
-    const alts = altCandidates(src);
-    tryNextAlt(alts, 0, src);
-  };
-  img.src = src;
-}
-
-function altCandidates(src) {
-  // try both lower + UPPER case exts (Netlify is case-sensitive)
-  const m = src.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-  const base = m ? src.slice(0, -m[0].length) : src;
-  const lower = ['jpeg','jpg','png','gif','webp'];
-  const upper = lower.map(e => e.toUpperCase());
-  const cur   = m ? m[1] : '';
-  return [...lower, ...upper].filter(e => e !== cur).map(e => `${base}.${e}`);
-}
-
-function tryNextAlt(list, i, original) {
-  if (i >= list.length) {
-    // last resort: show a normal <img> instead of canvas so it never looks broken
-    if (window._lbFallbackImg) {
-      lightboxCanvas.style.display = 'none';
-      _lbFallbackImg.src = original;   // still try the original URL
-      _lbFallbackImg.onload  = () => { _lbFallbackImg.style.display = 'block'; };
-      _lbFallbackImg.onerror = () => { _lbFallbackImg.style.display = 'none'; };
-    }
-    return;
-  }
-  const attempt = list[i];
-  const test = new Image();
-  test.crossOrigin = 'anonymous';
-  test.onload  = () => drawToLightbox(test);
-  test.onerror = () => tryNextAlt(list, i + 1, original);
-  test.src = attempt;
-}
-
-// ------------------------------------------------------------
-// Canvas drawing (retina + aspect ratio preserved)
-// ------------------------------------------------------------
-function drawToLightbox(img) {
+// ---------- Drawing & fallback ----------
+function draw(img) {
   const fb = document.getElementById('lightboxFallback');
+  if (!canvas || !ctx) return showFallback(img.src);
 
-  if (!img || !img.naturalWidth) {
-    // show fallback <img>
-    if (fb) {
-      lightboxCanvas.style.display = 'none';
-      fb.src = img?.src || '';
-      fb.style.display = 'block';
-    }
-    return;
+  // Guard: if dimensions are missing, don’t draw to canvas
+  if (!img.naturalWidth || !img.naturalHeight) {
+    return showFallback(img.src);
   }
 
-  // normal canvas path
   const maxW = window.innerWidth * 0.9;
   const maxH = window.innerHeight * 0.8;
   const ratio = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
-  const dispW = img.naturalWidth * ratio;
-  const dispH = img.naturalHeight * ratio;
-  const dpr   = window.devicePixelRatio || 1;
+  if (!isFinite(ratio) || ratio <= 0) return showFallback(img.src);
 
-  lightboxCanvas.width  = dispW * dpr;
-  lightboxCanvas.height = dispH * dpr;
-  lightboxCanvas.style.width  = dispW + 'px';
-  lightboxCanvas.style.height = dispH + 'px';
+  const w = Math.round(img.naturalWidth * ratio);
+  const h = Math.round(img.naturalHeight * ratio);
+  const dpr = window.devicePixelRatio || 1;
 
-  const ctx = lightboxCanvas.getContext('2d');
-  try {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.imageSmoothingEnabled = true;
-    ctx.clearRect(0, 0, dispW, dispH);
-    ctx.drawImage(img, 0, 0, dispW, dispH);
+  canvas.width  = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width  = w + 'px';
+  canvas.style.height = h + 'px';
 
-    // canvas succeeded → hide fallback
-    if (fb) fb.style.display = 'none';
-    lightboxCanvas.style.display = 'block';
-  } catch (e) {
-    // if canvas drawing fails for any reason, use fallback <img>
-    if (fb) {
-      lightboxCanvas.style.display = 'none';
-      fb.src = img.src;
-      fb.style.display = 'block';
-    }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(img, 0, 0, w, h);
+
+  if (fb) fb.style.display = 'none';
+  canvas.style.display = 'block';
+}
+
+function showFallback(src) {
+  const fb = document.getElementById('lightboxFallback');
+  if (fb) {
+    fb.src = src || '';
+    fb.style.display = 'block';
   }
+  if (canvas) canvas.style.display = 'none';
 }
