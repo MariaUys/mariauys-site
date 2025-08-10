@@ -49,60 +49,55 @@
     <div class="nav-btn nav-right">›</div>
   </div>
 
-  <!-- page-specific loader -->
-  <script defer>
-  document.addEventListener('DOMContentLoaded', () => {
-    const tryExt = ['jpg','jpeg','png','gif'],
-          gallery = document.getElementById('gallery');
-    let idx = 1;
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const gallery = document.getElementById('gallery');
+  const exts = ['jpg','jpeg','png','gif','webp'];
+  let i = 1, misses = 0;
 
-    function loadNext() {
-      let e = 0,
-          img = new Image();
+  function tryNext(iLocal) {
+    let e = 0, found = false;
 
-      (function tryOne() {
-        if (e >= tryExt.length) return;
-        img.src = `portfolio/packaging-design/images/img${idx}.${tryExt[e]}`;
+    (function attempt() {
+      if (e >= exts.length) {
+        if (!found) misses++;
+        if (misses >= 2) return;   // stop after 2 consecutive gaps
+        i++;
+        tryNext(i);
+        return;
+      }
 
-        img.onload = () => {
-          // draw thumbnail at full resolution onto canvas
-          const c   = document.createElement('canvas'),
-                ctx = c.getContext('2d');
-          c.width  = img.naturalWidth;
-          c.height = img.naturalHeight;
-          c.style.width  = '100%';
-          c.style.height = 'auto';
-          ctx.drawImage(img, 0, 0);
+      const path = `portfolio/packaging-design/images/img${i}.${exts[e]}`;
+      const test = new Image();
+      test.onload = () => {
+        found = true; misses = 0;
 
-          // attach lightbox handler
-          const thisI = images.length;
-          c.addEventListener('click', () => openLightbox(thisI));
+        const thumb = document.createElement('img');
+        thumb.src = path;
+        thumb.alt = `Packaging ${i}`;
+        thumb.loading = 'lazy';
+        thumb.decoding = 'async';
+        thumb.style.width = '100%';
+        thumb.style.height = 'auto';
+        thumb.addEventListener('click', () => openLightboxFromPath(path));
 
-          // append & advance
-          gallery.appendChild(c);
-          images.push(img);
-          idx++;
+        gallery.appendChild(thumb);
 
-          // insert separator
-          const hr = document.createElement('hr');
-          hr.style.border     = 'none';
-          hr.style.borderTop  = '2px solid #ddd';
-          hr.style.margin     = '2rem 0';
-          gallery.appendChild(hr);
+        // optional separator between rows
+        const hr = document.createElement('hr');
+        gallery.appendChild(hr);
 
-          loadNext();
-        };
+        i++;
+        tryNext(i);
+      };
+      test.onerror = () => { e++; attempt(); };
+      test.src = path;
+    })();
+  }
 
-        img.onerror = () => {
-          e++;
-          tryOne();
-        };
-      })();
-    }
-
-    loadNext();
-  });
-  </script>
+  tryNext(i);
+});
+</script>
 
   <!-- global behaviors -->
   <script src="script.js" defer></script>
