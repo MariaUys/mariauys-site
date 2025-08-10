@@ -1,24 +1,22 @@
-// script.js (clean + robust)
+// script.js — image-based lightbox with extension fallback
 
-let lightbox, canvas, ctx;
-let galleryImages = [];   // images for the current page only
-let currentIndex = 0;
+let lightbox, currentIndex = 0;
+let gallerySources = []; // raw URLs from the page (data-src or src)
 
-// ---------- Init ----------
+// ---------- init ----------
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
-  canvas   = document.getElementById('lightboxCanvas');
-  if (canvas) ctx = canvas.getContext('2d');
 
-  // Fallback <img> inside the lightbox (shown if canvas can’t draw)
-  if (lightbox && !document.getElementById('lightboxFallback')) {
-    const fb = document.createElement('img');
-    fb.id = 'lightboxFallback';
-    fb.style.display    = 'none';
-    fb.style.maxWidth   = '90%';
-    fb.style.maxHeight  = '80vh';
-    fb.style.borderRadius = '1rem';
-    lightbox.appendChild(fb);
+  // Add a real <img> inside the lightbox (we'll ignore the <canvas>)
+  let lbImg = document.getElementById('lightboxImg');
+  if (!lbImg && lightbox) {
+    lbImg = document.createElement('img');
+    lbImg.id = 'lightboxImg';
+    lbImg.style.maxWidth  = '90%';
+    lbImg.style.maxHeight = '80vh';
+    lbImg.style.borderRadius = '1rem';
+    lbImg.style.display = 'none';
+    lightbox.appendChild(lbImg);
   }
 
   // Controls
@@ -28,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  // Menu (unchanged)
+  // Menu
   window.toggleMenu = function (e) {
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('overlay');
@@ -42,8 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('overlay');
     const ham = document.querySelector('.hamburger');
     if (!menu.contains(e.target) && !ham.contains(e.target)) {
-      menu.classList.remove('open');
-      overlay.style.display = 'none';
+      menu.classList.remove('open'); overlay.style.display = 'none';
     }
   });
 
@@ -51,141 +48,95 @@ document.addEventListener('DOMContentLoaded', () => {
   const cvLink = document.querySelector('.cv-label');
   if (cvLink) cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
 
-  // Page-specific: wire triggers
-  if (document.body.classList.contains('graphic-design')) {
-    wireTriggers('.graphic-design .lightbox-trigger');
-  }
-  if (document.body.classList.contains('brand-identity')) {
-    wireTriggers('.brand-identity .lightbox-trigger');
-  }
-  if (document.body.classList.contains('illustration')) {
-    wireTriggers('.illustration .lightbox-trigger');
-  }
-  if (document.body.classList.contains('packaging')) {
-    wireTriggers('.packaging .lightbox-trigger');
-  }
-  if (document.body.classList.contains('stylist')) {
-    wireTriggers('.stylist .lightbox-trigger');
-  }
-  if (document.body.classList.contains('textile')) {
-    wireTriggers('.textile .lightbox-trigger');
-  }
+  // ---- Bind ALL lightbox triggers on the page ----
+  wireTriggers('.lightbox-trigger');
 });
 
-// ---------- Wire gallery thumbnails to lightbox ----------
+// ---------- triggers ----------
 function wireTriggers(selector) {
-  galleryImages = []; // reset per page
-  const order = ['jpg','jpeg','png','gif','webp'];
-
+  gallerySources = [];
   document.querySelectorAll(selector).forEach((thumb, idx) => {
-    // Lazy by default
+    // record the requested source
+    const src = thumb.getAttribute('data-src') || thumb.src;
+    gallerySources.push(src);
+
+    // be safe: make them lazy
     thumb.loading = 'lazy';
 
-    // Preload the big source for lightbox
-    const src = thumb.dataset.src || thumb.src;
-    const img = new Image();
-    img.onload  = () => {/* ready */};
-    img.onerror = () => console.warn('[preload fail]', src);
-    img.src = src;
-    galleryImages.push(img);
-
-    // Click → open by index (waits for load inside openLightbox)
+    // click handler
     thumb.addEventListener('click', () => openLightbox(idx), { passive: true });
-
-    // If the thumb itself 404s, try alternate extensions
-    thumb.addEventListener('error', () => {
-      const m = (thumb.src || '').match(/^(.*)\.(\w+)(\?.*)?$/);
-      if (!m) return;
-      const [, base, ext, q=''] = m;
-      const candidates = order.filter(e => e !== ext.toLowerCase());
-      (function tryNext(i=0){
-        if (i >= candidates.length) return;
-        const candidate = `${base}.${candidates[i]}${q}`;
-        const t = new Image();
-        t.onload  = () => { thumb.src = candidate; };
-        t.onerror = () => tryNext(i+1);
-        t.src = candidate;
-      })();
-    });
   });
 }
 
-// ---------- Lightbox core ----------
-function openLightbox(i) {
+// ---------- lightbox ----------
+async function openLightbox(i) {
   currentIndex = i;
-  const img = galleryImages[i];
-  if (!img) return;
+  const raw = gallerySources[i];
+  if (!raw) return;
 
-  if (img.complete && img.naturalWidth > 0) {
-    draw(img);
-    lightbox.style.display = 'flex';
-  } else {
-    img.onload = () => {
-      draw(img);
-      lightbox.style.display = 'flex';
-    };
-    img.onerror = () => {
-      showFallback(img.src);
-      lightbox.style.display = 'flex';
-    };
+  const lbImg = document.getElementById('lightboxImg');
+  if (!lbImg) return;
+
+  lbImg.style.display = 'none';         // hide while resolving/loading
+  lightbox.style.display = 'flex';
+
+  try {
+    const resolved = await resolveWithAlternates(raw);
+    // load the working url
+    await loadInto(lbImg, resolved);
+    lbImg.style.display = 'block';
+    // hide canvas if it exists
+    const canvas = document.getElementById('lightboxCanvas');
+    if (canvas) canvas.style.display = 'none';
+  } catch {
+    // show a tiny error state
+    lbImg.alt = 'Image could not be loaded';
+    lbImg.style.display = 'block';
+    lbImg.src = raw; // will show broken icon if nothing works
   }
 }
 
-// Convenience for pages that pass a direct path
-function openLightboxFromPath(path) {
-  const img = new Image();
-  img.onload  = () => { draw(img); lightbox.style.display = 'flex'; };
-  img.onerror = () => { showFallback(path); lightbox.style.display = 'flex'; };
-  img.src = path;
-}
-
-function closeLightbox() { if (lightbox) lightbox.style.display = 'none'; }
+function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.style.display = 'none'; }
 
 function navigate(dir) {
-  const len = galleryImages.length;
+  const len = gallerySources.length;
   if (!len) return;
   currentIndex = (currentIndex + dir + len) % len;
   openLightbox(currentIndex);
 }
 
-// ---------- Drawing & fallback ----------
-function draw(img) {
-  const fb = document.getElementById('lightboxFallback');
-  if (!canvas || !ctx) return showFallback(img.src);
-
-  // Guard: if dimensions are missing, don’t draw to canvas
-  if (!img.naturalWidth || !img.naturalHeight) {
-    return showFallback(img.src);
-  }
-
-  const maxW = window.innerWidth * 0.9;
-  const maxH = window.innerHeight * 0.8;
-  const ratio = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
-  if (!isFinite(ratio) || ratio <= 0) return showFallback(img.src);
-
-  const w = Math.round(img.naturalWidth * ratio);
-  const h = Math.round(img.naturalHeight * ratio);
-  const dpr = window.devicePixelRatio || 1;
-
-  canvas.width  = w * dpr;
-  canvas.height = h * dpr;
-  canvas.style.width  = w + 'px';
-  canvas.style.height = h + 'px';
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, w, h);
-  ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(img, 0, 0, w, h);
-
-  if (fb) fb.style.display = 'none';
-  canvas.style.display = 'block';
+// ---------- helpers ----------
+function loadInto(imgEl, url, timeout = 12000) {
+  return new Promise((resolve, reject) => {
+    let done = false;
+    const t = setTimeout(() => { if (!done) { done = true; reject(new Error('timeout')); } }, timeout);
+    imgEl.onload = () => { if (!done) { done = true; clearTimeout(t); resolve(); } };
+    imgEl.onerror = () => { if (!done) { done = true; clearTimeout(t); reject(new Error('error')); } };
+    imgEl.src = url + (url.includes('?') ? '&' : '?') + 'v=' + Date.now(); // bust caches
+  });
 }
 
-function showFallback(src) {
-  const fb = document.getElementById('lightboxFallback');
-  if (fb) {
-    fb.src = src || '';
-    fb.style.display = 'block';
+async function resolveWithAlternates(url) {
+  // Try the given URL first, then flip extension among common types
+  const m = url.match(/^(.*)\.(\w+)(\?.*)?$/);
+  if (!m) { await testURL(url); return url; }
+  const [, base, ext, q = ''] = m;
+  const order = ['jpg','jpeg','png','gif','webp'];
+  const candidates = [ext.toLowerCase(), ...order.filter(e => e !== ext.toLowerCase())];
+  for (const e of candidates) {
+    const candidate = `${base}.${e}${q}`;
+    if (await testURL(candidate)) return candidate;
   }
-  if (canvas) canvas.style.display = 'none';
+  throw new Error('no working candidate');
+}
+
+function testURL(url, timeout = 8000) {
+  return new Promise(resolve => {
+    const img = new Image();
+    let done = false;
+    const t = setTimeout(() => { if (!done) { done = true; resolve(false); } }, timeout);
+    img.onload  = () => { if (!done) { done = true; clearTimeout(t); resolve(true); } };
+    img.onerror = () => { if (!done) { done = true; clearTimeout(t); resolve(false); } };
+    img.src = url + (url.includes('?') ? '&' : '?') + 'probe=' + Date.now();
+  });
 }
