@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">About</a>
+      <a href="/features/">Features</a>
+      <a href="/brand-identity/">Brand Identity</a>
+      <a href="/graphic-design/">Graphic Design</a>
+      <a href="/illustration/">Illustration</a>
+      <a href="/packaging-design/">Packaging</a>
+      <a href="/stylist/">Stylist</a>
+      <a href="/textile-design/">Textile</a>
+      <a href="/cv/">CV</a>
+    </nav>
+  </header>
+
+  {% if image %}
+  <p><img src="/{{ image }}" alt="{{ title }}"></p>
+  {% endif %}
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <a href="https://www.instagram.com/mariameraai/" target="_blank" rel="noopener noreferrer">
+      <img src="/instagram-logo.svg" alt="Instagram">
+    </a>
+  </footer>
+  <script src="/script.js"></script>
+</body>
+</html>
