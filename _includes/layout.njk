@@ -6,34 +6,50 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-  <header>
-    <nav>
-      <a href="/">About</a>
-      <a href="/features.html">Features</a>
-      <a href="/brand-identity.html">Brand Identity</a>
-      <a href="/graphic-design.html">Graphic Design</a>
-      <a href="/illustration.html">Illustration</a>
-      <a href="/packaging-design.html">Packaging</a>
-      <a href="/stylist.html">Stylist</a>
-      <a href="/textile-design.html">Textile</a>
-      <a href="/cv.html">CV</a>
-    </nav>
-  </header>
-
-  {% if image %}
-  <p><img src="/{{ image }}" alt="{{ title }}"></p>
-  {% endif %}
+<body class="{{ bodyClass }}" oncontextmenu="return false;">
+  <div id="overlay" onclick="toggleMenu(event)"></div>
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <div class="logo"><a href="/index.html">MU</a></div>
+  </div>
+  <nav id="mobileMenu" class="slideout">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <ul>
+      <li><a href="/index.html">About</a></li>
+      <li class="portfolio-toggle" onclick="toggleDropdown(this)">
+        <a href="#">Portfolio <span class="arrow">&#9662;</span></a>
+        <ul class="portfolio-sub">
+          <li><a href="/brand-identity.html">&bull; Brand Identity</a></li>
+          <li><a href="/graphic-design.html">&bull; Graphic Design</a></li>
+          <li><a href="/illustration.html">&bull; Illustration</a></li>
+          <li><a href="/packaging-design.html">&bull; Packaging</a></li>
+          <li><a href="/stylist.html">&bull; Stylist</a></li>
+          <li><a href="/textile-design.html">&bull; Textile</a></li>
+        </ul>
+      </li>
+      <li><a href="/features.html">Features</a></li>
+      <li><a href="/cv.html" class="cv-label">CV</a></li>
+    </ul>
+  </nav>
 
   <main>
     {{ content | safe }}
   </main>
 
-  <footer>
+  <div id="lightbox">
+    <div class="close-btn-lightbox">×</div>
+    <div class="nav-btn nav-left">‹</div>
+    <canvas id="lightboxCanvas"></canvas>
+    <div class="nav-btn nav-right">›</div>
+  </div>
+
+  <footer class="social-footer">
     <a href="https://www.instagram.com/mariameraai/" target="_blank" rel="noopener noreferrer">
       <img src="/instagram-logo.svg" alt="Instagram">
     </a>
+    <p class="credit">built by CheekyBuild</p>
   </footer>
+
   <script src="/script.js"></script>
 </body>
 </html>

@@ -120,6 +120,9 @@ async function openLightbox(i) {
     lbImg.style.display = 'block';
     lbImg.src = raw; // will show broken icon if nothing works
   }
+function openLightboxFromPath(path) {
+  gallerySources = [path];
+  openLightbox(0);
 }
 
 function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.style.display = 'none'; }
