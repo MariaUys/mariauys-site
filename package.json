@@ -1,0 +1,11 @@
+{
+  "name": "mariauys-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "eleventy --input=content --output=dist"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+}
