@@ -1,6 +1,6 @@
 ---
 title: "Stylist"
 layout: layout.njk
-permalink: "/stylist/"
+permalink: "stylist.html"
 ---
 Content for the Stylist page.
