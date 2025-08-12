@@ -120,6 +120,8 @@ async function openLightbox(i) {
     lbImg.style.display = 'block';
     lbImg.src = raw; // will show broken icon if nothing works
   }
+  }
+
 function openLightboxFromPath(path) {
   gallerySources = [path];
   openLightbox(0);
@@ -179,6 +181,8 @@ function testURL(url, timeout = 8000) {
     const CDN_BASE = `https://res.cloudinary.com/${CLOUD}/image/fetch`;
 
     document.querySelectorAll('img').forEach(img => {
+      if (!img.hasAttribute('loading')) img.loading = 'lazy';
+      if (!img.hasAttribute('decoding')) img.decoding = 'async';
       if (img.hasAttribute('data-no-cdn')) return;
 
       const raw = img.getAttribute('data-src') || img.getAttribute('src');
