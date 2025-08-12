@@ -24,20 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const path = `portfolio/illustration/images/img${i}.${exts[e]}`;
       const test = new Image();
-      test.onload = () => {
-        found = true; misses = 0;
-        const thumb = document.createElement('img');
-        thumb.src = path;
-        thumb.alt = `Illustration ${i}`;
-        thumb.loading = 'lazy';
-        thumb.decoding = 'async';
-        thumb.style.width = '100%';
-        thumb.style.height = 'auto';
-        thumb.addEventListener('click', () => openLightboxFromPath(path));
-        gallery.appendChild(thumb);
-        i++;
-        tryNext(i);
-      };
+        test.onload = () => {
+          found = true; misses = 0;
+          const thumb = document.createElement('img');
+          thumb.src = path;
+          thumb.alt = `Illustration ${i}`;
+          thumb.loading = 'lazy';
+          thumb.decoding = 'async';
+          thumb.style.width = '100%';
+          thumb.style.height = 'auto';
+          const index = gallerySources.push(path) - 1;
+          thumb.addEventListener('click', () => openLightbox(index));
+          gallery.appendChild(thumb);
+          i++;
+          tryNext(i);
+        };
       test.onerror = () => { e++; attempt(); };
       test.src = path;
     })();

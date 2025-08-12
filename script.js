@@ -36,7 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
   document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
   lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'ArrowLeft') navigate(-1);
+  });
 
   // Menu
   window.toggleMenu = function (e) {
@@ -104,6 +108,12 @@ async function openLightbox(i) {
   if (!lbImg) return;
 
   lbImg.style.display = 'none';         // hide while resolving/loading
+
+  // ensure the lightbox appears over the current viewport instead of the page top
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  lightbox.style.position = 'absolute';
+  lightbox.style.top = `${scrollY}px`;
+  lightbox.style.left = '0';
   lightbox.style.display = 'flex';
 
   try {
@@ -120,14 +130,17 @@ async function openLightbox(i) {
     lbImg.style.display = 'block';
     lbImg.src = raw; // will show broken icon if nothing works
   }
-  }
-
-function openLightboxFromPath(path) {
-  gallerySources = [path];
-  openLightbox(0);
 }
 
-function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.style.display = 'none'; }
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) {
+    lb.style.display = 'none';
+    lb.style.position = '';
+    lb.style.top = '';
+    lb.style.left = '';
+  }
+}
 
 function navigate(dir) {
   const len = gallerySources.length;
