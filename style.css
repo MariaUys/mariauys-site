@@ -20,9 +20,8 @@ body {
   padding: 1rem;
   background: #ffffffcc;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;         /* Make it fixed */
+  position: sticky;        /* Keep header visible while scrolling */
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 1001;
 }
