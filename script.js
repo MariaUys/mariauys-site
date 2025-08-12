@@ -104,6 +104,12 @@ async function openLightbox(i) {
   if (!lbImg) return;
 
   lbImg.style.display = 'none';         // hide while resolving/loading
+
+  // ensure the lightbox appears over the current viewport instead of the page top
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  lightbox.style.position = 'absolute';
+  lightbox.style.top = `${scrollY}px`;
+  lightbox.style.left = '0';
   lightbox.style.display = 'flex';
 
   try {
@@ -127,7 +133,15 @@ function openLightboxFromPath(path) {
   openLightbox(0);
 }
 
-function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.style.display = 'none'; }
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) {
+    lb.style.display = 'none';
+    lb.style.position = '';
+    lb.style.top = '';
+    lb.style.left = '';
+  }
+}
 
 function navigate(dir) {
   const len = gallerySources.length;
