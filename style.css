@@ -9,7 +9,6 @@ body {
   animation: gradientShift 8s ease infinite;
   filter: brightness(1.1);
   padding: 0;
-  user-select: none;
 }
 
 
@@ -33,7 +32,6 @@ body {
   font-size: 1.6rem;
   cursor: pointer;
   margin-right: 1rem;
-  user-select: none;
 }
 
 .logo a {
@@ -203,7 +201,6 @@ canvas {
   font-size: 2rem;
   color: white;
   cursor: pointer;
-  user-select: none;
   z-index: 2001;
 }
 
