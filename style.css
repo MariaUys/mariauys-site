@@ -30,10 +30,19 @@ body {
 
 
 .hamburger {
+  background: none;
+  border: none;
   font-size: 1.6rem;
   cursor: pointer;
   margin-right: 1rem;
   user-select: none;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .logo a {
@@ -205,6 +214,8 @@ canvas {
   cursor: pointer;
   user-select: none;
   z-index: 2001;
+  background: none;
+  border: none;
 }
 
 .nav-left {
@@ -222,6 +233,8 @@ canvas {
   font-size: 2rem;
   color: white;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 /* PDF iframe */

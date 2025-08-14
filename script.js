@@ -32,9 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Controls
-  document.querySelector('.close-btn-lightbox')?.addEventListener('click', closeLightbox);
-  document.querySelector('.nav-left')?.addEventListener('click', () => navigate(-1));
-  document.querySelector('.nav-right')?.addEventListener('click', () => navigate(1));
+  const closeBtnLb = document.querySelector('button.close-btn-lightbox');
+  closeBtnLb?.addEventListener('click', closeLightbox);
+  closeBtnLb?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeLightbox(); }
+  });
+  const navLeft = document.querySelector('button.nav-left');
+  navLeft?.addEventListener('click', () => navigate(-1));
+  navLeft?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(-1); }
+  });
+  const navRight = document.querySelector('button.nav-right');
+  navRight?.addEventListener('click', () => navigate(1));
+  navRight?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(1); }
+  });
   lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
@@ -54,10 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', e => {
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('overlay');
-    const ham = document.querySelector('.hamburger');
+    const ham = document.querySelector('button.hamburger');
     if (!menu.contains(e.target) && !ham.contains(e.target)) {
       menu.classList.remove('open'); overlay.style.display = 'none';
     }
+  });
+  const hamBtn = document.querySelector('button.hamburger');
+  hamBtn?.addEventListener('click', e => toggleMenu(e));
+  hamBtn?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') toggleMenu(e);
+  });
+  const closeBtn = document.querySelector('button.close-btn');
+  closeBtn?.addEventListener('click', e => toggleMenu(e));
+  closeBtn?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') toggleMenu(e);
   });
 
   // Mobile CV label
