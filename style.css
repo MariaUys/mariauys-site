@@ -8,7 +8,7 @@ body {
   background-position: 0 0, 0% 50%;
   animation: gradientShift 8s ease infinite;
   filter: brightness(1.1);
-  padding: 0;
+  padding: 5rem 0 0;  /* Reserve space for fixed header */
   user-select: none;
 }
 
@@ -151,7 +151,7 @@ body {
 
 /* Main content */
 main {
-  padding: 5rem 2rem 2rem; /* Increased top padding to clear topbar */
+  padding: 0 2rem 2rem; /* Header offset moved to body */
   position: relative;
   z-index: 1;
 }
