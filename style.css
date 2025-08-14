@@ -205,6 +205,9 @@ canvas {
   cursor: pointer;
   user-select: none;
   z-index: 2001;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .nav-left {
@@ -222,6 +225,15 @@ canvas {
   font-size: 2rem;
   color: white;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.nav-btn:focus-visible,
+.close-btn-lightbox:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
 }
 
 /* PDF iframe */
