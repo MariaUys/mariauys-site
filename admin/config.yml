@@ -5,25 +5,26 @@ backend:
 media_folder: "static/uploads"      # images saved in repo
 public_folder: "/static/uploads"    # how they’re referenced on the site
 
-# Start simple: one place to edit your home/intro copy without touching HTML.
+# Collections define editable content types in the CMS.
 collections:
+  # Each Markdown file in the `content` directory becomes an entry.
   - name: "pages"
     label: "Pages"
-    files:
-      - file: "data/home.json"
-        name: "home"
-        label: "Home Page"
-        fields:
-          - { label: "Hero Title", name: "heroTitle", widget: "string" }
-          - { label: "Hero Subtext", name: "heroSub", widget: "text" }
-          - { label: "Intro Paragraph", name: "intro", widget: "markdown" }
+    folder: "content"
+    create: true
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body Class", name: "bodyClass", widget: "string", required: false }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "layout.njk" }
+      - { label: "Permalink", name: "permalink", widget: "string", required: false }
+      - { label: "Main Content", name: "body", widget: "markdown" }
 
-  # Optional: a media bucket so you can upload images from the CMS UI
+  # Optional: allow editors to upload portfolio images through the CMS UI.
   - name: "media"
-    label: "Media Library"
-    files:
-      - file: "data/media.json"
-        name: "media_info"
-        label: "Notes"
-        fields:
-          - { label: "Notes", name: "notes", widget: "text", required: false }
+    label: "Portfolio Media"
+    folder: "portfolio"
+    create: true
+    fields:
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Alt Text", name: "alt", widget: "string", required: false }
