@@ -9,11 +9,11 @@
 <body class="{{ bodyClass }}" oncontextmenu="return false;">
   <div id="overlay" onclick="toggleMenu(event)"></div>
   <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu(event)">&#9776;</div>
+    <button class="hamburger" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(event)">&#9776;</button>
     <div class="logo"><a href="/index.html">MU</a></div>
   </div>
-  <nav id="mobileMenu" class="slideout">
-    <div class="close-btn" onclick="toggleMenu()">×</div>
+  <nav id="mobileMenu" class="slideout" aria-hidden="true">
+    <button class="close-btn" aria-label="Close menu" onclick="toggleMenu(event)">×</button>
     <ul>
       <li><a href="/index.html">About</a></li>
       <li class="portfolio-toggle" onclick="toggleDropdown(this)">

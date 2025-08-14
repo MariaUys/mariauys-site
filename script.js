@@ -2,9 +2,16 @@
 window.toggleMenu = function (e) {
   const menu = document.getElementById('mobileMenu');
   const overlay = document.getElementById('overlay');
+  const ham = document.querySelector('.hamburger');
   if (e?.target.closest('.portfolio-sub')) return;
-  menu.classList.toggle('open');
-  overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
+  const isOpen = menu.classList.toggle('open');
+  overlay.style.display = isOpen ? 'block' : 'none';
+  ham?.setAttribute('aria-expanded', String(isOpen));
+  menu.setAttribute('aria-hidden', String(!isOpen));
+  menu.querySelectorAll('a, .close-btn').forEach(el => {
+    if (isOpen) el.removeAttribute('tabindex');
+    else el.setAttribute('tabindex', '-1');
+  });
 };
 window.toggleDropdown = function (el) {
   el.classList.toggle('open');
@@ -43,20 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Menu
-  window.toggleMenu = function (e) {
-    const menu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('overlay');
-    if (e?.target.closest('.portfolio-sub')) return;
-    menu.classList.toggle('open');
-    overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
-  };
-  window.toggleDropdown = el => el.classList.toggle('open');
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.querySelector('.hamburger');
+  ham?.setAttribute('aria-expanded', 'false');
+  menu?.setAttribute('aria-hidden', 'true');
+  menu?.querySelectorAll('a, .close-btn').forEach(el => el.setAttribute('tabindex', '-1'));
   document.addEventListener('click', e => {
-    const menu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('overlay');
-    const ham = document.querySelector('.hamburger');
     if (!menu.contains(e.target) && !ham.contains(e.target)) {
-      menu.classList.remove('open'); overlay.style.display = 'none';
+      if (menu.classList.contains('open')) toggleMenu();
     }
   });
 
