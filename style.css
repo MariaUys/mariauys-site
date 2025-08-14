@@ -9,7 +9,6 @@ body {
   animation: gradientShift 8s ease infinite;
   filter: brightness(1.1);
   padding: 0;
-  user-select: none;
 }
 
 
@@ -30,12 +29,24 @@ body {
 
 
 .hamburger {
+  background: none;
+  border: none;
   font-size: 1.6rem;
   cursor: pointer;
   margin-right: 1rem;
+
   user-select: none;
   background: none;
   border: none;
+=======
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+ main
 }
 
 .logo a {
@@ -205,8 +216,9 @@ canvas {
   font-size: 2rem;
   color: white;
   cursor: pointer;
-  user-select: none;
   z-index: 2001;
+  background: none;
+  border: none;
 }
 
 .nav-left {
@@ -224,6 +236,8 @@ canvas {
   font-size: 2rem;
   color: white;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 /* PDF iframe */
