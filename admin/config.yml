@@ -1,74 +1,29 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main          # change to your default branch if not "main"
 
-media_folder: "assets"
-public_folder: "/assets"
+media_folder: "static/uploads"      # images saved in repo
+public_folder: "/static/uploads"    # how they’re referenced on the site
 
+# Start simple: one place to edit your home/intro copy without touching HTML.
 collections:
   - name: "pages"
     label: "Pages"
     files:
-      - label: "About Page"
-        name: "about"
-        file: "content/about.md"
+      - file: "data/home.json"
+        name: "home"
+        label: "Home Page"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Features Page"
-        name: "features"
-        file: "content/features.md"
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Subtext", name: "heroSub", widget: "text" }
+          - { label: "Intro Paragraph", name: "intro", widget: "markdown" }
+
+  # Optional: a media bucket so you can upload images from the CMS UI
+  - name: "media"
+    label: "Media Library"
+    files:
+      - file: "data/media.json"
+        name: "media_info"
+        label: "Notes"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Brand Identity Page"
-        name: "brand_identity"
-        file: "content/brand-identity.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Graphic Design Page"
-        name: "graphic_design"
-        file: "content/graphic-design.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Illustration Page"
-        name: "illustration"
-        file: "content/illustration.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Packaging Design Page"
-        name: "packaging_design"
-        file: "content/packaging-design.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Stylist Page"
-        name: "stylist"
-        file: "content/stylist.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Textile Design Page"
-        name: "textile_design"
-        file: "content/textile-design.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
-      - label: "CV Page"
-        name: "cv"
-        file: "content/cv.md"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "image", widget: "image", required: false }
-          - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Notes", name: "notes", widget: "text", required: false }
