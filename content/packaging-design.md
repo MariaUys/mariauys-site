@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tryNext(i);
         return;
       }
-      const path = `portfolio/packaging-design/images/img${i}.${exts[e]}`;
+      const path = `/static/uploads/packaging-design/img${i}.${exts[e]}`;
       const test = new Image();
         test.onload = () => {
           found = true; misses = 0;

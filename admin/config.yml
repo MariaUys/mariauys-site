@@ -23,7 +23,7 @@ collections:
   # Optional: allow editors to upload portfolio images through the CMS UI.
   - name: "media"
     label: "Portfolio Media"
-    folder: "portfolio"
+    folder: "static/uploads"
     create: true
     fields:
       - { label: "Image", name: "image", widget: "image" }
