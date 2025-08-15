@@ -18,7 +18,63 @@ collections:
       - { label: "Body Class", name: "bodyClass", widget: "string", required: false }
       - { label: "Layout", name: "layout", widget: "hidden", default: "layout.njk" }
       - { label: "Permalink", name: "permalink", widget: "string", required: false }
-      - { label: "Main Content", name: "body", widget: "markdown" }
+      - { label: "Hero Image", name: "hero_image", widget: "image", required: false }
+      - { label: "Tagline", name: "tagline", widget: "string", required: false }
+      - label: "Sections"
+        name: "sections"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Type", name: "type", widget: "string" }
+          - { label: "ID", name: "id", widget: "string", required: false }
+          - label: "Cards"
+            name: "cards"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "URL", name: "url", widget: "string", required: false }
+              - { label: "Image", name: "image", widget: "string", required: false }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+          - label: "Groups"
+            name: "groups"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Class", name: "class", widget: "string", required: false }
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Alt", name: "alt", widget: "string", required: false }
+                  - { label: "Lightbox", name: "lightbox", widget: "boolean", required: false }
+              - { label: "Description", name: "description", widget: "string", required: false }
+              - { label: "HR", name: "hr", widget: "boolean", required: false }
+              - label: "Subgroups"
+                name: "subgroups"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Class", name: "class", widget: "string" }
+                  - label: "Images"
+                    name: "images"
+                    widget: "list"
+                    fields:
+                      - { label: "Image", name: "src", widget: "image" }
+                      - { label: "Alt", name: "alt", widget: "string", required: false }
+          - { label: "Intro Image", name: "intro_image", widget: "image", required: false }
+          - { label: "Intro Text", name: "intro_text", widget: "string", required: false }
+      - { label: "PDF", name: "pdf", widget: "file", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
 
   # Optional: allow editors to upload portfolio images through the CMS UI.
   - name: "media"
