@@ -28,3 +28,7 @@ sections:
         link: "textile-design.html"
         image: portfolio/textile-design/images/img1.jpg
 ---
+
+<section class="cta">
+  <a class="btn" href="/contact.html">Get in touch</a>
+</section>
