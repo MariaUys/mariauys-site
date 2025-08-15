@@ -479,6 +479,11 @@ body.packaging .gallery hr {
   }
 }
 
+/* Flatten nested gallery wrappers so inner content spans full width */
+body .gallery > .gallery {
+  display: contents;
+}
+
 /* Lightbox background always dark */
 #lightbox {
   background: rgba(0,0,0,0.9) !important;
