@@ -14,14 +14,11 @@ sections:
       - class: grid-full
         images:
           - src: portfolio/brand-identity/images/img3.jpg
-      - hr: true
-      - class: grid-full
+      - class: grid-two
         images:
           - src: portfolio/brand-identity/images/img4.jpg
-      - description: "Pep Active Concept — Logo & Product Details"
-      - class: grid-full
-        images:
           - src: portfolio/brand-identity/images/img5.jpg
+      - description: "Pep Active Concept — Logo & Product Details"
       - hr: true
       - class: grid-full
         images:
