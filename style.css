@@ -655,11 +655,11 @@ body.stylist .grid-three--spaced { margin-bottom: 1.5rem; }
 
 /* ————————————— Graphic Design Page ————————————— */
 body.graphic-design .graphic-gif img {
-  width: auto;
+  width: 100%;
   height: auto;
   max-width: 100%;
   display: block;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
 }
 body.graphic-design .graphic-title {
   text-align: center; font-weight: 600; margin: 1rem 0 2rem; font-size: 1.4rem;
