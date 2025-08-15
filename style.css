@@ -350,8 +350,11 @@ html, body {
   width: auto;
   height: auto;
   max-width: 100%;
+  display: block;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-description {
@@ -505,6 +508,8 @@ body.packaging .gallery hr {
   max-width: 100%;
   display: block;
   border-radius: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .grid-two {
@@ -589,6 +594,8 @@ body.stylist .grid-full img {
   max-width: 100%;
   display: block;
   border-radius: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Two-up row */
@@ -814,7 +821,10 @@ body.brand-identity .grid-full img {
   width: auto;
   height: auto;
   max-width: 100%;
+  display: block;
   border-radius: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body.brand-identity .project-description {
