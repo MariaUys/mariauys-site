@@ -9,13 +9,13 @@ sections:
     groups:
       - class: gallery
         images:
-          - src: portfolio/packaging-design/images/img1.jpg
+          - src: /portfolio/packaging-design/images/img1.jpg
             alt: "Packaging 1"
             lightbox: true
         hr: true
       - class: gallery
         images:
-          - src: portfolio/packaging-design/images/img2.jpg
+          - src: /portfolio/packaging-design/images/img2.jpg
             alt: "Packaging 2"
             lightbox: true
         hr: true

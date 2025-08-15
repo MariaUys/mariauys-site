@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main          # change to your default branch if not "main"
 
-media_folder: "static/uploads"      # images saved in repo
-public_folder: "/static/uploads"    # how they’re referenced on the site
+media_folder: "portfolio"      # images saved in repo
+public_folder: "/portfolio"    # how they’re referenced on the site
 
 # Collections define editable content types in the CMS.
 collections:
@@ -79,7 +79,7 @@ collections:
   # Optional: allow editors to upload portfolio images through the CMS UI.
   - name: "media"
     label: "Portfolio Media"
-    folder: "portfolio"
+    folder: "portfolio/media"
     create: true
     fields:
       - { label: "Image", name: "image", widget: "image" }
