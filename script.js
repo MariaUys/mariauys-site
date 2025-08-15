@@ -19,6 +19,12 @@ let gallerySources = []; // raw URLs from the page (data-src or src)
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
 
+  // Reveal animations
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
   // Add a real <img> inside the lightbox (we'll ignore the <canvas>)
   let lbImg = document.getElementById('lightboxImg');
   if (!lbImg && lightbox) {
@@ -85,6 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile CV label
   const cvLink = document.querySelector('.cv-label');
   if (cvLink) cvLink.textContent = /Mobi|Android/i.test(navigator.userAgent) ? 'Download CV' : 'CV';
+
+  // CV embed/download
+  const cvContent = document.getElementById('cvContent');
+  if (cvContent) {
+    const pdfPath = cvContent.dataset.pdf;
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      const a = document.createElement('a');
+      a.href = pdfPath;
+      a.download = pdfPath.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      cvContent.innerHTML = `<p class="cv-message">Your download should begin shortly.<br><br><a href="${pdfPath}" download>Click here if it doesn't</a></p>`;
+    } else {
+      cvContent.innerHTML = `<iframe src="${pdfPath}" title="Maria Uys CV"></iframe>`;
+    }
+  }
 
   // ---- Bind ALL lightbox triggers on the page ----
   wireTriggers('.lightbox-trigger');

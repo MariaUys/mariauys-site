@@ -3,36 +3,44 @@ title: "Textile Design"
 bodyClass: textile
 layout: layout.njk
 permalink: "textile-design.html"
+sections:
+  - type: gallery
+    class: gallery
+    groups:
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img1.jpg
+            alt: "Textile 1"
+            lightbox: true
+        hr: true
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img2.jpg
+            alt: "Textile 2"
+            lightbox: true
+        hr: true
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img3.jpg
+            alt: "Textile 3"
+            lightbox: true
+        hr: true
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img4.jpg
+            alt: "Textile 4"
+            lightbox: true
+        hr: true
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img5.jpg
+            alt: "Textile 5"
+            lightbox: true
+        hr: true
+      - class: gallery
+        images:
+          - src: portfolio/textile-design/images/img6.jpg
+            alt: "Textile 6"
+            lightbox: true
+        hr: true
 ---
-<h1>Textile Design</h1>
-<div class="gallery" id="gallery"></div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const gallery = document.getElementById('gallery');
-  const exts = ['jpg','jpeg','png','gif'];
-  let idx = 1;
-  function tryLoad() {
-    let e = 0, img = new Image();
-    (function attempt() {
-      if (e >= exts.length) return;
-      img.src = `portfolio/textile-design/images/img${idx}.${exts[e]}`;
-      img.onload = () => {
-        const c = document.createElement('canvas');
-        const ctx = c.getContext('2d');
-        c.width = img.naturalWidth;
-        c.height = img.naturalHeight;
-        c.style.width = '100%';
-        c.style.height = 'auto';
-        ctx.drawImage(img, 0, 0, c.width, c.height);
-        gallery.appendChild(c);
-        const hr = document.createElement('hr');
-        gallery.appendChild(hr);
-        idx++;
-        tryLoad();
-      };
-      img.onerror = () => { e++; attempt(); };
-    })();
-  }
-  tryLoad();
-});
-</script>

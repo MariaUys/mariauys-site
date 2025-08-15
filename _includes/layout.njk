@@ -33,6 +33,97 @@
   </nav>
 
   <main>
+    {% if hero_image %}
+      <section class="hero reveal">
+        <div class="hero-bg">
+          <img src="{{ hero_image }}" alt="{{ hero_alt or '' }}" loading="eager" decoding="async">
+        </div>
+        <div class="hero-copy">
+          <h1><span>{{ title }}</span></h1>
+          {% if tagline %}<p class="tagline">{{ tagline }}</p>{% endif %}
+          {% if hero_cta %}<a class="btn" href="{{ hero_cta.link }}">{{ hero_cta.text }}</a>{% endif %}
+        </div>
+      </section>
+    {% endif %}
+
+    {% if sections %}
+      {% for section in sections %}
+        {% if section.type == 'cards' %}
+          <section{% if section.id %} id="{{ section.id }}"{% endif %} class="cards">
+            {% for card in section.cards %}
+              <a class="card reveal" href="{{ card.link }}">
+                <img src="{{ card.image }}" alt="{{ card.title }}">
+                <h3>{{ card.title }}</h3>
+              </a>
+            {% endfor %}
+          </section>
+        {% elif section.type == 'features' %}
+          {% if section.intro %}<p class="feature-intro">{{ section.intro }}</p>{% endif %}
+          <section class="features-list">
+            {% for f in section.items %}
+              <a class="feature" href="{{ f.url }}" target="_blank" rel="noopener">
+                <img src="{{ f.image }}" alt="{{ f.caption }}">
+                <span>{{ f.caption }}</span>
+              </a>
+            {% endfor %}
+          </section>
+        {% elif section.type == 'gallery' %}
+          <section class="{{ section.class | default('project-grid') }}">
+            {% if section.intro_image %}
+              <div class="graphic-gif">
+                <img src="{{ section.intro_image }}" alt="{{ section.intro_alt }}">
+              </div>
+            {% endif %}
+            {% if section.intro_text %}
+              <div class="graphic-title"><p>{{ section.intro_text }}</p></div>
+            {% endif %}
+            {% for group in section.groups %}
+              {% if group.class %}<div class="{{ group.class }}">{% endif %}
+                {% if group.images %}
+                  {% for img in group.images %}
+                    <img src="{{ img.src }}" alt="{{ img.alt }}"{% if img.lightbox %} class="lightbox-trigger" data-src="{{ img.src }}"{% endif %}>
+                  {% endfor %}
+                {% endif %}
+                {% if group.text %}{{ group.text | safe }}{% endif %}
+              {% if group.class %}</div>{% endif %}
+              {% if group.description %}<p class="project-description">{{ group.description }}</p>{% endif %}
+              {% if group.subgroups %}
+                {% for sg in group.subgroups %}
+                  <div class="{{ sg.class }}">
+                    {% for img in sg.images %}
+                      <img src="{{ img.src }}" alt="{{ img.alt }}">
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+              {% endif %}
+              {% if group.hr %}<hr>{% endif %}
+            {% endfor %}
+          </section>
+        {% elif section.type == 'projects' %}
+          <section class="project-grid">
+            {% for item in section.items %}
+              <div class="project-item">
+                {% if item.hero %}<div class="grid-full"><img src="{{ item.hero }}" alt="{{ item.hero_alt }}"></div>{% endif %}
+                {% if item.text %}<p class="project-text">{{ item.text | safe }}</p>{% endif %}
+                {% if item.subgroups %}
+                  {% for sg in item.subgroups %}
+                    <div class="{{ sg.class }}">
+                      {% for img in sg.images %}<img src="{{ img.src }}" alt="{{ img.alt }}">{% endfor %}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              {% if item.hr %}<hr>{% endif %}
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if pdf %}
+      <div id="cvContent" data-pdf="{{ pdf }}"></div>
+    {% endif %}
+
     {{ content | safe }}
   </main>
 
