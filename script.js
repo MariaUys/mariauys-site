@@ -110,6 +110,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Simple image carousel
+  const carousel = document.querySelector('.carousel');
+  if (carousel) {
+    const slides = carousel.querySelectorAll('img');
+    let idx = 0;
+    slides.forEach((img, i) => {
+      img.style.display = i === 0 ? 'block' : 'none';
+      img.loading = 'lazy';
+    });
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[idx].style.display = 'none';
+        idx = (idx + 1) % slides.length;
+        slides[idx].style.display = 'block';
+      }, 3000);
+    }
+  }
+
   // ---- Bind ALL lightbox triggers on the page ----
   wireTriggers('.lightbox-trigger');
 
