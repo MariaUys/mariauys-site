@@ -184,6 +184,20 @@ main {
   padding: 2rem;
 }
 
+.gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 canvas {
   width: 100%;
   height: auto;
@@ -373,6 +387,7 @@ html, body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.8rem;
+  margin-bottom: 2rem;
 }
 
 
@@ -383,90 +398,9 @@ html, body {
   border-radius: 0.4rem;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .grid-small {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-body.brand-identity {
-}
-
-/* ---------- Global gallery defaults ---------- */
-.gallery {
-  gap: 1rem;
-  padding: 2rem;
-}
-@media (max-width: 768px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* Illustration: 3-column desktop */
-body.illustration .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 2rem;
-}
-
-@media screen and (max-width: 768px) {
-  body.illustration .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Textile: single-column list */
-/* Textile: single-column list with separators */
-body.textile .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 0;               /* we’ll space via the <hr> */
-  padding: 2rem;
-}
-
-body.textile .gallery canvas {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-body.textile .gallery hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* Packaging: one item per row with separators */
-body.packaging .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* separators handle spacing */
-  padding: 2rem;
-}
-
-body.packaging .gallery canvas {
-  width: 100%;
-  height: auto;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  cursor: pointer;
-}
-
-body.packaging .gallery hr {
-  border: none;
-  border-top: 2px solid #ddd;
-  margin: 2rem 0;
-}
-
-/* reuse the same responsive tweaks if needed */
-@media screen and (max-width: 768px) {
-  body.packaging .gallery {
-    padding: 1.5rem;
-  }
-  body.packaging .gallery hr {
-    margin: 1.5rem 0;
   }
 }
 
@@ -661,30 +595,6 @@ body.graphic-design .graphic-gif img {
   display: block;
   margin-bottom: 2rem;
 }
-body.graphic-design .graphic-title {
-  text-align: center; font-weight: 600; margin: 1rem 0 2rem; font-size: 1.4rem;
-}
-body.graphic-design .graphic-gallery {
-  display: grid; gap: 1rem; padding: 0 2rem 2rem;
-}
-body.graphic-design .graphic-gallery.two-up {
-  grid-template-columns: repeat(2, 1fr);
-}
-body.graphic-design .graphic-gallery.three-up {
-  grid-template-columns: repeat(3, 1fr);
-}
-body.graphic-design .graphic-gallery img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  cursor: pointer;
-  border-radius: 0.5rem;
-}
-/* ensure the <hr> between rows spans edge-to-edge */
-body.graphic-design hr {
-  border: none; border-top: 2px solid #ddd; margin: 2rem 0;
-}
-
 /* ===== Graphic Design (page-scoped) ===== */
 body.graphic-design .graphic-gif img {
   width: auto;
@@ -716,12 +626,12 @@ body.graphic-design .graphic-gallery.three-up {
 }
 
 body.graphic-design .graphic-gallery img {
-  width: auto;
-  height: auto;            /* prevents distortion */
-  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
   border-radius: 0.5rem;
   cursor: pointer;
-  display: block;
+  object-fit: cover;
 }
 
 body.graphic-design hr {
@@ -821,26 +731,6 @@ body.brand-identity .project-description {
   text-align: center;
   font-weight: 600;
   margin: 1rem 0;
-}
-
-body.brand-identity .grid-small {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-
-body.brand-identity .grid-small img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  border-radius: 0.4rem;
-}
-
-@media screen and (max-width: 768px) {
-  body.brand-identity .grid-small {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 /* — CV page styles — */

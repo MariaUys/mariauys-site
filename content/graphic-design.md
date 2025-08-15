@@ -5,6 +5,7 @@ layout: layout.njk
 permalink: "graphic-design.html"
 sections:
   - type: gallery
+    class: gallery
     intro_image: /portfolio/graphic-design/images/img1.gif
     intro_alt: "Graphic design animation"
     intro_text: "Logo Design"

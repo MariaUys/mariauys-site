@@ -5,6 +5,7 @@ layout: layout.njk
 permalink: "brand-identity.html"
 sections:
   - type: gallery
+    class: gallery
     groups:
       - class: grid-two
         images:
