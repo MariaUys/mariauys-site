@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let e = 0, img = new Image();
     (function attempt() {
       if (e >= exts.length) return;
-      img.src = `portfolio/textile-design/images/img${idx}.${exts[e]}`;
+      img.src = `/static/uploads/textile-design/img${idx}.${exts[e]}`;
       img.onload = () => {
         const c = document.createElement('canvas');
         const ctx = c.getContext('2d');

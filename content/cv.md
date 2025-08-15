@@ -10,7 +10,7 @@ permalink: "cv.html"
   document.addEventListener('DOMContentLoaded', () => {
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
     const container = document.getElementById('cvContent');
-    const pdfPath = 'portfolio/cv/Maria_Uys_CV.pdf';
+    const pdfPath = '/static/uploads/cv/Maria_Uys_CV.pdf';
     if (isMobile) {
       const a = document.createElement('a');
       a.href = pdfPath;
