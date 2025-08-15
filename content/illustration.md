@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tryNext(i);
         return;
       }
-      const path = `portfolio/illustration/images/img${i}.${exts[e]}`;
+      const path = `/static/uploads/illustration/img${i}.${exts[e]}`;
       const test = new Image();
         test.onload = () => {
           found = true; misses = 0;
