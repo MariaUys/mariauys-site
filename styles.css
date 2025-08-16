@@ -26,6 +26,12 @@ body {
   animation: gradientShift 8s ease infinite;
   filter: brightness(1.1);
   padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body.home {
@@ -34,7 +40,6 @@ body.home {
 
 #scrollContainer {
   height: 65vh;
-  margin-top: 35vh;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -69,30 +74,47 @@ body.home {
 }
 
 
+
 .opener {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
+  margin-top: 4rem;
   width: 100%;
   height: 35vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-size: cover;
-  background-position: center;
-  z-index: 100;
-  opacity: 1;
+  overflow: hidden;
 }
 
 .opener .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url("portfolio/graphic-design/images/img1.gif");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
+}
+
+.opener .hero-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.opener .hero-text {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  opacity: 0.5;
+  z-index: 1;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.opener .hero-text:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 
@@ -121,6 +143,7 @@ body.home {
   left: 0;
   width: 100%;
   z-index: 1100;
+  height: 4rem;
 }
 
 

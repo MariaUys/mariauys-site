@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chapterIndex = Math.round(scrollContainer.scrollLeft / window.innerWidth);
     });
 
-    window.addEventListener('wheel', e => {
+    scrollContainer.addEventListener('wheel', e => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
         scrollContainer.scrollLeft += e.deltaY;
