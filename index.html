@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maria Uys – Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header id="topbar" class="topbar" role="banner">
+    <span class="logo">Maria Uys</span>
+    <button class="hamburger" aria-label="Open menu">☰</button>
+  </header>
+
+  <section id="opener" class="vh" aria-labelledby="opener-title">
+    <svg viewBox="0 0 100 100" class="morph" aria-hidden="true">
+      <path id="morphPath" d="M50 0 L100 100 L0 100 Z"></path>
+    </svg>
+    <div class="opener-content">
+      <h1 id="opener-title" class="line">Adventure Awaits</h1>
+      <p class="line">Discover stories of creativity.</p>
+      <p class="line">Scroll to begin the journey.</p>
+      <button id="enter" class="cta">Enter</button>
+    </div>
+  </section>
+
+  <main id="chapters" tabindex="-1">
+    <section class="chapter light" id="chapter-1">
+      <h2>Chapter One</h2>
+      <p class="subtitle">A glimpse of design</p>
+      <img src="https://via.placeholder.com/800x600" width="800" height="600" loading="lazy" alt="Sample design" class="parallax" data-speed="0.2" />
+      <a href="gallery1.html" class="btn">View Gallery</a>
+    </section>
+
+    <section class="chapter dark" id="chapter-2">
+      <h2>Chapter Two</h2>
+      <p class="subtitle">Visual stories</p>
+      <img src="https://via.placeholder.com/800x600" width="800" height="600" loading="lazy" alt="Sample visuals" class="parallax" data-speed="0.2" />
+      <a href="gallery2.html" class="btn">View Gallery</a>
+    </section>
+
+    <section class="chapter light" id="chapter-3">
+      <h2>Chapter Three</h2>
+      <p class="subtitle">Colorful moments</p>
+      <img src="https://via.placeholder.com/800x600" width="800" height="600" loading="lazy" alt="Colorful sample" class="parallax" data-speed="0.2" />
+      <a href="gallery3.html" class="btn">View Gallery</a>
+    </section>
+
+    <section class="chapter dark" id="chapter-4">
+      <h2>Chapter Four</h2>
+      <p class="subtitle">Textures and forms</p>
+      <img src="https://via.placeholder.com/800x600" width="800" height="600" loading="lazy" alt="Texture sample" class="parallax" data-speed="0.2" />
+      <a href="gallery4.html" class="btn">View Gallery</a>
+    </section>
+
+    <button class="arrow prev" aria-label="Previous chapter">&#8592;</button>
+    <button class="arrow next" aria-label="Next chapter">&#8594;</button>
+    <nav id="progress" aria-label="Chapter navigation">
+      <button aria-label="Go to chapter 1"></button>
+      <button aria-label="Go to chapter 2"></button>
+      <button aria-label="Go to chapter 3"></button>
+      <button aria-label="Go to chapter 4"></button>
+    </nav>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
