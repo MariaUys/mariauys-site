@@ -18,6 +18,42 @@ let gallerySources = []; // raw URLs from the page (data-src or src)
 // ---------- init ----------
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
+  const scrollContainer = document.getElementById('scrollContainer');
+
+  if (scrollContainer) {
+    const sections = scrollContainer.querySelectorAll('section');
+    let chapterIndex = 0;
+
+    function scrollToChapter(i) {
+      sections[i].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+      chapterIndex = i;
+    }
+
+    scrollContainer.addEventListener('scroll', () => {
+      chapterIndex = Math.round(scrollContainer.scrollLeft / window.innerWidth);
+    });
+
+    scrollContainer.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        scrollContainer.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' && chapterIndex < sections.length - 1) scrollToChapter(chapterIndex + 1);
+      if (e.key === 'ArrowLeft' && chapterIndex > 0) scrollToChapter(chapterIndex - 1);
+    });
+
+    const fadeIO = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+        else entry.target.classList.remove('active');
+      });
+    }, { root: scrollContainer, threshold: 0.6 });
+    sections.forEach(sec => fadeIO.observe(sec));
+  }
+
 
   // Reveal animations
   const io = new IntersectionObserver(entries => {
@@ -73,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('overlay');
     const ham = document.querySelector('button.hamburger');
+    // Let anchor clicks inside the menu navigate before closing
+    if (menu.contains(e.target) && e.target.closest('a')) return;
     if (!menu.contains(e.target) && !ham.contains(e.target)) {
       menu.classList.remove('open'); overlay.style.display = 'none';
     }

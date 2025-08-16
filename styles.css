@@ -13,6 +13,10 @@
   white-space: nowrap;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -22,8 +26,108 @@ body {
   animation: gradientShift 8s ease infinite;
   filter: brightness(1.1);
   padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body.home {
+  overflow-x: hidden;
+}
+
+#scrollContainer {
+  height: 65vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.chapter {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.chapter.active {
+  opacity: 1;
+}
+
+
+
+.opener {
+  position: relative;
+  margin-top: 4rem;
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.opener .hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.opener .hero-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.opener .hero-text {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 2rem;
+  z-index: 1;
+  display: inline-block;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.opener .hero-text:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+
+.chapter .gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chapter .gallery img {
+  max-width: 80vw;
+  max-height: 60vh;
+  object-fit: cover;
+}
 
 /* Topbar */
 .topbar {
@@ -36,7 +140,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1001;
+  z-index: 1100;
+  height: 4rem;
 }
 
 
@@ -61,6 +166,74 @@ body {
   font-weight: bold;
   text-decoration: none;
   color: #333;
+}
+
+/* Desktop nav (hidden by default, shown on larger screens) */
+.desktop-menu {
+  display: none;
+  margin-left: auto;
+}
+
+.desktop-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.desktop-menu li {
+  position: relative;
+}
+
+.desktop-menu a {
+  text-decoration: none;
+  color: #444;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #ffd6e0, #e8d6ff);
+  border-radius: 2rem;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.desktop-menu a:hover {
+  filter: brightness(0.95);
+}
+
+.desktop-menu .portfolio-sub {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  list-style: none;
+  z-index: 1200;
+}
+
+.desktop-menu li:hover > .portfolio-sub {
+  display: block;
+}
+
+.desktop-menu .portfolio-sub li a {
+  background: none;
+  padding: 0.4rem 1rem;
+  border-radius: 0;
+}
+
+.desktop-menu .portfolio-sub li a:hover {
+  background: #f0f0f0;
+  filter: none;
+}
+
+@media screen and (min-width: 769px) {
+  .hamburger { display: none; }
+  #mobileMenu { display: none; }
+  #overlay { display: none !important; }
+  .desktop-menu { display: block; }
 }
 
 /* Sidebar */
