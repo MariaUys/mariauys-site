@@ -99,7 +99,7 @@ body.home {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 
@@ -124,6 +124,74 @@ body.home {
   font-weight: bold;
   text-decoration: none;
   color: #333;
+}
+
+/* Desktop nav (hidden by default, shown on larger screens) */
+.desktop-menu {
+  display: none;
+  margin-left: auto;
+}
+
+.desktop-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.desktop-menu li {
+  position: relative;
+}
+
+.desktop-menu a {
+  text-decoration: none;
+  color: #444;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #ffd6e0, #e8d6ff);
+  border-radius: 2rem;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.desktop-menu a:hover {
+  filter: brightness(0.95);
+}
+
+.desktop-menu .portfolio-sub {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  list-style: none;
+  z-index: 1200;
+}
+
+.desktop-menu li:hover > .portfolio-sub {
+  display: block;
+}
+
+.desktop-menu .portfolio-sub li a {
+  background: none;
+  padding: 0.4rem 1rem;
+  border-radius: 0;
+}
+
+.desktop-menu .portfolio-sub li a:hover {
+  background: #f0f0f0;
+  filter: none;
+}
+
+@media screen and (min-width: 769px) {
+  .hamburger { display: none; }
+  #mobileMenu { display: none; }
+  #overlay { display: none !important; }
+  .desktop-menu { display: block; }
 }
 
 /* Sidebar */
