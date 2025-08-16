@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById('mobileMenu');
     const overlay = document.getElementById('overlay');
     const ham = document.querySelector('button.hamburger');
+    // Let anchor clicks inside the menu navigate before closing
+    if (menu.contains(e.target) && e.target.closest('a')) return;
     if (!menu.contains(e.target) && !ham.contains(e.target)) {
       menu.classList.remove('open'); overlay.style.display = 'none';
     }
