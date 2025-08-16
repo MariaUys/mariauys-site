@@ -19,6 +19,18 @@ let gallerySources = []; // raw URLs from the page (data-src or src)
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
   const scrollContainer = document.getElementById('scrollContainer');
+  const hero = document.querySelector('.opener .hero-bg');
+
+  if (hero) {
+    const imgs = hero.querySelectorAll('img');
+    let hIndex = 0;
+    setInterval(() => {
+      imgs[hIndex].classList.remove('active');
+      hIndex = (hIndex + 1) % imgs.length;
+      imgs[hIndex].classList.add('active');
+    }, 5000);
+  }
+
   if (scrollContainer) {
     const sections = scrollContainer.querySelectorAll('section');
     let chapterIndex = 0;
@@ -32,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chapterIndex = Math.round(scrollContainer.scrollLeft / window.innerWidth);
     });
 
-    window.addEventListener('wheel', e => {
+    scrollContainer.addEventListener('wheel', e => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
         scrollContainer.scrollLeft += e.deltaY;
