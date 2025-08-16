@@ -18,6 +18,33 @@ let gallerySources = []; // raw URLs from the page (data-src or src)
 // ---------- init ----------
 document.addEventListener('DOMContentLoaded', () => {
   lightbox = document.getElementById('lightbox');
+  const scrollContainer = document.getElementById('scrollContainer');
+  if (scrollContainer) {
+    const sections = scrollContainer.querySelectorAll('section');
+    let chapterIndex = 0;
+
+    function scrollToChapter(i) {
+      sections[i].scrollIntoView({ behavior: 'smooth' });
+      chapterIndex = i;
+    }
+
+    scrollContainer.addEventListener('scroll', () => {
+      chapterIndex = Math.round(scrollContainer.scrollTop / window.innerHeight);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' && chapterIndex < sections.length - 1) scrollToChapter(chapterIndex + 1);
+      if (e.key === 'ArrowUp' && chapterIndex > 0) scrollToChapter(chapterIndex - 1);
+    });
+
+    const enterBtn = document.getElementById('enter');
+    enterBtn?.addEventListener('click', () => scrollToChapter(1));
+
+    window.addEventListener('wheel', () => {
+      if (chapterIndex === 0) scrollToChapter(1);
+    }, { once: true });
+  }
+
 
   // Reveal animations
   const io = new IntersectionObserver(entries => {

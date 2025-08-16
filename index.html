@@ -33,66 +33,39 @@
     </ul>
   </nav>
 
-  <main>
-    
-      <section class="hero reveal">
-        <div class="hero-bg">
-          <img src="portfolio/graphic-design/images/img1.gif" alt="" loading="eager" decoding="async">
-        </div>
-        <div class="hero-copy">
-          <h1><span>Maria Uys — Designer &amp; Artist</span></h1>
-          <p class="tagline">Brand Identity · Packaging · Illustration · Textile · Styling</p>
-          
-        </div>
-      </section>
-    
+  <main id="scrollContainer">
+    <section class="opener">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path fill="#f66">
+          <animate attributeName="d" dur="6s" repeatCount="indefinite"
+            values="M50 10C69.3 10 85 25.7 85 45C85 64.3 69.3 80 50 80C30.7 80 15 64.3 15 45C15 25.7 30.7 10 50 10Z;
+                    M20 20H80V80H20Z;
+                    M50 10C69.3 10 85 25.7 85 45C85 64.3 69.3 80 50 80C30.7 80 15 64.3 15 45C15 25.7 30.7 10 50 10Z" />
+        </path>
+      </svg>
+      <button id="enter" class="btn">Enter</button>
+    </section>
 
-    
-      
-        
-          <section id="work" class="cards">
-            
-              <a class="card reveal" href="brand-identity.html">
-                <img src="portfolio/brand-identity/images/img3.jpg" alt="Brand Identity">
-                <h3>Brand Identity</h3>
-              </a>
-            
-              <a class="card reveal" href="graphic-design.html">
-                <img src="portfolio/graphic-design/images/img2.jpg" alt="Graphic Design">
-                <h3>Graphic Design</h3>
-              </a>
-            
-              <a class="card reveal" href="illustration.html">
-                <img src="portfolio/illustration/images/img1.jpg" alt="Illustration">
-                <h3>Illustration</h3>
-              </a>
-            
-              <a class="card reveal" href="packaging-design.html">
-                <img src="portfolio/packaging-design/images/img1.jpg" alt="Packaging">
-                <h3>Packaging</h3>
-              </a>
-            
-              <a class="card reveal" href="stylist.html">
-                <img src="portfolio/stylist/images/img1.jpg" alt="Stylist">
-                <h3>Stylist</h3>
-              </a>
-            
-              <a class="card reveal" href="textile-design.html">
-                <img src="portfolio/textile-design/images/img1.jpg" alt="Textile">
-                <h3>Textile</h3>
-              </a>
-            
-          </section>
-        
-      
-    
+    <section class="chapter" id="chapter-brand">
+      <h2>Brand Identity</h2>
+      <div class="gallery">
+        <img src="portfolio/brand-identity/images/img3.jpg" alt="Brand Identity sample" class="lightbox-trigger">
+      </div>
+    </section>
 
-    
+    <section class="chapter" id="chapter-graphic">
+      <h2>Graphic Design</h2>
+      <div class="gallery">
+        <img src="portfolio/graphic-design/images/img2.jpg" alt="Graphic Design sample" class="lightbox-trigger">
+      </div>
+    </section>
 
-    <section class="cta">
-  <a class="btn" href="/contact.html">Get in touch</a>
-</section>
-
+    <section class="chapter" id="chapter-illustration">
+      <h2>Illustration</h2>
+      <div class="gallery">
+        <img src="portfolio/illustration/images/img1.jpg" alt="Illustration sample" class="lightbox-trigger">
+      </div>
+    </section>
   </main>
 
   <div id="lightbox">

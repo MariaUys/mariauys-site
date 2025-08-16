@@ -13,6 +13,10 @@
   white-space: nowrap;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -24,6 +28,52 @@ body {
   padding: 0;
 }
 
+body.home {
+  overflow: hidden;
+}
+
+#scrollContainer {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 4rem;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.opener, .chapter {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.opener svg {
+  width: 60vw;
+  max-width: 400px;
+}
+
+.opener .btn {
+  margin-top: 2rem;
+}
+
+.chapter .gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chapter .gallery img {
+  max-width: 80vw;
+  max-height: 60vh;
+  object-fit: cover;
+}
 
 /* Topbar */
 .topbar {
