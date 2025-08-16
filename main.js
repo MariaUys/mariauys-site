@@ -24,25 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let chapterIndex = 0;
 
     function scrollToChapter(i) {
-      sections[i].scrollIntoView({ behavior: 'smooth' });
+      sections[i].scrollIntoView({ behavior: 'smooth', inline: 'start' });
       chapterIndex = i;
     }
 
     scrollContainer.addEventListener('scroll', () => {
-      chapterIndex = Math.round(scrollContainer.scrollTop / window.innerHeight);
+      chapterIndex = Math.round(scrollContainer.scrollLeft / window.innerWidth);
     });
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowDown' && chapterIndex < sections.length - 1) scrollToChapter(chapterIndex + 1);
-      if (e.key === 'ArrowUp' && chapterIndex > 0) scrollToChapter(chapterIndex - 1);
+      if (e.key === 'ArrowRight' && chapterIndex < sections.length - 1) scrollToChapter(chapterIndex + 1);
+      if (e.key === 'ArrowLeft' && chapterIndex > 0) scrollToChapter(chapterIndex - 1);
     });
 
-    const enterBtn = document.getElementById('enter');
-    enterBtn?.addEventListener('click', () => scrollToChapter(1));
-
-    window.addEventListener('wheel', () => {
-      if (chapterIndex === 0) scrollToChapter(1);
-    }, { once: true });
+    const fadeIO = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+        else entry.target.classList.remove('active');
+      });
+    }, { root: scrollContainer, threshold: 0.6 });
+    sections.forEach(sec => fadeIO.observe(sec));
   }
 
 
