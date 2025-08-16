@@ -1,8 +1,8 @@
-import "/style.css";
+import "/styles.css";
 
 const { h } = window;
 
-CMS.registerPreviewStyle('/style.css');
+CMS.registerPreviewStyle('/styles.css');
 
 const PagesPreview = ({ entry, widgetFor }) => {
   const title = entry.getIn(['data', 'title']);

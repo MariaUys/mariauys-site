@@ -2,8 +2,8 @@ const CACHE_NAME = 'mariauys-site-cache-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
-  '/style.css',
-  '/script.js',
+  '/styles.css',
+  '/main.js',
   '/brand-identity.html',
   '/graphic-design.html',
   '/illustration.html',
