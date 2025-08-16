@@ -32,6 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
       chapterIndex = Math.round(scrollContainer.scrollLeft / window.innerWidth);
     });
 
+    window.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        scrollContainer.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight' && chapterIndex < sections.length - 1) scrollToChapter(chapterIndex + 1);
       if (e.key === 'ArrowLeft' && chapterIndex > 0) scrollToChapter(chapterIndex - 1);

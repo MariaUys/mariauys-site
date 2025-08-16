@@ -34,16 +34,23 @@ body.home {
 
 #scrollContainer {
   height: 65vh;
+  margin-top: 35vh;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   display: flex;
   padding: 0;
   position: relative;
-  z-index: 1;
+  z-index: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.opener, .chapter {
+#scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.chapter {
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
@@ -57,14 +64,25 @@ body.home {
   transition: opacity 0.5s ease-in-out;
 }
 
-.opener.active, .chapter.active {
+.chapter.active {
   opacity: 1;
 }
 
+
 .opener {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background-size: cover;
   background-position: center;
+  z-index: 100;
+  opacity: 1;
 }
 
 .opener .hero-bg {
