@@ -53,13 +53,26 @@ body.home {
   padding: 2rem;
 }
 
-.opener svg {
-  width: 60vw;
-  max-width: 400px;
+.opener {
+  position: relative;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.opener .hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("portfolio/graphic-design/images/img1.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .opener .btn {
   margin-top: 2rem;
+  z-index: 1;
 }
 
 .chapter .gallery {
