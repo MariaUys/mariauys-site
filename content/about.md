@@ -2,7 +2,7 @@
 title: "Maria Uys — Designer & Artist"
 bodyClass: home
 layout: layout.njk
-permalink: "index.html"
+permalink: "about/index.html"
 hero_image: portfolio/graphic-design/images/img1.gif
 tagline: "Brand Identity · Packaging · Illustration · Textile · Styling"
 sections:

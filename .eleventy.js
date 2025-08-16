@@ -1,6 +1,7 @@
 module.exports = function(eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("style.css");
-  eleventyConfig.addPassthroughCopy("script.js");
+  eleventyConfig.addPassthroughCopy("index.html");
+  eleventyConfig.addPassthroughCopy("styles.css");
+  eleventyConfig.addPassthroughCopy("main.js");
   eleventyConfig.addPassthroughCopy("instagram-logo.svg");
   eleventyConfig.addPassthroughCopy("portfolio");
   eleventyConfig.addPassthroughCopy({"admin": "admin"});
